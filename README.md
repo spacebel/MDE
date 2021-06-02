@@ -33,6 +33,19 @@ Finally, it interfaces with a NASA Web-service endpoint to validate the DIF-10 m
 
 ## User interface
 
+A user uploads metadata files from his local harddisk to his private workspace or retrieves them from a connected OpenSearch catalogue endpoint.
+
+![Metadata editor workspace](/images/workspace.png)
+
+OGC service endpoints available for a particular collection or service/application can be associated to the collection or service metadata via "offerings".  They are subsequently encoded in the corresponding GeoJSON and ISO metadata formats which can be previewed within the tool’s user interface.
+
+![Metadata editor workspace](/images/offerings.png)
+
+Users with administrator roles can enable/disable support for metadata formats, register multiple catalogue endpoints for read and/or write access and enable/disable automatic updates of ESA and GCMD thesauri. They also create user accounts and manage visibility of catalogue endpoints for registered users.
+
+![Metadata editor workspace](/images/preferences.png)
+
+
 ## Resources
 
 * References

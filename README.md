@@ -61,7 +61,7 @@ Users with administrator roles can enable/disable support for metadata formats, 
   
 * Presentations
   * [ESE-ERGO Final Presentation, 28/05/2021](./documentation/20210528-ESE-ERGO-FP-Achievements-2-metadataeditor.pdf)  
-  * [CEOS WGISS-50, fedEO Metadata Editor, 22/09/2020](http://ceos.org/document_management/Working_Groups/WGISS/Meetings/WGISS-50/1.%20Tuesday%20Sept%2022/2020.09.22_fedeo_metadata_editor.pptx)
+  * [CEOS WGISS-50, FedEO Metadata Editor, 22/09/2020](http://ceos.org/document_management/Working_Groups/WGISS/Meetings/WGISS-50/1.%20Tuesday%20Sept%2022/2020.09.22_fedeo_metadata_editor.pptx)
 
 ## Credits
 

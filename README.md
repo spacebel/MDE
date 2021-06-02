@@ -1,6 +1,37 @@
 # Metadata Editor (MDE)
-Metadata Editor
 
+## Introduction
+
+The Metadata Editor provides a Web-based user interface allowing to create or update metadata records for Earth Observation (EO) collections and/or services/applications and interacting with one or more compatible OpenSearch or OGC API-Features based catalogues.  The Metadata Editor supports multiple metadata formats:
+
+*	Collection metadata: ISO19139-2 and OGC 17-084r1 (GeoJSON).
+*	Service metadata: ISO19139 and OGC 19-020r1 (GeoJSON).
+
+It allows:
+
+*	Retrieving metadata from a catalogue supporting OGC 13-026r9 OpenSearch interfaces with Atom response.
+*	Storing metadata in a catalogue.
+*	Retrieve metadata from the local file system
+*	Save metadata to the local file system.
+*	Creating, updating, validating and visualising metadata in the user’s private online workspace. 
+
+It supports multiple user roles:
+
+*	Anonymous (no persistent workspace, no catalogue write access)
+*	Registered user (persistent workspace, preferences, …)
+*	Administrator (add users, add catalogues, …)
+
+
+## External interfaces
+
+The Metadata Editor is tightly integrated with the ESA SKOS Thesauri and the GCMD SKOS vocabularies.  It supports users to find the appropriate platform, instrument and earth topics keywords from the ESA Thesauri and includes the corresponding GCMD concepts automatically.  The tool automatically synchronises with the latest version of the thesauri and indicates discrepancies with the metadata records in the users’ workspace.
+
+The Metadata Editor interfaces with one or more catalogues to retrieve metadata records or store metadata records.
+
+Finally, it interfaces with a NASA Web-service endpoint to validate the DIF-10 metadata encoding. 
+
+
+## User interface
 
 ## Resources
 

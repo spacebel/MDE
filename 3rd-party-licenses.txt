@@ -1,0 +1,22 @@
+The Metadata Editor (MDE) published in this repository is licensed under the terms of the Apache License 2.0.
+
+However, this component includes several third-party Open-Source libraries, which are licensed under their own respective Open-Source licenses.
+
+Lists of  third-party dependencies.
+ 
+	(CDDL, GPL)	 Java Server Faces (v2.2.8)
+	(Apache License 2.0) Primefaces (v7.0)
+	(Apache License 2.0) PrimeFaces Extensions (v7.0)
+	(Apache License 2.0) Apache HttpComponents Client (v4.5.12)
+	(Apache License 2.0) Apache Commons CSV (v1.8)
+	(Apache License 2.0) Apache Commons Lang (v3.10)
+	(Apache License 2.0) Apache Commons Validaton (v1.6)
+	(Apache License 2.0) Apache Commons IO (v2.7)
+	(Apache License 2.0) Apache Commons FileUpload (v1.4)
+	(Apache License 2.0) Apache Log4j (v1.2.17)
+	(Apache License 2.0) Xerces2 (v2.11.0)
+	(Apache License 2.0) Xalan Java (v2.7.1)
+	(BSD 2-clause) Jaxen (v1.1.6)
+	(JSON) Json (v.20180130)
+	(Apache License 2.0) Everit Org/json Schema (v.1.5.1)
+	(MIT License)MIT LicenseMEditor (v.1.5.0)

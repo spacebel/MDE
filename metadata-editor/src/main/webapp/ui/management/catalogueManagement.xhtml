@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:spb="http://www.spacebel.be/jsf">
+
+    <h:form id ="catalogueManagementForm">                       
+        <p:panel header="Catalogues">
+            <h:panelGrid columns="2" columnClasses="input-label,input-value" 
+                         styleClass="catalogue-management-form">
+                <h:outputText value="Catalogue URL"/>                
+                <p:inputText size="100" value="#{catalogueBean.currentCatalogueUrl}" 
+                             placeholder="Either landing page URL or OSDD URL"
+                             title="The URL should be either landing page URL or OSDD URL"/> 
+            </h:panelGrid>
+
+            <p:commandButton value="Add catalogue"
+                             actionListener="#{catalogueBean.addCatalogue}"
+                             onstart="PF('waitingBlockUI').block();"
+                             oncomplete="PF('waitingBlockUI').unblock()"
+                             onsuccess="PF('waitingBlockUI').unblock()"
+                             onerror="PF('waitingBlockUI').unblock()"
+                             update="@form @([id$=messageForm])"/>
+            <br/>
+            <br/>
+            <p:dataTable var="catalogue" value="#{catalogueBean.catalogues}" rows="10"
+                         styleClass="catalogue-list"                         
+                         rowKey="#{catalogue.serverUrl}"
+                         paginator="true"    
+                         paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         currentPageReportTemplate="Catalogues {startRecord}-{endRecord} of {totalRecords}">               
+
+                <p:column>
+                    <ui:include src="catalogueInfo.xhtml" />
+                </p:column>
+
+                <p:column style="width:32px;text-align: center">                    
+                    <p:commandButton icon="fa fa-fw fa-remove" title="Remove catalogue" 
+                                     action="#{catalogueBean.removeCatalogue(catalogue)}"
+                                     onstart="PF('waitingBlockUI').block();"
+                                     oncomplete="PF('waitingBlockUI').unblock()"
+                                     onsuccess="PF('waitingBlockUI').unblock()"
+                                     onerror="PF('waitingBlockUI').unblock()"
+                                     update="@form @([id$=catalogueSearchForm]) @([id$=catalogueResultForm]) @([id$=workspaceTab]) @([id$=messageForm])">
+                        <p:confirm header="Confirmation" 
+                                   message="Would you like to delete catalogue (#{catalogue.title})?" 
+                                   icon="fa fa-fw fa-exclamation-triangle" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>        
+    </h:form>
+</ui:composition>

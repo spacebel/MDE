@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"		
+                xmlns:spb="http://www.spacebel.be/jsf"		
+                xmlns:p="http://primefaces.org/ui"	
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <table>
+        <ui:repeat var="osParam" value="#{mainBean.openSearchUrl.parameters}">
+            <h:panelGroup rendered="#{osParam.show}">
+                <tr>
+                    <td class="column-label">
+                        <h:outputText value="•" style="color:#e74c3c;font-size:12pt" rendered="#{osParam.required}" />
+                        <h:outputText value="#{osParam.shortLabel}"  styleClass="input-label" 
+                                      title="#{osParam.labelTooltip}"/>
+                        <h:panelGroup rendered="#{not empty osParam.help}">
+                            <span class="fa fa-fw fa-question-circle input-help" title="#{osParam.help}"/>
+                        </h:panelGroup>	
+                    </td>
+                    <td class="column-input">
+                        <p:inputText size="50" value="#{osParam.formValue}"				
+                                     rendered="#{osParam.type eq 'text'}"/>											
+
+                        <p:password size="50" value="#{osParam.formValue}"				
+                                    rendered="#{osParam.type eq 'password'}"/>					
+
+                        <spb:calendar name="#{osParam.name}" value="#{osParam.formValue}"
+                                      minDate="#{osParam.minDate}" maxDate="#{osParam.maxDate}"						
+                                      pattern="yyyy-MM-dd" timeZone="#{mainBean.customFunctions.timeZone}" 
+                                      rendered="#{osParam.type eq 'date'}"/>
+
+                        <p:selectOneMenu styleClass="dropdown-list" 				
+                                         value="#{osParam.formValue}" name="#{osParam.name}"				
+                                         editable="false" rendered="#{(osParam.type eq 'list')}">
+                            <f:selectItem itemLabel="" itemValue="" />
+                            <f:selectItems value="#{osParam.optionsAsSelectItems}" />						
+                        </p:selectOneMenu>	
+
+                        <p:autoComplete dropdown="true"					
+                                        styleClass="spb-autocomplete-input"
+                                        widgetVar="#{osParam.name}SpbAdvancedInput"
+                                        value="#{osParam.selectedOption}" completeMethod="#{osParam.completeFormValue}"
+                                        converter="paramOptionConverter" scrollHeight="200"
+                                        rendered="#{osParam.type eq 'open-list'}" var="entry" 				
+                                        itemLabel="#{entry.label}" itemValue="#{entry}">
+                        </p:autoComplete>
+                    </td>
+                </tr>
+            </h:panelGroup>
+        </ui:repeat>
+    </table>	
+</ui:composition>

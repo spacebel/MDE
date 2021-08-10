@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<os:osParams xmlns:os="http://a9.com/-/spec/opensearch/1.1/"
+             xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/"
+             xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/"
+             xmlns:eo="http://a9.com/-/opensearch/extensions/eo/1.0/"
+             xmlns:sru="http://a9.com/-/opensearch/extensions/sru/2.0/"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:semantic="http://a9.com/-/opensearch/extensions/semantic/1.0/"
+             xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+             xmlns:param="http://a9.com/-/spec/opensearch/extensions/parameters/1.0/"
+             xmlns:referrer="http://a9.com/-/opensearch/extensions/referrer/1.0/">
+
+    <!--
+        The following are parameters which are extracted from documents:
+        
+            - OGC 10-032 Table 4- Search operation queryable mappings
+            - OGC 13-026 Table 3 - OpenSearch Parameters for Collection Search 
+            - OGC 13-026 Table 4 - OpenSearch Parameters for Product Search     	
+            - OGC 13-026 Table 5 - OpenSearch Parameters for Acquistion Parameters Search     
+            - Dublin Core 
+            - OpenSearch standard
+         
+         The order of paremeters in this configuration is also the order of parameters in the search input
+    -->
+    
+    <param:Parameter name="eo_parentIdentifier" value="eo:parentIdentifier" label="Parent Identifier" type="list"/>    
+        
+    <param:Parameter name="dc_title" value="dc:title" label="Title" type="text" />
+    <param:Parameter name="dc_subject" value="dc:subject" label="Keyword" type="text" />
+    
+    <param:Parameter name="os_searchTerms" value="os:searchTerms" label="Free text" type="text"/>
+    
+    <param:Parameter name="eo_organisationName" value="eo:organisationName" label="Organisation" type="text"/>
+    <param:Parameter name="eo_platform" value="eo:platform" label="Platform" type="text"/>      
+    <param:Parameter name="eo_instrument" value="eo:instrument" label="Instrument" type="text"/>
+        
+    <param:Parameter name="time_start" value="time:start" label="Start date" type="date"/>
+    <param:Parameter name="time_end" value="time:end" label="End date" type="date"/>   
+    
+    <param:Parameter name="dc_type" value="dc:type" label="Type" type="list">
+        <param:Option value="collection" label="collection"/>
+        <param:Option value="service" label="service"/>
+    </param:Parameter>
+    
+    
+    <param:Parameter name="eo_sensorType" value="eo:sensorType" label="Sensor type" type="list">
+        <param:Option value="OPTICAL" label="OPTICAL"/>
+        <param:Option value="RADAR" label="RADAR"/>
+        <param:Option value="ALTIMETRIC" label="ALTIMETRIC"/>
+        <param:Option value="ATMOSPHERIC" label="ATMOSPHERIC"/>
+        <param:Option value="LIMB" label="LIMB"/>
+    </param:Parameter>
+    
+    <param:Parameter name="eo_cloudCover" value="eo:cloudCover" label="Cloud cover" type="text" />
+    <param:Parameter name="eo_snowCover" value="eo:snowCover" label="Snow cover" type="text"/>
+    <param:Parameter name="eo_orbitNumber" value="eo:orbitNumber" label="Orbit number" type="text"/>
+    <param:Parameter name="eo_orbitDirection" value="eo:orbitDirection" label="Orbit direction" type="list">
+        <param:Option value="ASCENDING" label="ASCENDING"/>
+        <param:Option value="DESCENDING" label="DESCENDING"/>
+    </param:Parameter>
+    
+    <param:Parameter name="eo_sensorMode" value="eo:sensorMode" label="Sensor mode" type="text" />
+    
+    <param:Parameter name="wsse_username" value="wsse:Username" label="Username" type="text"/>
+    <param:Parameter name="wsse_password" value="wsse:Password" label="Password" type="password"/>
+    
+    <param:Parameter name="eo_productType" value="eo:productType" label="Product type" type="text"/>    
+    <param:Parameter name="eo_platformSerialIdentifier" value="eo:platformSerialIdentifier" label="Platform serial id" type="text"/>    
+    <param:Parameter name="eo_processingLevel" value="eo:processingLevel" label="Processing level" type="text"/>    
+    <param:Parameter name="eo_compositeType" value="eo:compositeType" label="Composite type" type="text"/>    
+    <param:Parameter name="eo_orbitType" value="eo:orbitType" label="Orbit type" type="text"/>
+    <param:Parameter name="eo_resolution" value="eo:resolution" label="Resolution (m)" type="text"/>
+    <param:Parameter name="eo_spectralRange" value="eo:spectralRange" label="Spectral range" type="text"/>
+    <param:Parameter name="eo_wavelengths" value="eo:wavelengths" label="Wavelengths" type="text"/>
+    <param:Parameter name="eo_useLimitation" value="eo:useLimitation" label="Use limitation" type="text"/>
+    <param:Parameter name="eo_hasSecurityConstraints" value="eo:hasSecurityConstraints" label="Has security const" type="list">
+        <param:Option value="TRUE" label="TRUE"/>
+        <param:Option value="FALSE" label="FALSE"/>
+    </param:Parameter>   
+    <param:Parameter name="eo_otherConstraint" value="eo:otherConstraint" label="Other constraint" type="text"/> 
+    <param:Parameter name="eo_dissemination" value="eo:dissemination" label="Dissemination" type="text"/>
+    <param:Parameter name="eo_productionStatus" value="eo:productionStatus" label="Production status" type="text"/>
+    <param:Parameter name="eo_acquisitionType" value="eo:acquisitionType" label="Acquisition type" type="list">
+        <param:Option value="NOMINAL" label="NOMINAL"/>
+        <param:Option value="CALIBRATION" label="CALIBRATION"/>
+        <param:Option value="OTHER" label="OTHER"/>
+    </param:Parameter>    
+    <param:Parameter name="eo_track" value="eo:track" label="Track" type="text"/>
+    <param:Parameter name="eo_frame" value="eo:frame" label="Frame" type="text"/>
+    <param:Parameter name="eo_swathIdentifier" value="eo:swathIdentifier" label="Swath identifier" type="text"/>    
+    <param:Parameter name="eo_imageQualityDegradation" value="eo:imageQualityDegradation" label="Image quality deg" type="list">
+        <param:Option value="NOMINAL" label="NOMINAL"/>
+        <param:Option value="DEGRADED" label="DEGRADED"/>
+    </param:Parameter>	
+    <param:Parameter name="eo_imageQualityDegradationTag" value="eo:imageQualityDegradationTag" label="Image qly deg tag" type="text"/>
+    <param:Parameter name="eo_processorName" value="eo:processorName" label="Processor name" type="text"/>
+    <param:Parameter name="eo_processingCenter" value="eo:processingCenter" label="Processing center" type="text"/>
+    <param:Parameter name="eo_processingDate" value="eo:processingDate" label="Processing date" type="date"/>    
+    <param:Parameter name="eo_archivingCenter" value="eo:archivingCenter" label="Archiving center" type="text"/>
+    <param:Parameter name="eo_processingMode" value="eo:processingMode" label="Processing mode" type="text"/>    
+    <param:Parameter name="eo_availabilityTime" value="eo:availabilityTime" label="Availability time" type="text"/>
+    <param:Parameter name="eo_acquisitionStation" value="eo:acquisitionStation" label="Acquisition station" type="text"/>
+    <param:Parameter name="eo_productQualityStatus" value="eo:productQualityStatus" label="Product quality status" type="text"/>    
+    <param:Parameter name="eo_acquisitionSubType" value="eo:acquisitionSubType" label="Acquisition sub type" type="text"/>
+    <param:Parameter name="eo_startTimeFromAscendingNode" value="eo:startTimeFromAscendingNode" label="Start time from asc node" type="text"/>
+    <param:Parameter name="eo_completionTimeFromAscendingNode" value="eo:completionTimeFromAscendingNode" label="Completion time from asc node" type="text"/>
+    <param:Parameter name="eo_illuminationAzimuthAngle" value="eo:illuminationAzimuthAngle" label="Illumination azimuth angle" type="text"/>
+    <param:Parameter name="eo_illuminationZenithAngle" value="eo:illuminationZenithAngle" label="Illumination zenith angle" type="text"/>
+    <param:Parameter name="eo_illuminationElevationAngle" value="eo:illuminationElevationAngle" label="Illumination elevation angle" type="text"/>
+    <param:Parameter name="eo_polarisationMode" value="eo:polarisationMode" label="Polarisation mode" type="list">
+        <param:Option value="D" label="D"/>
+        <param:Option value="Q" label="Q"/>
+        <param:Option value="S" label="S"/>
+        <param:Option value="T" label="T"/>
+        <param:Option value="UNDEFINED" label="UNDEFINED"/>
+    </param:Parameter>
+    <param:Parameter name="eo_polarisationChannels" value="eo:polarisationChannels" label="Polarisation channels" type="text"/>
+    <param:Parameter name="eo_antennaLookDirection" value="eo:antennaLookDirection" label="Antenna look direction" type="list">
+        <param:Option value="LEFT" label="LEFT"/>
+        <param:Option value="RIGHT" label="RIGHT"/>
+    </param:Parameter>
+    <param:Parameter name="eo_minimumIncidenceAngle" value="eo:minimumIncidenceAngle" label="Min incidence angle" type="text"/>
+    <param:Parameter name="eo_maximumIncidenceAngle" value="eo:maximumIncidenceAngle" label="Max incidence angle" type="text"/>
+    <param:Parameter name="eo_dopplerFrequency" value="eo:dopplerFrequency" label="Doppler frequency" type="text"/>
+    <param:Parameter name="eo_incidenceAngleVariation" value="eo:incidenceAngleVariation" label="Inc angle variation" type="text"/>
+    <param:Parameter name="eo_creationDate" value="eo:creationDate" label="Creation date" type="date"/>
+    <param:Parameter name="eo_modificationDate" value="eo:modificationDate" label="Modification date" type="date"/>
+    <param:Parameter name="eo_nativeProductFormat" value="eo:nativeProductFormat" label="Native format" type="text"/>
+    
+    <param:Parameter name="dc_publisher" value="dc:publisher" label="Publisher" type="text"/>
+    
+    <param:Parameter name="semantic_classifiedAs" value="semantic:classifiedAs" label="Classified as" type="text"/>
+
+    <param:Parameter name="sru_recordSchema" value="sru:recordSchema" label="Record schema" type="text"/>
+    <param:Parameter name="sru_facetLimit" value="sru:facetLimit" label="Facet limit" type="text"/>    
+    
+    <param:Parameter name="os_startIndex" value="os:startIndex" label="Start record" type="text"/>
+    <param:Parameter name="os_startPage" value="os:startPage" label="Start page" type="text"/>
+    <param:Parameter name="os_count" value="os:count" label="Maximum records" type="text"/>
+	
+    <param:Parameter name="os_language" value="os:language" label="Language" type="text"/>
+    <param:Parameter name="geo_uid" value="geo:uid" label="Identifier" type="text"/>
+    <!--    
+    <param:Parameter name="geo_box" value="geo:box" label="Box" type="text"/>
+    -->
+    <param:Parameter name="geo_lat" value="geo:lat" label="Latitude" type="text"/>
+    <param:Parameter name="geo_lon" value="geo:lon" label="Longitude" type="text"/>
+    <param:Parameter name="geo_name" value="geo:name" label="Location name" type="text"/>
+    <param:Parameter name="geo_radius" value="geo:radius" label="Radius (m)" type="text"/>
+    <param:Parameter name="geo_geometry" value="geo:geometry" label="Geometry" type="text"/>
+    <param:Parameter name="geo_relation" value="geo:relation" label="Spatial relation" type="list">
+        <param:Option value="intersects" label="Intersects"/>
+        <param:Option value="contains" label="Contains"/>
+        <param:Option value="disjoint" label="Disjoint"/>
+    </param:Parameter>
+    <param:Parameter name="time_timePosition" value="time:timePosition" label="Time position" type="date"/>
+    <param:Parameter name="time_relation" value="time:relation" label="Temporal relation" type="list">
+        <param:Option value="intersects" label="Intersects"/>
+        <param:Option value="contains" label="Contains"/>
+        <param:Option value="during" label="During"/>
+        <param:Option value="disjoint" label="Disjoint"/> 	
+    </param:Parameter>
+    
+    <param:Parameter name="geo_box" value="geo:box" label="Place name" type="geonames"/>
+    
+    <param:Parameter name="sru_sortKeys" value="sru:sortKeys" label="Sort by" type="text"/>
+    <param:Parameter name="referrer_source" value="referrer:source" label="Source" type="text"/>
+    <param:Parameter name="eo_doi" value="eo:doi" label="DOI" type="text"/>
+	<param:Parameter name="eo_offering" value="eo:offering" label="Offering" type="text"/>
+    
+	
+</os:osParams>

@@ -1,0 +1,31 @@
+ConceptScheme URI,http://inspire.ec.europa.eu/metadata-codelist/TopicCategory,,
+PREFIX,inspire,http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/,
+dct:title,GCMD/INSPIRE Topic Category Mediator,,
+owl:versionInfo,1.0,,
+dct:modified,10/10/2018,,
+dct:rights,Copyright 2018 European Space Agency.,,
+rdfs:seeAlso,http://inspire.ec.europa.eu/codelist/TopicCategory,,
+rdf:type,http://www.w3.org/2002/07/owl#Ontology,,
+,,,
+# skos:altLabel is to contain the characterstring imposed by the DIF-10 validation tool.  ,,,
+,,,
+URI,skos:hiddenLabel,rdfs:seeAlso,skos:altLabel
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/farming,farming,,FARMING
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/biota,,,BIOTA
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/boundaries,,,BOUNDARIES
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/climatologyMeteorologyAtmosphere,climatologyMeteorologyAtmosphere,,CLIMATOLOGY/METEOROLOGY/ATMOSPHERE
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/economy,,,ECONOMY
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/elevation,,,ELEVATION
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/environment,environment,,ENVIRONMENT
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/geoscientificInformation,geoscientificInformation,,GEOSCIENTIFIC INFORMATION
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/health,,,HEALTH
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/imageryBaseMapsEarthCover,imageryBaseMapsEarthCover,,IMAGERY/BASE MAPS/EARTH COVER 
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/intelligenceMilitary,,,INTELLIGENCE/MILITARY
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/inlandWaters,,,INLAND WATERS
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/location,,,LOCATION
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/oceans,oceans,,OCEANS
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/planningCadastre,,,PLANNING CADASTRE
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/society,,,SOCIETY
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/structure,,,STRUCTURE
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/transportation,,,TRANSPORTATION
+http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/utilitiesCommunication,,,UTILITIES/COMMUNICATIONS

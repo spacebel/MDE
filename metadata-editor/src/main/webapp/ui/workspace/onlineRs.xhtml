@@ -1,0 +1,115 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"	
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                 xmlns:ui="http://java.sun.com/jsf/facelets">        
+    <table>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Name"/>
+            </td>
+            <td class="input-value">
+                <p:inputText size="100" value="#{onlineRs.name}"
+                             onchange="spbME_onFormChangeDistTab()">
+                    <p:ajax event="blur" process="@this"/>
+                </p:inputText>
+            </td>            
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Description"/>
+            </td>
+            <td class="input-value">
+                <p:inputText size="100" value="#{onlineRs.description}"
+                             onchange="spbME_onFormChangeDistTab()">
+                    <p:ajax event="blur" process="@this"/>
+                </p:inputText>
+            </td>								
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Application profile"/>
+            </td>
+            <td class="input-value">
+                <p:selectOneMenu value="#{onlineRs.appProfile}" 
+                                 styleClass="dropdown-list"                                 
+                                 title="Enter or select a value"
+                                 editable="true">
+                    <p:ajax event="valueChange" 
+                            process="@this"
+                            oncomplete="spbME_onFormChangeDistTab()"/>                    
+
+                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                    <f:selectItems value="#{metadata.identification.onlineRsAppProfiles}" />                                   
+                </p:selectOneMenu>               
+            </td>								
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Protocol"/>
+            </td>
+            <td class="input-value">
+                <p:selectOneMenu value="#{onlineRs.protocol}" 
+                                 styleClass="dropdown-list"                                 
+                                 title="Enter or select a value"
+                                 editable="true">
+                    <p:ajax event="valueChange" 
+                            process="@this"
+                            oncomplete="spbME_onFormChangeDistTab()"/>
+
+                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                    <f:selectItems value="#{metadata.identification.onlineRsProtocols}" />                                   
+                </p:selectOneMenu>
+            </td>								
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="URL"/>
+            </td>
+            <td class="input-value">
+                <p:inputText size="100" value="#{onlineRs.linkage}"													
+                             required="true" requiredMessage="Distribution tab: Online resource linkage should not be empty "
+                             onchange="spbME_onFormChangeDistTab()">
+                    <p:ajax event="blur" process="@this"/>
+                </p:inputText>(*)
+            </td>           
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Function"/>
+            </td>
+            <td class="input-value">                
+                <p:selectOneMenu value="#{onlineRs.function}" 
+                                 styleClass="dropdown-list">
+                    <p:ajax event="valueChange"
+                            process="@this"
+                            oncomplete="spbME_onFormChangeDistTab()"/>
+
+                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                    <f:selectItems value="#{metadata.identification.onlineRSFunctions}" />                                   
+                </p:selectOneMenu>
+
+            </td>								
+        </tr>
+        <tr>
+            <td class="input-label">
+                <h:outputText value="Related field"/>
+            </td>
+            <td class="input-value">                
+                <p:selectOneMenu value="#{onlineRs.relatedField}" 
+                                 styleClass="dropdown-list">
+                    <p:ajax event="valueChange"
+                            process="@this"
+                            oncomplete="spbME_onFormChangeDistTab()"/>
+
+                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                    <f:selectItems value="#{metadata.identification.onlineRSRelatedFields}" />                                   
+                </p:selectOneMenu>
+
+            </td>								
+        </tr>
+    </table>    
+</ui:composition>

@@ -1,0 +1,233 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"	
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"
+                 xmlns:spb="http://www.spacebel.be/jsf"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">    
+
+    <h:panelGroup rendered="#{metadata.hasDistribution()}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Distribution
+            </div>
+            <div class="details-unit-content">
+                <ui:repeat var="transfer" value="#{metadata.distribution.transferOptions}" varStatus="tStatus">
+                    <ui:fragment rendered="#{not tStatus.first}"><br /></ui:fragment>
+
+                    <ui:repeat var="onlineRs" value="#{transfer.onlineRses}" varStatus="status">
+                        <ui:fragment rendered="#{not status.first}"><br /></ui:fragment>
+                        <h:panelGroup rendered="#{not empty onlineRs.linkage}">
+                            <h:outputText value="Online resource"  styleClass="details-text-label"/>
+                            <h:outputText value=" (#{onlineRs.function})" rendered="#{not empty onlineRs.function}"/>
+                            <h:outputText value=": "  styleClass="details-text-label"/>
+                            <a href="#{onlineRs.linkage}" target="_blank" class="href-icon">#{onlineRs.linkage}</a>						
+                        </h:panelGroup>	
+
+                        <h:panelGroup rendered="#{not empty onlineRs.protocol}">
+                            <ui:fragment rendered="#{not empty onlineRs.linkage}"><br /></ui:fragment>
+                            <h:outputText value="Resource protocol: " styleClass="details-text-label"/>
+                            <h:outputText value="#{onlineRs.protocol}"/>
+                        </h:panelGroup>	
+
+                        <h:panelGroup rendered="#{not empty onlineRs.name}">
+                            <ui:fragment rendered="#{not empty onlineRs.linkage or not empty onlineRs.protocol}"><br /></ui:fragment>
+                            <h:outputText value="Resource name: " styleClass="details-text-label"/>
+                            <h:outputText value="#{onlineRs.name}" />
+                        </h:panelGroup>	
+
+                        <h:panelGroup rendered="#{not empty onlineRs.description}">
+                            <ui:fragment rendered="#{not empty onlineRs.linkage or not empty onlineRs.protocol or not empty onlineRs.name}"><br /></ui:fragment>
+                            <h:outputText value="Resource description: " styleClass="details-text-label" />
+                            <h:outputText value="#{onlineRs.description}"/>
+                        </h:panelGroup>
+                    </ui:repeat>
+
+                    <h:panelGroup rendered="#{not empty transfer.units}">
+                        <ui:fragment rendered="#{not empty transfer.onlineRses}"><br /></ui:fragment>
+                        <h:outputText value="Units: " styleClass="details-text-label"/>
+                        <h:outputText value="#{transfer.units}"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{not empty transfer.size}">
+                        <ui:fragment rendered="#{not empty transfer.onlineRses or not empty transfer.units}"><br /></ui:fragment>
+                        <h:outputText value="Transfer size: " styleClass="details-text-label"/>
+                        <h:outputText value="#{transfer.size}"/>
+                    </h:panelGroup>	
+
+                </ui:repeat>											
+            </div>
+        </div>	
+    </h:panelGroup>
+    <h:panelGroup rendered="#{metadata.hasOfferingOperation()}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Offerings
+            </div>
+            <div class="details-unit-content">
+                <ui:repeat var="offering" value="#{metadata.offerings}">
+                    <h:outputText value="Offering: " styleClass="details-text-label"/>
+                    <h:outputText value="#{offering.code}"/>
+
+                    <ui:repeat var="offerOper" value="#{offering.operations}">
+                        <br/>
+                        <h:outputText value="Operation: " styleClass="details-text-label"/>
+                        <h:outputText value="#{offerOper.code}"/>
+                        <br/>
+                        <h:outputText value="Method: " styleClass="details-text-label"/>
+                        <h:outputText value="#{offerOper.method}"/>
+                        <br/>
+                        <h:outputText value="Mime type: " styleClass="details-text-label"/>
+                        <h:outputText value="#{offerOper.mimeType}"/>
+
+                        <ui:repeat var="requiredExtField" value="#{offerOper.requiredExtFields}">
+                            <br/>
+                            <h:outputText value="#{requiredExtField.capLabel}: " styleClass="details-text-label"/>
+                            <h:outputText value="#{requiredExtField.value}"/>
+                        </ui:repeat>
+
+                        <ui:repeat var="optionalExtField" value="#{offerOper.optionalExtFields}">
+                            <br/>
+                            <h:outputText value="#{optionalExtField.capLabel}: " styleClass="details-text-label"/>
+                            <h:outputText value="#{optionalExtField.value}"/>
+                        </ui:repeat>
+                    </ui:repeat>
+
+                    <ui:repeat var="offerContent" value="#{offering.contents}">
+                        <br/>
+                        <h:outputText value="Mime type: " styleClass="details-text-label"/>
+                        <h:outputText value="#{offerContent.mimeType}"/>
+
+                        <ui:repeat var="requiredExtField" value="#{offerContent.requiredExtFields}">
+                            <br/>
+                            <h:outputText value="#{requiredExtField.capLabel}: " styleClass="details-text-label"/>
+                            <h:outputText value="#{requiredExtField.value}"/>
+                        </ui:repeat>
+
+                        <ui:repeat var="optionalExtField" value="#{offerContent.optionalExtFields}">
+                            <br/>
+                            <h:outputText value="#{optionalExtField.capLabel}: " styleClass="details-text-label"/>
+                            <h:outputText value="#{optionalExtField.value}"/>
+                        </ui:repeat>
+                    </ui:repeat>
+                    <br/><br/>
+                </ui:repeat>
+            </div>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{not empty metadata.identification.earthTopics}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Science keywords
+            </div>
+            <div class="details-unit-content">
+                <ui:repeat var="earthTopic" varStatus="status"
+                           value="#{metadata.identification.earthTopics}">
+                    <h:outputText value="Earth topic: " styleClass="details-text-label"/>
+                    <h:outputText value="#{earthTopic.label}"/>
+                    <br/>
+                    <h:outputText value="Earth topic URI: " styleClass="details-text-label"/>
+                    <h:outputText value="#{earthTopic.uri}"/>
+
+                    <h:panelGroup rendered="#{not empty earthTopic.scienceKeywords}">
+                        <ui:repeat var="gcmd" value="#{earthTopic.scienceKeywords}">
+                            <br/>
+                            <h:outputText value="Science keyword: " styleClass="details-text-label"/>
+                            <h:outputText value="#{mainBean.customFunctions.getScKwLabel(gcmd)}" />
+                            <br/>
+                            <h:outputText value="Science keyword URI: " styleClass="details-text-label"/>
+                            <h:outputText value="#{gcmd.uri}"/>                                                                                    
+                        </ui:repeat>
+                    </h:panelGroup>                        
+                    <br /><br />
+                </ui:repeat>
+            </div>
+        </div>        
+    </h:panelGroup>    
+
+    <h:panelGroup rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.freeKeyword) or mainBean.customFunctions.hasKeyword(metadata.identification.placeKeyword) or mainBean.customFunctions.hasKeyword(metadata.identification.spatialDataServiceCategoryKeywords)}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Keywords
+            </div>
+            <div class="details-unit-content">
+                <h:panelGroup rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.spatialDataServiceCategoryKeywords)}">
+                    <h:outputText value="Spatial data service categories: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.spatialDataServiceCategoryKeywords.keywordValues}"/> 
+                </h:panelGroup>
+                <h:panelGroup rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.placeKeyword)}">
+                    <ui:fragment rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.spatialDataServiceCategoryKeywords)}"><br /></ui:fragment>
+
+                    <h:outputText value="Places: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.placeKeyword.keywordValues}"/> 
+                </h:panelGroup>
+                <h:panelGroup rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.freeKeyword)}">
+                    <ui:fragment rendered="#{mainBean.customFunctions.hasKeyword(metadata.identification.spatialDataServiceCategoryKeywords) or mainBean.customFunctions.hasKeyword(metadata.identification.placeKeyword)}"><br /></ui:fragment>
+
+                    <h:outputText value="Free keywords: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.freeKeyword.keywordValues}"/>                    
+                </h:panelGroup>
+            </div>
+        </div>
+    </h:panelGroup>   
+
+    <h:panelGroup rendered="#{metadata.series and (not empty metadata.identification.waveLength 
+                              or not empty metadata.identification.orbitType 
+                              or not empty metadata.identification.processorVersion
+                              or not empty metadata.identification.resolution
+                              or not empty metadata.identification.productType
+                              or not empty metadata.identification.orbitHeight
+                              or not empty metadata.identification.swathWidth
+                              or not empty metadata.identification.processingLevel)}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Others
+            </div>
+            <div class="details-unit-content">
+                <h:panelGroup rendered="#{not empty metadata.identification.waveLength}">			
+                    <h:outputText value="Wave length: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.waveLength.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.orbitType}">			
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength}"><br /></ui:fragment>
+                    <h:outputText value="Orbit type: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.orbitType.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.processorVersion}">
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength or not empty metadata.identification.orbitType}"><br /></ui:fragment>
+                    <h:outputText value="Processor version: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.processorVersion.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.resolution}">
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength or not empty metadata.identification.orbitType or not empty metadata.identification.processorVersion}"><br /></ui:fragment>
+                    <h:outputText value="Resolution: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.resolution.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.productType}">
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength or not empty metadata.identification.orbitType or not empty metadata.identification.processorVersion or not empty metadata.identification.resolution}"><br /></ui:fragment>
+                    <h:outputText value="Product type: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.productType.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.orbitHeight}">
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength or not empty metadata.identification.orbitType or not empty metadata.identification.processorVersion or not empty metadata.identification.resolution or not empty metadata.identification.productType}"><br /></ui:fragment>
+                    <h:outputText value="Orbit height: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.orbitHeight.keywordValues}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.swathWidth}">
+                    <ui:fragment rendered="#{not empty metadata.identification.waveLength or not empty metadata.identification.orbitType or not empty metadata.identification.processorVersion or not empty metadata.identification.resolution or not empty metadata.identification.productType or not empty metadata.identification.orbitHeight}"><br /></ui:fragment>
+                    <h:outputText value="Swath width: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.swathWidth.keywordValues}"/>
+                </h:panelGroup>				
+            </div>
+        </div>	
+    </h:panelGroup>
+</ui:composition>

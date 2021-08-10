@@ -1,0 +1,1364 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
+    <style>	
+        div.ui-growl-message{
+            padding: 0 0 5px 0;
+            width: 400px;
+            float: right;			
+            overflow: auto;
+        }
+
+        div.ui-growl{
+            width: 420px !important;
+        }
+
+        div.ui-growl-message p{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px;
+        }
+
+        div.ui-growl-message span.ui-growl-title{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 14px;
+        }
+
+        span.ui-growl-image{
+            display: none;
+        }
+
+        div.spb-ad-tool-banner{
+            /*background: transparent url("./resources/images/bg.png") repeat-x left top;*/
+            background: transparent url("#{resource['/images/bg.png']}") repeat-x left top;	
+            height: 40px;
+            position: relative;
+        }
+
+        div.spb-ad-tool-banner div.title{
+            color: rgb(255, 255, 255);
+            font-size: 25px;    
+            white-space: nowrap;
+            text-align: center;
+            padding-top: 5px;
+            font-weight: bold;
+            font-family: 'Source Sans Pro',sans-serif !important;
+        }		
+
+        div.spb-ad-tool-main-layout{
+            font-family: 'Source Sans Pro',sans-serif !important;
+        }
+
+        div.spb-ad-tool-main-layout li.spb-main-tab-title{
+            font-family: 'Source Sans Pro',sans-serif ;
+        }
+
+        div.spb-ad-tool-main-layout button, span.ui-button span.ui-button-text{
+            font-family: 'Source Sans Pro',sans-serif ;
+        }                
+
+        div.spb-ad-tool-main-layout span.ui-dialog-title{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-weight: bold;
+        }
+
+        div.spb-ad-tool-main-layout span.ui-confirm-dialog-message{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 14px !important;
+        }
+
+        div.spb-ad-tool-main-layout div.overwrite-files-list table.overwrite-files-table{
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }        
+
+        div.spb-ad-tool-main-layout div.overwrite-files-list table.overwrite-files-table th {            
+            text-align: center;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #d9d9d9;
+        }
+
+        div.spb-ad-tool-main-layout div.ui-tree{
+            height: 200px;
+            width: 400px;
+            overflow-y: auto;
+        }
+
+        div.spb-ad-tool-main-layout div.ui-tree span.ui-treenode-label{
+            font-family: 'Source Sans Pro',sans-serif;
+            font-size: 12px;
+        }        
+
+        div.spb-ad-tool-main-layout div.overwrite-files-list table.overwrite-files-table td {            
+            font-family: 'Source Sans Pro',sans-serif;            
+            line-height: 20px;
+            font-size: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #d9d9d9;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view{
+            padding: 0;
+            margin: 0;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view li.ui-state-active{
+            background-color: #ffa000 !important;
+            color: white !important;
+        }
+
+        /*
+        div.spb-ad-tool-main-layout div.spb-tab-view ul.ui-tabs-nav li{
+            float:right;
+        }*/
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-tabs-panels div.ui-tabs-panel{
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-fileupload-responsive{
+            padding: 0;
+            margin: 0;
+            width: 155px;
+            float: left;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-fileupload-responsive div.ui-fileupload-buttonbar{
+            padding: 0;
+            margin: 0;
+            width: 200px;
+            border: none;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-fileupload-responsive div.ui-fileupload-content{
+            display: none;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-fileupload-responsive div.ui-fileupload-buttonbar span.ui-fileupload-choose span.ui-icon-plusthick{
+            display: none;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-tab-view div.ui-fileupload-responsive div.ui-fileupload-buttonbar span.ui-fileupload-choose span.ui-button-text{
+            padding: .3em 1em .3em 1em;
+        }
+
+        span.spb-ad-tool-authentication-error{
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: red;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        table.spb-ad-tool-login-form td.input-label{
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        /*
+        table.spb-ad-tool-login-form td.input-value input[type="text"], input[type="password"]{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        */
+
+        div.spb-ad-tool-main-layout td.column-label span.input-label{
+            font-family: 'Source Sans Pro',sans-serif;    
+            margin-right: 10px;
+            margin-left: 2px;
+            margin-top: 3px;
+            font-weight: bold;
+            font-size: 12px;
+            float: left;
+            height: 25px;
+            color: gray;
+        }
+
+        div.spb-ad-tool-main-layout td.label{
+            font-family: 'Source Sans Pro',sans-serif;    			
+            margin-left: 2px;
+            margin-top: 2px;
+            font-weight: bold;
+            font-size: 12px;			
+            color: gray;
+        }
+
+        div.spb-ad-tool-main-layout td.value{
+            font-family: 'Source Sans Pro',sans-serif;    			
+            margin-left: 5px;
+            margin-top: 2px;			
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        /*div.spb-ad-tool-main-layout td.column-input input[type="text"], input[type="password"], input[type="file"], input[type="submit"], input[type="button"], input[type="reset"], select {*/
+        div.spb-ad-tool-main-layout td.column-input input[type="text"], input[type="file"], input[type="submit"], input[type="button"], input[type="reset"], select {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        div.spb-ad-tool-main-layout td.column-input div.dropdown-list {
+            height: 26px;
+            width: 322px;
+            min-width: inherit !important;    
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        div.spb-ad-tool-main-layout table.ui-selectoneradio label{
+            font-family: 'Source Sans Pro',sans-serif ;
+            font-size: 12px ;
+        }
+
+        li.ui-selectonemenu-list-item{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+        }
+
+        div.spb-ad-tool-main-layout label.ui-selectonemenu-label{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+        }
+
+        li.ui-autocomplete-list-item{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+        }
+
+        div.spb-ad-tool-main-layout span.spb-autocomplete-input input {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+            /*
+            width:174px;
+            background: white;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            */
+        }
+
+        div.spb-ad-tool-main-layout span.spb-autocomplete-input button.ui-button-icon-only{
+            height: 27px;
+            width: 35px;
+            color: #2399e5;			
+            border: none;
+        }		
+
+        div.spb-ad-tool-main-layout span.editor-common-title {
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight:bold;			
+            font-size: 16px;
+            color: gray;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab{
+            margin-left: 3px;
+        }
+
+        div.spb-ad-tool-main-layout li.editor-tab-title, div.editor-tab-title{
+            font-family: 'Source Sans Pro',sans-serif;			
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 14px ;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab-title{
+            font-family: 'Source Sans Pro',sans-serif;			
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 14px ;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab td.input-label {
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab td.header {
+            font-family: 'Source Sans Pro',sans-serif;			
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+            background: #ebedf0; 
+            /*color: white; */			
+            padding-left: 5px;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab td.input-value{
+            font-family: 'Source Sans Pro',sans-serif;									
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout table td.spb-grid span.ui-chkbox-label{
+            font-family: 'Source Sans Pro',sans-serif;									
+            text-align: left;
+            font-size: 12px;
+        }
+
+        /*div.spb-ad-tool-main-layout div.editor-tab td.input-value input[type="text"], input[type="password"], input[type="file"], input[type="submit"], input[type="button"], input[type="reset"], select, textarea {*/
+        div.spb-ad-tool-main-layout div.editor-tab td.input-value input[type="text"], input[type="file"], input[type="submit"], input[type="button"], input[type="reset"], select, textarea {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;			
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab div.dropdown-list {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            height: 26px;
+            width: 322px;
+            min-width: inherit !important;    
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab div.dropdown-list-normal {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            height: 26px;			
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab button.editor-button, span.editor-button{
+            height: 25px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+        }
+
+        div.spb-ad-tool-main-layout td.column-input span.ui-calendar button.ui-button-icon-only{
+            height: 30px;
+            width: 30px;
+        }			
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table{				
+            position:relative;
+            margin: 0px 0px 0px 0px; 				
+            display: block; 
+            visibility: visible; 
+            bottom: 0px; 
+            left: 0px; 
+            right: 0px;
+            width: calc(100% - 16px);
+            height: 430px;
+            overflow-x: hidden;						
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar{
+            position: relative;
+            height: 25px; 
+            margin: 0; 			
+            border: 0; 
+            width: calc(100% - 20px);
+        }
+
+        div.spb-ad-tool-main-layout .ui-paginator-current {		
+            position: absolute;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+        }                
+
+        div.spb-ad-tool-main-layout div.paginator-bar div.all-checkbox{
+            position: absolute;
+            left: 25px;			
+            top: 5px;		
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button{
+            height: 25px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button-active{
+            color:#ffa000 !important;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button-warning{
+            color: #ef5350 !important;
+        }
+        div.spb-ad-tool-main-layout div.paginator-bar .jumpPageText input[type="text"]{
+            width: 30px;
+            font-size: 14px !important;
+            font-weight: bold;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button span.fa{
+            font-size: 20px;
+            height: 25px !important;
+            width: 25px !important;
+            margin-top: -9px;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button-active span.fa{
+            font-weight: bold;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button span.fa-file-code-o{
+            font-size: 18px;
+            height: 20px !important;
+            width: 20px !important;
+            margin-top: -9px;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar button.paginator-button span.fa-file{
+            font-size: 18px;
+            height: 20px !important;
+            width: 20px !important;
+            margin-top: -9px;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar span.menu-button button.ui-button-icon-only{
+            height: 25px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+        }
+
+        div.menu-button-small{
+            width: 250px;
+        }
+
+        div.menu-button-small{
+            width: 160px;
+        }
+
+        a.spb-menuitem-text span.ui-menuitem-text{
+            padding-left: 10px;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            color: gray;			
+        }
+
+        a.spb-menuitem-text span.ui-menuitem-icon{
+            color: #2399e5;		
+        }
+
+        li.spb-menuitem-text a.ui-submenu-link span.ui-menuitem-text{
+            padding-left: 10px;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            color: gray;			
+        }
+
+        li.spb-menuitem-text a.ui-submenu-link span.ui-menuitem-icon{
+            color: #2399e5;
+        }
+
+        a.spb-selected-menuitem{
+            background-color: #ffa000 !important;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar span.page-number{
+            font-size: 14px !important;
+            font-weight: bold;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar div.results-toggle-icon{
+            position:absolute; 
+            right:10px;			
+            width:20px !important;
+            height:20px !important;
+            color:#2399e5 !important;
+            background:transparent !important;
+            border: none !important;
+        }
+
+        div.spb-ad-tool-main-layout table.ui-selectmanycheckbox td label{
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar div.results-toggle-icon span.ui-button-text{
+            visibility:hidden;
+        }
+
+        div.spb-ad-tool-main-layout div.paginator-bar div.results-toggle-icon span.fa {
+            text-shadow: none;
+            font-size: 16px !important;
+            width: 16px !important;
+            height: 100%;                                                                      			
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell{
+            width: 200px;
+            height: 60px;
+            text-align:center;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,rgba(217,217,217,.6),rgba(217,217,217,0));
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.highlight {
+            background: #ffa000 !important;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.title {
+            position: absolute;			
+            width: 100%;
+            height: 100%;
+            margin-left: 15px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.title .text-label {
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.title .text-value {
+            line-height: 20px;			
+            font-size: 12px;
+            text-align: left;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.item-checkbox {
+            position: absolute;
+            left: 1px;
+            top: 5px;
+            margin-right: 5px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.item-checkbox .ui-chkbox-box{
+            width: 12px;
+            height: 12px;		
+            font-size: 12px;			
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.item-checkbox .ui-chkbox-box span.ui-icon-check{
+            background-position:-66px -147px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.actions {
+            width: 90%;
+            bottom: 10%;
+            text-align: center;
+            position: absolute;
+            opacity: 0;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info div.actions button.action-button {
+            height: 20px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            width: 20px;			
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info:hover{
+            background: -webkit-linear-gradient(rgba(102, 102, 102, .7), rgba(77, 77, 77, .7));
+            background: -o-linear-gradient(rgba(102, 102, 102, .7), rgba(77, 77, 77, .7));
+            background: -moz-linear-gradient(rgba(102, 102, 102, .7), rgba(77, 77, 77, .7));
+            background: linear-gradient(rgba(102, 102, 102, .7), rgba(77, 77, 77, .7));
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell div.fluidgrid-cell-info:hover div.actions {
+            opacity: 1;			
+        }
+
+        div.spb-ad-tool-main-layout div.upload-dialog div.ui-dialog-titlebar{
+            padding: 0;
+            margin: 5px 10px 5px 10px;
+        }
+
+
+        div.spb-ad-tool-main-layout div.view-details-fluidgrid button.xml-view-icon{
+            height: 25px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+        }
+
+        div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .fluidgrid-cell-two-columns{
+            font-family: 'Source Sans Pro',sans-serif;
+            font-size: 12px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            margin-left: 5px;
+            margin-right: 3px;
+            width: calc((100% - 20px) / 2);
+            min-height: 500px;
+            height:auto;
+        }
+
+        @media (min-width: 901px) {
+            div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .fluidgrid-cell-two-columns {
+                width: calc((100% - 22px) / 2);
+                height:auto;
+            }
+        }
+
+        @media (max-width: 900px) {
+            div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .fluidgrid-cell-two-columns {
+                width: 100%;					
+                height:auto;
+            }				
+        }
+
+        div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .details-unit-header {
+            font-weight: bold;    
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .details-unit-content {
+            word-wrap: break-word;			
+        }
+
+        div.spb-ad-tool-main-layout div.view-details-fluidgrid .pe-fluidgrid .details-unit-content .details-text-label {		
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+        }		
+
+        @media (min-width: 2311px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 8px)/ 8);
+            }
+        }
+
+        @media (max-width: 1951px) and (max-width: 2310px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 7px)/ 7);
+            }			
+        }
+
+        @media (min-width: 1601px) and (max-width: 1950px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 6px)/ 6);
+            }
+        }
+
+        @media (min-width: 1201px) and (max-width: 1600px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 5px)/ 5);
+            }
+        }
+
+        @media (min-width: 851px) and (max-width: 1200px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 4px) / 4);
+            }
+        }						
+
+        @media (min-width: 551px) and (max-width: 850px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 3px) / 3);
+            }
+        }	
+
+        @media (min-width: 351px) and (max-width: 550px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: calc((100% - 2px) / 2);
+            }
+        }	
+
+        @media (max-width: 350px) {
+            div.spb-ad-tool-main-layout div.spb-search-results-table div.thumbnails-view div.pe-fluidgrid div.fluidgrid-cell {
+                width: 100%;
+            }
+        }
+        table.spb-keywords-table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        table.spb-keywords-table td.spb-keyword-column{
+            /*border: 1px solid #ddd;*/
+            text-align: left;            
+        }
+
+        table.spb-keywords-table td.spb-padding-bottom{
+            vertical-align: top; 
+            padding-bottom: 10px;
+        }
+
+        td.spb-keyword-column-header{            
+            text-align: center;      
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;            
+            font-size: 12px;
+        }
+
+        table td.spb-warning-message{
+            font-family: 'Source Sans Pro',sans-serif;
+            color: red;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        span.spb-warning-message{
+            font-family: 'Source Sans Pro',sans-serif;
+            color: red;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }                
+
+        td.table-wrapper{
+            vertical-align: top;            
+        }
+
+        table.spb-related-concept-wrapper{
+            border-width:1px; 
+            border-style:solid; 
+            border-color:#d5d5d5;
+            border-collapse:collapse;
+            width: 100%;
+        }
+
+        table.spb-related-concept-wrapper td.spb-td-wrapper{
+            border-width:1px;
+            border-style:solid; 
+            border-color:#d5d5d5;
+            padding: 3px;
+            vertical-align: top;
+        }
+
+        span.text-explaination{
+            font-style: italic;
+            vertical-align: bottom;
+        }
+
+        span.text-explaination-no-valign{
+            font-style: italic;            
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab button.remove-button{
+            height: 15px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+        }
+
+        div.spb-ad-tool-main-layout div.editor-tab button.remove-button span{
+            margin-top: -7px;
+        }                                                                                                              
+
+        div.spb-ad-tool-main-layout div.editor-tab button.element-state-hidden{
+            display:none;
+        }
+
+        td.spb-show-row-border-top{
+            border-top: 1pt solid #d5d5d5;
+        }
+
+        div.cm-s-eclipse{
+            height: 900px !important;
+        }
+
+        div.simple-search{                              
+            background-color: white;
+            margin-top: 10px;
+        }
+
+        div.simple-search div.search-box{            
+            position: absolute;
+            left: 5px;
+        }
+        div.simple-search div.search-box input.textSearchBar{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+            width: 350px;
+        }
+
+        div.simple-search div.search-box input.textSearchBar::-moz-placeholder {
+            color: #999;
+            font-style: italic;
+            opacity: 1;
+        }
+        div.simple-search div.search-box input.textSearchBar:-ms-input-placeholder {
+            color: #999;
+            font-style: italic;
+        }
+        div.simple-search div.search-box input.textSearchBar::-webkit-input-placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        div.simple-search div.search-action {
+            position: absolute;            
+            left: 400px;
+            padding-top: 3px;
+        }
+
+        div.simple-search div.search-action button.textSearchButton{
+            height: 28px;
+        }
+
+
+        div.simple-search div.search-action button.textSearchButton span.ui-button-text{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 14px !important;
+        }
+
+        div.simple-search div.search-box div.advancedButton{            
+            height:27px;
+            width:30px;
+            top:3px;
+            text-align:center;
+            margin-bottom: 10px;           
+        }
+
+        div.simple-search div.search-box div.advancedButton span.ui-button-icon-left{
+            margin-left: -10px;
+            margin-top: -10px;
+        }
+
+        div.advanced-panel{            
+            margin-top: 10px;        
+        }
+
+        div.advanced-panel div.advancedButton{            
+            height:27px;
+            width:30px;
+            top:3px;
+            text-align:center;
+            margin-bottom: 10px;           
+        }
+
+        div.advanced-panel div.advancedButton span.ui-button-icon-left{
+            margin-left: -10px;
+            margin-top: -10px;
+        }
+
+        div.banner-controls{
+            text-align: right;
+            padding-right: 5px;
+            padding-top: 5px;
+        }
+
+        div.banner-controls span.signed-user{
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 14px !important;
+            color: white;            
+            height: 18px;            
+        }
+
+        div.spb-ad-tool-main-layout table.user-form td.input-label {
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }                
+
+        div.spb-ad-tool-main-layout table.user-form td.input-value{
+            font-family: 'Source Sans Pro',sans-serif;									
+            text-align: left;
+            font-size: 12px;           
+        }
+
+        div.spb-ad-tool-main-layout table.catalogue-management-form {
+            table-layout: auto;
+        }
+
+        div.spb-ad-tool-main-layout table.catalogue-management-form td.input-label {
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+            border: none;
+        } 
+
+        div.spb-ad-tool-main-layout table.catalogue-management-form th.input-label {
+            font-family: 'Source Sans Pro',sans-serif; 
+            color: gray;
+            font-weight:bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;   
+            border: none;
+            padding-left: 5px;
+        } 
+
+        div.spb-ad-tool-main-layout table.catalogue-management-form td.input-value{
+            font-family: 'Source Sans Pro',sans-serif;									
+            text-align: left;
+            font-size: 12px;
+            border: none;
+        }
+
+        div.spb-ad-tool-main-layout div.catalogue-list div.ui-datatable-tablewrapper table td {
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+            border: none; 
+            padding-left: 5px;
+        }
+
+        div.spb-ad-tool-main-layout div.catalogue-list div.ui-paginator span.ui-paginator-current{
+            position: relative;
+            float: right;
+        }
+
+
+        div.spb-ad-tool-main-layout div.user-list div.ui-datatable-tablewrapper table th{
+            text-align: center;
+            font-family: 'Source Sans Pro',sans-serif;            
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.user-list div.ui-datatable-tablewrapper table th.ui-state-active {
+            background-color: #2399e5;
+        }
+
+        div.spb-ad-tool-main-layout div.user-list div.ui-datatable-tablewrapper table td{
+            font-family: 'Source Sans Pro',sans-serif;									
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.user-list div.ui-paginator span.ui-paginator-current{
+            position: relative;
+            float: right;
+        }
+
+        div.spb-ad-tool-main-layout div.user-list div.ui-paginator span.ui-paginator-pages a.ui-paginator-page{
+            font-family: 'Source Sans Pro',sans-serif;
+            font-size: 12px;
+        }
+
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table thead th {
+            text-align: center;
+            font-family: 'Source Sans Pro',sans-serif;            
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table thead th.ui-state-active {
+            background-color: #2399e5;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td {
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+            padding: 4px 2px 4px 2px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td span.spb-metadata-collection-type{
+            background: #2399e5;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-summary td.input-label{
+            font-family: 'Source Sans Pro',sans-serif;
+            color: gray;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table thead th{
+            text-align: center;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 12px;
+            padding: 4px 2px 4px 2px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-thesaurus-warning div.ui-datatable-tablewrapper table thead th{
+            text-align: center;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: bold;
+            line-height: 20px;
+            font-size: 12px;
+            padding: 4px 2px 4px 2px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-thesaurus-warning div.ui-datatable-tablewrapper table tbody td{
+            padding: 4px 2px 4px 2px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-thesaurus-warning div.ui-datatable-tablewrapper table tbody td span.spb-metadata-collection-type{
+            background: #2399e5;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-thesaurus-warning div.ui-datatable-tablewrapper table tbody td span.spb-metadata-service-type{
+            background: #9ccc65;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td{
+            padding: 4px 2px 4px 2px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.spb-metadata-collection-type{
+            background: #2399e5;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td span.spb-metadata-service-type{
+            background: #9ccc65;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.spb-metadata-service-type{
+            background: #9ccc65;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.validation-error-icon{
+            color: #ef5350 !important;
+            font-size: 18px;
+            height: 25px !important;
+            width: 25px !important;
+            margin-left: -5px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.validation-warn-icon{
+            color: #ffa726 !important;
+            font-size: 16px;
+            height: 22px !important;
+            width: 22px !important;
+            margin-left: -5px;
+        }        
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.validation-warn-text {
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+            color: #ffa726 !important;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-validation-report div.spb-validation-report-details div.ui-datatable-tablewrapper table tbody td span.validation-error-text {
+            color: #ef5350 !important;
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table thead th div.all-item-checkbox .ui-chkbox-box{
+            width: 12px;
+            height: 12px;		
+            font-size: 12px;			
+        }
+        
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table thead th div.all-item-checkbox .ui-icon-check {
+            background-position: -65px -147px;
+        }
+        
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td div.item-checkbox .ui-chkbox-box{
+            width: 12px;
+            height: 12px;		
+            font-size: 12px;			
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td div.item-checkbox .ui-icon-check {
+            background-position: -65px -147px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.list-view-button {
+            height: 25px;
+            width: 30px;
+            color: #2399e5;
+            background: transparent;
+            border: none;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.list-view-button span.fa {
+            font-size: 18px;
+            height: 25px !important;
+            width: 25px !important;
+            margin-top: -9px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-error-button {
+            color: #ef5350 !important;
+            margin-left: -9px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-error-button span.ui-button-text{
+            padding-left: 2.8em !important;
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-warn-button {
+            margin-left: -9px;
+            color: #ffa726 !important;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-warn-highlight-button {
+            margin-left: -9px;
+            color: #fff !important;
+        }        
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-warn-button span.ui-button-text{
+            padding-left: 2.8em !important;
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td button.validation-warn-highlight-button span.ui-button-text{
+            padding-left: 2.8em !important;
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td span.validation-valid {
+            color: #9ccc65 !important;
+            font-size: 18px;
+            height: 25px !important;
+            width: 25px !important;
+
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view div.ui-datatable-tablewrapper table tbody td span.validation-valid-text {
+            color: #9ccc65;
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-ad-tool-main-layout div.spb-search-results-table div.list-view .row-highlight {
+            background-color: #ffa000;
+        }
+
+        span.ui-icon.spb-xml-icon {
+            background-image: url("#{resource['/images/xml.png']}") !important;
+            background-position: inherit;
+            background-size: contain;
+            width: 16px;
+            height:16px;
+        }
+        span.ui-icon.spb-json-icon {
+            background-image: url("#{resource['/images/json.png']}") !important;
+            background-position: inherit;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+        }
+        
+        span.fa-file-text-o{
+            text-align: left !important;
+            width: 16px;
+            height: 16px;
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item{
+            width: 350px;
+            height: 20px;
+            text-align:center;
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item div.label {
+            position: absolute;			
+            width: 100%;
+            height: 100%;
+            margin-left: 0;
+            margin-top: 3px;            
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item div.actions {
+            width: 99%;            
+            text-align: left;
+            position: absolute;
+            opacity: 0;
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item:hover{
+            background: -webkit-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));                        
+            background: -o-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+            background: -moz-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+            background: linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item:hover div.label {
+            margin-left: 20px;
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item:hover div.actions {
+            opacity: 1;			
+        }
+
+        div.spb-keywords-view div.pe-fluidgrid-item div.actions button.action-button {
+            height: 20px;
+            background: transparent;
+            border: none;
+            color: #2399e5;
+            width: 20px;			
+        }
+
+
+
+
+
+
+        div.spb-keywords-edit div.pe-fluidgrid-item{
+            width: 350px;
+            height: 33px;
+            text-align:center;
+        }
+
+        div.spb-keywords-edit div.pe-fluidgrid-item div.input-fields {
+            position: absolute;			
+            width: 100%;
+            height: 100%;
+            margin-left: 0;
+            margin-top: 3px;            
+            font-family: 'Source Sans Pro',sans-serif;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        div.spb-keywords-edit div.pe-fluidgrid-item div.input-fields input[type="text"], input[type="file"], input[type="submit"], input[type="reset"], select {
+            font-family: 'Source Sans Pro',sans-serif !important;
+            font-size: 12px !important;
+            color: black;
+            margin-bottom: 0;
+            height: 18px;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        div.spb-keywords-edit div.pe-fluidgrid-item div.actions {
+            width: 10%;            
+            text-align: right;
+            position: absolute;
+            opacity: 0;
+            right: 0;            
+        }
+
+        div.spb-keywords-edit div.pe-fluidgrid-item:hover{
+            background: -webkit-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));                        
+            background: -o-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+            background: -moz-linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+            background: linear-gradient(rgba(246, 247, 249, .7), rgba(235, 237, 240, .7));
+        }
+
+        /*div.spb-keywords-edit div.pe-fluidgrid-item:hover div.input-fields{
+            margin-left: 20px;
+        }*/
+
+        div.spb-keywords-edit div.pe-fluidgrid-item:hover div.actions {
+            opacity: 1;			
+        }
+
+        div.spb-keywords-edit div.pe-fluidgrid-item div.actions button.action-button {
+            height: 20px;
+            background: transparent;
+            border: none;
+            color: #2399e5;
+            width: 20px;			
+        }
+    </style>
+</ui:composition>

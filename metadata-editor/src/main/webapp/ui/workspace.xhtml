@@ -1,0 +1,411 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:spb="http://www.spacebel.be/jsf"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <script>
+        function displayComponent(cpId) {
+            document.getElementById(cpId).classList.remove('element-state-hidden');
+        }
+
+        function hideComponent(cpId) {
+            document.getElementById(cpId).classList.add('element-state-hidden');
+        }
+
+    </script>	
+
+    <p:outputPanel id="workspaceTab" style="overflow: hidden; width: 100%;">
+        <h:form id="wsCommonForm">
+            <pe:remoteCommand name="spbME_jumpToLocalPage"
+                              actionListener="#{mainBean.workspace.jumpToPage}"
+                              onstart="PF('waitingBlockUI').block();"
+                              oncomplete="PF('waitingBlockUI').unblock();"
+                              onerror="PF('waitingBlockUI').unblock()"
+                              update="@([id$=workspaceTab]) @([id$=messageForm])">  
+                <pe:methodSignature parameters="java.lang.Integer" />
+                <pe:methodParam name="targetPage"/>
+            </pe:remoteCommand>
+
+            <pe:remoteCommand name="spbME_checkGeoValue"
+                              actionListener="#{mainBean.workspace.checkGeoValue}"
+                              immediate="true"
+                              update="@([id$=geoTabTitle])">  
+                <pe:methodSignature parameters="java.lang.String,java.lang.String" />
+                <pe:methodParam name="newValue"/>
+                <pe:methodParam name="direction"/>
+            </pe:remoteCommand>
+
+            <pe:remoteCommand name="spbME_onChangeRichTextValue"
+                              actionListener="#{mainBean.workspace.onChangeRichText}"
+                              immediate="true">  
+                <pe:methodSignature parameters="java.lang.String,java.lang.String" />
+                <pe:methodParam name="uuid"/>
+                <pe:methodParam name="value"/>
+            </pe:remoteCommand>
+
+
+            <pe:remoteCommand name="spbME_onFormChangeOrgTab"
+                              actionListener="#{mainBean.workspace.onFormChange('org')}"
+                              immediate="true"
+                              update="@([id$=orgTabTitle])"/>				
+
+            <pe:remoteCommand name="spbME_onFormChangeIdTab"
+                              actionListener="#{mainBean.workspace.onFormChange('id')}"
+                              immediate="true"
+                              update="@([id$=idTabTitle])"/>				
+
+            <pe:remoteCommand name="spbME_onFormChangeGeoTab"
+                              actionListener="#{mainBean.workspace.onFormChange('geo')}"
+                              immediate="true"
+                              update="@([id$=geoTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeTempTab"
+                              actionListener="#{mainBean.workspace.onFormChange('temp')}"
+                              immediate="true"
+                              update="@([id$=tempTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeConstTab"
+                              actionListener="#{mainBean.workspace.onFormChange('const')}"
+                              immediate="true"
+                              update="@([id$=constTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeKwTab"
+                              actionListener="#{mainBean.workspace.onFormChange('kw')}"
+                              immediate="true"
+                              update="@([id$=kwTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeOfferingTab"
+                              actionListener="#{mainBean.workspace.onFormChange('offering')}"
+                              immediate="true"
+                              update="@([id$=offeringTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeDistTab"
+                              actionListener="#{mainBean.workspace.onFormChange('dist')}"
+                              immediate="true"
+                              update="@([id$=distTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeAcquisitionTab"
+                              actionListener="#{mainBean.workspace.onFormChange('acqui')}"
+                              immediate="true"
+                              update="@([id$=acquisitionTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeServiceTab"
+                              actionListener="#{mainBean.workspace.onFormChange('service')}"
+                              immediate="true"
+                              update="@([id$=serviceTabTitle])"/>
+
+            <pe:remoteCommand name="spbME_onFormChangeOtherTab"
+                              actionListener="#{mainBean.workspace.onFormChange('other')}"
+                              immediate="true"
+                              update="@([id$=otherTabTitle])"/>                        
+
+            <p:confirmDialog message="Metadata record (#{mainBean.workspace.selectedMetadataFile.flatList.id}) already exists in the catalogue (#{userAuthBean.userPreferences.catalogue.title}). Replace?"
+                             header="Confirmation" severity="alert"
+                             closable="false"
+                             widgetVar="wsCopyOverwriteOneConfirmWv">
+
+                <p:commandButton value="Yes"
+                                 styleClass="ui-confirmdialog-yes" 
+                                 icon="fa fa-fw fa-check"
+                                 actionListener="#{mainBean.copyToCatalogue(false)}" 
+                                 update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                 oncomplete="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide(); handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                 onsuccess="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+
+                <p:commandButton value="No"
+                                 styleClass="ui-confirmdialog-no" 
+                                 icon="fa fa-fw fa-remove"
+                                 oncomplete="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onsuccess="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+            </p:confirmDialog>
+
+            <p:confirmDialog message="Metadata record (#{mainBean.workspace.selectedMetadataFile.flatList.id}) already exists in the catalogue (#{userAuthBean.userPreferences.catalogue.title}). Replace?"
+                             header="Confirmation" severity="alert"
+                             closable="false"
+                             widgetVar="wsMoveOverwriteOneConfirmWv">
+
+                <p:commandButton value="Yes"                                 
+                                 actionListener="#{mainBean.copyToCatalogue(true)}" 
+                                 update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"					
+                                 oncomplete="PF('waitingBlockUI').unblock(); PF('wsMoveOverwriteOneConfirmWv').hide();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                 onsuccess="PF('waitingBlockUI').unblock(); PF('wsMoveOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('waitingBlockUI').unblock(); PF('wsMoveOverwriteOneConfirmWv').hide()"/>
+
+                <p:commandButton value="No"                                                                  
+                                 oncomplete="PF('wsMoveOverwriteOneConfirmWv').hide()"
+                                 onsuccess="PF('wsMoveOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('wsMoveOverwriteOneConfirmWv').hide()"/>
+            </p:confirmDialog>
+
+            <p:confirmDialog message="The following metadata records already exist in the catalogue (#{userAuthBean.userPreferences.catalogue.title}). Replace all?"
+                             header="Confirmation" severity="alert"
+                             closable="false"
+                             widgetVar="wsCopyOverwriteMultipleConfirmWv">
+
+                <h:panelGroup rendered="#{not empty mainBean.workspace.overwriteMetadataFiles}">
+                    <div style="width: 900px; height: 500px; overflow:scroll;" class="overwrite-files-list">
+                        <table width="99%" class="overwrite-files-table" >
+                            <tr>
+                                <th style="width: 200px;">
+                                    <h:outputText value="Identifier"/>
+                                </th>
+                                <th style="width: 400px;">
+                                    <h:outputText value="Title"/>
+                                </th>
+                                <th style="width: 200px;">
+                                    <h:outputText value="Organisation name"/>
+                                </th>                               
+                            </tr>
+                            <ui:repeat var="metadataFile" value="#{mainBean.workspace.overwriteMetadataFiles}">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.id}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.title}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.organisationName}"/>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </div>
+                </h:panelGroup>
+
+                <p:commandButton value="Yes" 
+                                 actionListener="#{mainBean.replaceSelections(false)}" 
+                                 update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                 onstart="PF('waitingBlockUI').block();"
+                                 oncomplete="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                 onsuccess="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+
+                <p:commandButton value="No"
+                                 actionListener="#{mainBean.workspace.resetExistingSelections}" 
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"					
+                                 oncomplete="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onsuccess="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+            </p:confirmDialog>
+
+            <p:confirmDialog message="The following metadata records already exist in the catalogue (#{userAuthBean.userPreferences.catalogue.title}). Replace all?"
+                             header="Confirmation" severity="alert"
+                             closable="false"
+                             widgetVar="wsMoveOverwriteMultipleConfirmWv">
+
+                <h:panelGroup rendered="#{not empty mainBean.workspace.overwriteMetadataFiles}">
+                    <div style="width: 900px; height: 500px; overflow:scroll;" class="overwrite-files-list">
+                        <table width="99%" class="overwrite-files-table" >
+                            <tr>
+                                <th style="width: 200px;">
+                                    <h:outputText value="Identifier"/>
+                                </th>
+                                <th style="width: 400px;">
+                                    <h:outputText value="Title"/>
+                                </th>
+                                <th style="width: 200px;">
+                                    <h:outputText value="Organisation name"/>
+                                </th>                               
+                            </tr>
+                            <ui:repeat var="metadataFile" value="#{mainBean.workspace.overwriteMetadataFiles}">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.id}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.title}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{metadataFile.flatList.organisationName}"/>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </div>
+                </h:panelGroup>
+
+                <p:commandButton value="Yes" 
+                                 actionListener="#{mainBean.replaceSelections(true)}" 
+                                 update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                 onstart="PF('waitingBlockUI').block();"
+                                 oncomplete="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                 onsuccess="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('waitingBlockUI').unblock(); PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+
+                <p:commandButton value="No"
+                                 actionListener="#{mainBean.workspace.resetExistingSelections}" 
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"					
+                                 oncomplete="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onsuccess="PF('wsCopyOverwriteOneConfirmWv').hide()"
+                                 onerror="PF('wsCopyOverwriteOneConfirmWv').hide()"/>
+            </p:confirmDialog>
+
+        </h:form>
+
+        <c:choose>
+            <c:when test="#{mainBean.workspace.view.list or mainBean.workspace.view.thumbnail}">
+                <h:form id="wsSearchForm" enctype="multipart/form-data">
+                    <br/>
+                    <div>                
+                        <p:fileUpload fileUploadListener="#{mainBean.handleFileUpload}" 			
+                                      mode="advanced" dragDropSupport="false" auto="true" 
+                                      label="Upload metadata"                                      
+                                      sizeLimit="#{mainBean.workspace.uploadSizeLimit}" 
+                                      invalidSizeMessage="File size should not exceed #{mainBean.workspace.uploadSizeLimit} bytes"
+                                      fileLimit="#{mainBean.workspace.uploadFileLimit}" 
+                                      fileLimitMessage="Maximum number of files allowed to upload is #{mainBean.workspace.uploadFileLimit}"
+                                      allowTypes="/(\.|\/)(zip|xml|json)$/" 
+                                      onstart="PF('waitingBlockUI').block()"
+                                      oncomplete="PF('waitingBlockUI').unblock()"
+                                      onerror="PF('waitingBlockUI').unblock()"
+                                      update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                        <ui:remove>
+                            <p:commandButton value="Create metadata" 
+                                             actionListener="#{mainBean.createNewSeries}" 
+                                             update="@([id$=workspaceTab]) @([id$=messageForm])"					
+                                             title="Create new metadata record"/>
+                        </ui:remove>
+                        <p:spacer width="3"/>
+                        <p:menuButton value="Create metadata">
+                            <p:menuitem value="Collection" action="#{mainBean.createNewSeries}" 
+                                        styleClass="spb-button-menuitem-text"
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])" />
+                            <p:menuitem value="Service" action="#{mainBean.createNewService()}"
+                                        styleClass="spb-button-menuitem-text"
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])"/>        
+                        </p:menuButton>
+
+                    </div>
+
+                    <ui:remove>
+                        <h:panelGroup rendered="#{mainBean.workspace.numOfWarnRecords gt 0}">
+                            <i class="fa fa-fw fa-warning spb-warning-icon"/>
+                            <h:outputText styleClass="spb-warning-message" value="There are #{mainBean.workspace.numOfWarnRecords} warning records"/>
+                            <p:spacer width="10"/>
+                            <p:commandButton value="View details" 
+                                             actionListener="#{mainBean.workspace.onViewThesaurusWarns()}" 
+                                             update="@([id$=workspaceTab]) @([id$=messageForm])"					
+                                             title="View warning details"/>
+                        </h:panelGroup>
+                    </ui:remove>
+
+                    <ui:include src="workspace/listToolbar.xhtml" />
+                    <ui:include src="workspace/listFiles.xhtml" />                    
+                </h:form>
+            </c:when>
+            <c:when test="#{mainBean.workspace.view.details}">
+                <h:form id="wsDetailsForm">
+                    <c:choose>
+                        <c:when test="#{not empty mainBean.workspace.selectedMetadataFile.metadata}">
+                            <c:set var="metadata" value="#{mainBean.workspace.selectedMetadataFile.metadata}" />
+
+                            <ui:include src="workspace/detailsToolbar.xhtml" />
+                            <ui:include src="workspace/details.xhtml" />
+                        </c:when>
+                        <c:otherwise>
+                            No selected metadata
+                        </c:otherwise>
+                    </c:choose>				
+                </h:form>
+            </c:when>
+            <c:when test="#{mainBean.workspace.view.edit}">
+                <p:outputPanel id="workspaceEditor">
+                    <c:choose>
+                        <c:when test="#{not empty mainBean.workspace.selectedMetadataFile.metadata}">
+                            <c:set var="metadataFile" value="#{mainBean.workspace.selectedMetadataFile}" />
+
+                            <h:form id="wsEditToolbarForm">
+                                <ui:include src="workspace/editToolbar.xhtml" />
+                            </h:form>
+                            <h:form id="wsEditForm">
+                                <ui:include src="edit.xhtml" />
+                                <br/>						
+                                <p:commandButton value="Save"
+                                                 actionListener="#{mainBean.save}" 
+                                                 update="@([id$=workspaceEditor]) @form @([id$=messageForm])"/>
+                            </h:form>
+                        </c:when>
+                        <c:otherwise>
+                            No selected metadata
+                        </c:otherwise>
+                    </c:choose>				
+                </p:outputPanel>
+            </c:when>
+            <c:when test="#{mainBean.workspace.view.xml or mainBean.workspace.view.geojson or mainBean.workspace.view.internalModel or mainBean.workspace.view.dif10}">
+                <h:form id="wsViewSourceForm">
+                    <ui:include src="workspace/viewSourceToolbar.xhtml" />                                                          
+                </h:form>
+            </c:when>
+            <c:when test="#{mainBean.workspace.view.report}">
+                <h:form id ="reportForm">
+                    <p:outputPanel styleClass="ui-paginator ui-widget-header paginator-bar">			
+                        <div class="ui-g">
+                            <div class="ui-g-5" style="padding: 0; text-align: left;">
+                                <p:commandButton icon="fa fa-th-list"
+                                                 styleClass="paginator-button"					
+                                                 actionListener="#{mainBean.workspace.toListView}"                                  
+                                                 title="List view"
+                                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                    <ui:include src="workspace/report.xhtml" /> 
+                </h:form>
+            </c:when>
+            <c:when test="#{mainBean.workspace.view.thesaurusWarn}">
+                <h:form id ="thesaurusWarnForm">
+                    <p:outputPanel styleClass="ui-paginator ui-widget-header paginator-bar">			
+                        <div class="ui-g">
+                            <div class="ui-g-5" style="padding: 0; text-align: left;">
+                                <p:commandButton icon="fa fa-th-list"
+                                                 styleClass="paginator-button"					
+                                                 actionListener="#{mainBean.workspace.toListView}"                                  
+                                                 title="List view"
+                                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                    <ui:include src="workspace/thesaurusWarn.xhtml" />                    
+                </h:form>
+            </c:when>
+        </c:choose>
+        <pe:codeMirror mode="xml" theme="eclipse"
+                       rendered="#{mainBean.workspace.view.xml}"                                   
+                       value="#{mainBean.workspace.selectedMetadataFile.xmlSrc}" 
+                       lineNumbers="true"
+                       lineWrapping="true"
+                       readonly="true"                                   
+                       matchBrackets="false" /> 
+
+        <pe:codeMirror mode="application/json" theme="eclipse"
+                       rendered="#{mainBean.workspace.view.geojson}"                                   
+                       value="#{mainBean.workspace.selectedMetadataFile.geoJsonSrc}" 
+                       lineNumbers="true"
+                       lineWrapping="true"
+                       readonly="true"                                   
+                       matchBrackets="true" /> 
+
+        <pe:codeMirror mode="application/json" theme="eclipse"
+                       rendered="#{mainBean.workspace.view.internalModel}"                                   
+                       value="#{mainBean.workspace.selectedMetadataFile.internalModelSrc}" 
+                       lineNumbers="true"
+                       lineWrapping="true"
+                       readonly="true"                                   
+                       matchBrackets="true" /> 
+
+        <pe:codeMirror mode="xml" theme="eclipse"                       
+                       rendered="#{mainBean.workspace.view.dif10}"                                   
+                       value="#{mainBean.workspace.selectedMetadataFile.dif10}" 
+                       lineNumbers="true"
+                       lineWrapping="true"
+                       readonly="true"                                   
+                       matchBrackets="false" />                
+    </p:outputPanel>
+</ui:composition>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Declare other thesauri that are used to transform GeoJson categories to ISO descriptiveKeywords -->
+<thesauri>
+	<thesaurus>
+		<uri>http://www.eionet.europa.eu/gemet</uri>
+		<baseUrl>http://www.eionet.europa.eu/gemet/concept</baseUrl>
+		<title>GEMET - INSPIRE Themes, Version 1.0</title>
+		<date>2008-06-01</date>
+	</thesaurus>
+</thesauri>

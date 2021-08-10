@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "facelet-taglib_1_0.dtd">
+<facelet-taglib>
+    <namespace>http://www.spacebel.be/jsf</namespace>
+   
+    <tag>
+        <tag-name>calendar</tag-name>
+        <source>./tags/_calendar.xhtml</source>
+    </tag>
+	<function>
+        <function-name>substring</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String substring(java.lang.String,int,int)</function-signature>
+    </function>
+    <function>
+        <function-name>shortStr</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String shortStr(java.lang.String,int)</function-signature>
+    </function>       
+    <function>
+        <function-name>endsWithIgnoreCase</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>boolean endsWithIgnoreCase(java.lang.String,java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>shortenEOPCollectionNames</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String shortenEOPCollectionNames(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>nullIfNotValidURL</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String nullIfNotValidURL(java.lang.String)</function-signature>
+    </function>		
+    <function>
+        <function-name>removeIdPrefix</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String removeIdPrefix(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>humanReadableFormatDate</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String humanReadableFormatDate(java.lang.String)</function-signature>
+    </function>    
+    <function>
+        <function-name>validateUrl</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String validateUrl(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>removeSpaces</function-name>
+        <function-class>be.spacebel.metadataeditor.utils.jsf.FaceletFunctions</function-class>
+        <function-signature>java.lang.String removeSpaces(java.lang.String)</function-signature>
+    </function>
+	<!-- Attach the converter to calendars -->
+    <tag>
+        <tag-name>attachCalendarConverterComponent</tag-name>
+        <component>
+            <component-type>be.spacebel.metadataeditor.utils.jsf.AttachCalendarConverterComponent</component-type>
+        </component>
+    </tag>	
+</facelet-taglib>

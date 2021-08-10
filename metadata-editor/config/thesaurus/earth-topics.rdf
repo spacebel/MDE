@@ -1,0 +1,1386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:dct="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/land-surface">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/land-use-land-cover"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/surface-thermal-properties"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/landscape"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/mapping-cartography"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/erosion-sedimentation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/6a426480-c58f-4b6b-8e35-0975b7f6edb5"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:prefLabel xml:lang="en">Land Surface</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geomorphic-landforms-processes"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/surface-radiative-properties"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/frozen-ground-permafrost"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/human-dimensions">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/socioeconomics-sustainability"/>
+    <skos:prefLabel xml:lang="en">Human Dimensions</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/environmental-governance-management"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/infrastructure"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/energy-natural-resources"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/cultural-heritage"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/food-security"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fb93d937-c17c-45d0-a9e3-ca5c8a800ca8"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/environmental-impacts"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/human-settlements"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/security"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/public-health"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/population"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/habitat-conversion-fragmentation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/wetlands">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/d138302a-03b3-4cf7-95db-ac98f863c04f"/>
+    <skos:prefLabel xml:lang="en">Wetlands</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/surface-water"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/environmental-governance-management">
+    <skos:prefLabel xml:lang="en">Environmental Governance and Management</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/d81b77be-0177-4e26-942c-aa911239482d"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/a-imaging-radars">
+    <skos:related rdf:resource="https://earth.esa.int/concept/mapping-cartography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/marine-environment-monitoring"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-water-vapour"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/environmental-governance-management"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/infrastructure"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-circulation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/population"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/vegetation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-use-land-cover"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/water-quality"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/rocks-minerals-crystals"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/geomorphic-landforms-processes"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/glaciers-ice-sheets"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/essential-climate-variables"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/cultural-heritage"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/human-settlements"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-chemistry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/aquaculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/habitat-conversion-fragmentation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/frozen-ground-permafrost"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/environmental-impacts"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/security"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-temperature"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/reclamation-revegetation-restoration"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/landscape"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-waves"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/energy-natural-resources"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-surface-topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/erosion-sedimentation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-interferometric-radiometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/salinity-density"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/soil-moisture"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/land-use-land-cover">
+    <skos:prefLabel xml:lang="en">Land Use and Land Cover</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/e5815f58-8232-4c7f-b50d-ea71d73891a9"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-sr-spectrometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-chemistry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-radiation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-temperature"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/earth-topic">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/biosphere"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:topConceptOf rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/sun-earth-interaction"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Earth Topic</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-waves">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Ocean Waves</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a04804d5-1064-48fd-a7a7-8da8e10399e1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/forest-conservation-protection">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/7ee9d286-0742-4844-b7eb-b7550d3f782b"/>
+    <skos:prefLabel xml:lang="en">Forest Conservation/Protection</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/forestry"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/terrestrial-hydrosphere">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/glaciers-ice-sheets"/>
+    <skos:altLabel xml:lang="en">Water Resources</skos:altLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:altLabel xml:lang="en">Water Cycle and Hydrology</skos:altLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/885735f3-121e-4ca0-ac8b-f37dbc972f03"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:prefLabel xml:lang="en">Terrestrial Hydrosphere</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/groundwater"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/water-quality-water-chemistry"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/security">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Security</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/geochemistry">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/906e647b-2683-4ae7-9986-1aea15582b52"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Geochemistry</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/water-quality-water-chemistry">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/8c02f5d1-ce86-4bf5-84d5-b3496cdba6ad"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:prefLabel xml:lang="en">Water Quality and Water Chemistry</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/reclamation-revegetation-restoration">
+    <skos:prefLabel xml:lang="en">Reclamation, Revegetation and Restoration</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c7570528-f2d5-42b0-b8e9-d12a2432e87e"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/forestry">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/46e4aaa4-349c-4049-a910-035391360010"/>
+    <skos:prefLabel xml:lang="en">Forestry</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/forest-fires"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/forest-management"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/afforestation-reforestation"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/forest-conservation-protection"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/forest-mensuration-inventory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/solar-activity">
+    <skos:prefLabel xml:lang="en">Solar Activity</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/2e83362e-d8f8-4bca-83fd-bae360ebe94b"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/sun-earth-interaction"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-chemistry">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Chemistry</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/b9c56939-c624-467d-b196-e56a5b660334"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-sr-spectrometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/cryospheric-indicators">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/76b8c21c-c221-4724-86ef-c07222cb152b"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:prefLabel xml:lang="en">Cryospheric Indicators</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/surface-radiative-properties">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:prefLabel xml:lang="en">Surface Radiative Properties</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/cb5cc628-a1b5-459e-934f-881153a937b8"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/marine-environment-monitoring">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Marine Environment Monitoring</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/ca154e02-a226-4cc7-8e4a-4474e7eb1eeb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/tectonics">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/plate-tectonics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-radio"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/earthquakes"/>
+    <skos:prefLabel xml:lang="en">Tectonics</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/volcanic-activity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/1e17c8d3-81d0-473c-8f24-d2a4ea52b6b9"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/oceans">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-spectrometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/aquaculture"/>
+    <skos:prefLabel xml:lang="en">Oceans</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/91697b7d-8f2b-4954-850e-61d5f61c867d"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/marine-environment-monitoring"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-heat-budget"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/bathymetry-seafloor-topography"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/marine-geophysics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/water-quality"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/marine-sediments"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/salinity-density"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:altLabel xml:lang="en">Marine Environment</skos:altLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-waves"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-chemistry"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/sea-surface-topography"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/fisheries"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-temperature"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-optics"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/tides"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-circulation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/solid-earth">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geothermal-dynamics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-radio"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geochemistry"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/gravity-gravitational-field"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geodetics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geomorphic-landforms-processes"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/earth-gases-liquids"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/2b9ad978-d986-4d63-b477-0f5efc8ace72"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Solid Earth</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/rocks-minerals-crystals"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/geomagnetism"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/geothermal-dynamics">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Geothermal Dynamics</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/ec2bf43d-2525-439e-bbbe-0db758e71965"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/afforestation-reforestation">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/b3a1e091-0bc2-4c9b-a89c-bd003fdd5889"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:prefLabel xml:lang="en">Afforestation/Reforestation</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/human-settlements">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:prefLabel xml:lang="en">Human Settlements</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fee25cad-7ffe-4ee2-a6f2-8116b8a0a707"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-interferometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-radiation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-chemistry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-temperature"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/a-radar-altimeters">
+    <skos:related rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/cryospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/marine-environment-monitoring"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-circulation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/glaciers-ice-sheets"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/essential-climate-variables"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-winds"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/tides"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-surface-topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/energy-natural-resources"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-waves"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-water-vapour">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Water Vapour</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/286d2ae0-9d86-4ef0-a2b4-014843a98532"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-radiative-properties"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/crops-yields"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/vegetation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/aerosols"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/weather-events"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/clouds"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/mapping-cartography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/food-security"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-pressure"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/precipitation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/human-settlements"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-chemistry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-radiation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/afforestation-reforestation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/air-quality"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-winds"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/forest-fires"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-temperature"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-use-land-cover"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/invasive-species">
+    <skos:prefLabel xml:lang="en">Invasive Species</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/b376a9f9-585e-4567-ba1f-55ef45cfa8df"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/a-scatterometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/cryospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ecological-dynamics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/groundwater"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-radiative-properties"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/diseases-pests"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-waves"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface-agriculture-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/essential-climate-variables"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/crops-yields"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/biospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/vegetation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/food-security"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/frozen-ground-permafrost"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/plant-phenology"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-radio">
+    <skos:related rdf:resource="https://earth.esa.int/concept/earthquakes"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/environmental-impacts"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-temperature">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-sr-spectrometers"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/35e1f93b-99b3-4430-b477-0ecafa80d67a"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Temperature</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/glaciers-ice-sheets">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Glaciers and Ice Sheets</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/8603db51-3484-4439-8b3b-a06f48e8c686"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/099ab1ae-f4d2-48cc-be2f-86bd58ffc4ca"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-pressure">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Pressure</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/08fd82a1-4370-46a2-82ea-94c0f91498a7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/terrestrial-hydrosphere-indicators">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/9246fc12-17e7-4473-b9c0-c23e4bfc4eda"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Terrestrial Hydrosphere Indicators</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/solar-energetic-particle-properties">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a82d885e-34cd-496a-b34d-17a23ad04126"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/sun-earth-interaction"/>
+    <skos:prefLabel xml:lang="en">Solar Energetic Particle Properties</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-spectrometers">
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-photon-optical-detectors">
+    <skos:related rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/coastal-processes"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/vegetation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/ocean-waves"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/landscape"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/glaciers-ice-sheets"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/topography">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:prefLabel xml:lang="en">Topography</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3e822484-c94a-457b-a32f-376fcbd6fd35"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/rivers">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Rivers</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/5e3c573f-a787-4afa-80a4-047c2c5d83f2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/altitude">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:prefLabel xml:lang="en">Altitude</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/16bfcf54-f8e1-4c8e-9bd4-a1ac06ea95a0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/socioeconomics-sustainability">
+    <skos:narrowMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a96e6cd6-0f35-491d-8198-7551d03e1cbc"/>
+    <skos:prefLabel xml:lang="en">Socioeconomics and Sustainability</skos:prefLabel>
+    <skos:narrowMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/03d38261-1c90-491b-bc4e-cc4e703e1dff"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/forest-management">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/d2056285-8249-4c11-810b-783600030525"/>
+    <skos:prefLabel xml:lang="en">Forest Management</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/agriculture">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/invasive-species"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/agricultural-chemicals"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/reclamation-revegetation-restoration"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a956d045-3b12-441c-8a18-fac7d33b2b4e"/>
+    <skos:prefLabel xml:lang="en">Agriculture</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/crops-yields"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/aquaculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/diseases-pests"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/plant-phenology"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/fisheries"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-indicators">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Ocean Indicators</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/5273c8c2-d30b-4666-b2d5-0388ce2741d0"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmosphere">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-winds"/>
+    <skos:prefLabel xml:lang="en">Atmosphere</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c47f6052-634e-40ef-a5ac-13f69f6f4c2a"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/weather-events"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-electricity"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-chemistry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-spectrometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-sr-spectrometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-radiation"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-pressure"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-temperature"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-water-vapour"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/clouds"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/altitude"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/aerosols"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/air-quality"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/precipitation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/p-cameras">
+    <skos:related rdf:resource="https://earth.esa.int/concept/energy-natural-resources"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/topography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/natural-hazards-disaster-risk"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/environmental-governance-management"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/mapping-cartography"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/human-settlements"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/vegetation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-temperature">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/251c87cd-03b3-464f-8390-8ede2fec28fc"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:prefLabel xml:lang="en">Ocean Temperature</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/climate">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/environmental-vulnerability-index"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere-indicators"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/atmospheric-indicators"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/cryospheric-indicators"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-sr-spectrometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/sun-earth-interaction-indicators"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/essential-climate-variables"/>
+    <skos:altLabel xml:lang="en">Energy Budget</skos:altLabel>
+    <skos:prefLabel xml:lang="en">Climate</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometers"/>
+    <skos:altLabel xml:lang="en">Carbon Cycle</skos:altLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/biospheric-indicators"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ocean-indicators"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/23703b6b-ee15-4512-b5b2-f441547e2edf"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/paleoclimate-indicators"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/land-surface-agriculture-indicators"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/geomorphic-landforms-processes">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Geomorphic Landforms and Processes</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/99b4792a-9ea3-4756-a4dc-b1b30c946b54"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/b5cb1fab-7281-478f-bb3b-ff04f900b3fc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/soil-erosion">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/36c862a7-7117-4fd2-8e33-0dda03097178"/>
+    <skos:prefLabel xml:lang="en">Soil Erosion</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/sea-ice">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/d73e969a-4b66-4713-8d63-fa3cbb1e25e3"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/860e2af9-ce29-4f3f-b027-ae3747eb3e01"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Sea Ice</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-winds">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-lidar-laser-sounders"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/df160e31-ae45-41a4-9093-a80fe5303cea"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Winds</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-radiation">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Radiation</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-sr-spectrometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/4ad0c52d-6449-48ff-8678-adc6b2cebcb7"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/food-security">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:prefLabel xml:lang="en">Food Security</skos:prefLabel>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fb93d937-c17c-45d0-a9e3-ca5c8a800ca8"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/erosion-sedimentation">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a246a8cf-e3f9-4045-af9f-dc97f6fe019a"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:prefLabel xml:lang="en">Erosion and Sedimentation</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/lakes">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3d64f625-fb84-4178-ad08-4be2dd15979b"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/surface-water"/>
+    <skos:prefLabel xml:lang="en">Lakes</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/environmental-impacts">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3f4cfc81-7745-43d9-b313-f68cdf72359b"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-radio"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:prefLabel xml:lang="en">Environmental Impacts</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/marine-sediments">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/ce4b2c6e-3d69-4cf1-8416-c36e5f9b1b2c"/>
+    <skos:prefLabel xml:lang="en">Marine Sediments</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/infrastructure">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/d4313915-2d24-424c-a171-30ee9a6f4bb5"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Infrastructure</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-electricity">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/0af72e0e-52a5-4695-9eaf-d6fbb7991039"/>
+    <skos:prefLabel xml:lang="en">Atmospheric Electricity</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/clouds">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/162e2243-3266-4999-b352-d8a1a9dc82ac"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:prefLabel xml:lang="en">Clouds</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/precipitation">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/1532e590-a62d-46e3-8d03-2351bc48166a"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Precipitation</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/plant-phenology">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:prefLabel xml:lang="en">Plant Phenology</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3f45aadf-ec7c-43a1-a008-b24ca139837a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/permafrost">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:prefLabel xml:lang="en">Permafrost</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fb3ce3be-d830-407f-bd7c-58d66c24b6be"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/snow-ice">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/50b8fe04-9149-4b7f-a8b2-b33b1e3aa192"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/aa35a52f-e3d9-41bd-abd2-ec7e1a8101d1"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:prefLabel xml:lang="en">Snow and Ice</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/sun-earth-interaction">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/solar-activity"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/57383ac5-614c-4b84-9202-e137b000422b"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/solar-energetic-particle-properties"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Sun-Earth Interaction</skos:prefLabel>
+    <skos:altLabel xml:lang="en">Ionosphere and Magnetosphere</skos:altLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ionosphere-magnetosphere-dynamics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/solar-energetic-particle-flux"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/surface-water">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Surface Water</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/wetlands"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/5debb283-51e4-435e-b2a2-e8e2a977220d"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/rivers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/lakes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/public-health">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/da2c70fd-d92b-45be-b159-b2c10cb387c6"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Public Health</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/volcanic-activity">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/1faaede0-2cd6-4447-b28b-0a28d9e2d067"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:prefLabel xml:lang="en">Volcanic Activity</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/tides">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Tides</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/e3bef663-6116-4f15-995c-38c7cdc9652c"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/soils">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soil-moisture"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soil-classification"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soil-erosion"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/organic-matter"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soil-texture"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/carbon"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/199e3af8-4cf3-48ba-8b28-b9b54756b3db"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3526afb8-0dc9-43c7-8ad4-f34f250a1e91"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/permafrost"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:prefLabel xml:lang="en">Soils</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/cultural-heritage">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fb93d937-c17c-45d0-a9e3-ca5c8a800ca8"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Cultural Heritage</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/carbon">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:prefLabel xml:lang="en">Carbon</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/9315c474-b65f-400d-beba-611c9a6a62cb"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/coastal-processes">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/wetlands"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:prefLabel xml:lang="en">Coastal Processes</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/e26803a0-82ea-40c4-a41a-9e222c9bd09a"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/56e4dd42-e393-4aa2-b4d9-9e96d85c9768"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/land-surface-agriculture-indicators">
+    <skos:prefLabel xml:lang="en">Land Surface and Agriculture Indicators</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/112e71ec-c0a1-49a8-82d7-bcb317b45860"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/sun-earth-interaction-indicators">
+    <skos:prefLabel xml:lang="en">Sun-Earth Interaction Indicators</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3d64c047-c4fb-4981-bc91-d5dbc22337de"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ecosystems">
+    <skos:prefLabel xml:lang="en">Ecosystems</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/f1a25060-330c-4f84-9633-ed59ae8c64bf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/biosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/plate-tectonics">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/71e9bc66-6f8c-41ec-8b22-2fe390223639"/>
+    <skos:prefLabel xml:lang="en">Plate Tectonics</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/organic-matter">
+    <skos:prefLabel xml:lang="en">Organic Matter</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/83cf51f6-8c03-4f6d-b605-fde9818c7805"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/atmospheric-indicators">
+    <skos:prefLabel xml:lang="en">Atmospheric Indicators</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-lidar-laser-sounders"/>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/5273c8c2-d30b-4666-b2d5-0388ce2741d0"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-spectrometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/groundwater">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/terrestrial-hydrosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/734f8f27-6976-4b67-8794-c7fc79d6161e"/>
+    <skos:prefLabel xml:lang="en">Groundwater</skos:prefLabel>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/soil-moisture"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/mapping-cartography">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Mapping and Cartography</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/6a426480-c58f-4b6b-8e35-0975b7f6edb5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/paleoclimate-indicators">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Paleoclimate Indicators</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c9a5b3eb-7556-41a8-a2b8-c015db80e5b2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/soil-classification">
+    <skos:prefLabel xml:lang="en">Soil Classification</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/2f57fd58-d8e4-4e6d-b8c3-2a9ef7e64f54"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/earthquakes">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/601d36fc-8171-475c-a1c5-84802aecb77e"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-radio"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/tectonics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Earthquakes</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/cryosphere">
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/frozen-ground-permafrost"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fa0a36c3-2503-4662-98cd-7f3e74ce9f80"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/snow-ice"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/sea-ice"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/glaciers-ice-sheets"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Cryosphere</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/air-quality">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/77397026-09c9-44e0-b85f-77b2bc9b1630"/>
+    <skos:prefLabel xml:lang="en">Air Quality</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/geomagnetism">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/910013d7-1e6a-4d1a-9921-be32d792a290"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:prefLabel xml:lang="en">Geomagnetism</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/fisheries">
+    <skos:prefLabel xml:lang="en">Fisheries</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c7112a64-be39-414a-9125-f63ab44ecb5b"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/fa57b0a0-9723-4195-bdd1-4f26aefa0e07"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/essential-climate-variables">
+    <skos:prefLabel xml:lang="en">Essential Climate Variables</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broadMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/23703b6b-ee15-4512-b5b2-f441547e2edf"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/water-quality">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Water Quality</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/1ee8a323-f0ba-4a21-b597-50890c527c8e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concepts/concept_scheme/earth-topics">
+    <skos:hasTopConcept rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <rdfs:label xml:lang="en">Earth Topics</rdfs:label>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-09-23T00:00:00+00:00</dct:modified>
+    <skos:changeNote xml:lang="en">2018/10/08 - rdfs:label added to concept scheme</skos:changeNote>
+    <skos:changeNote xml:lang="en">2020/09/23 - add instrument types derived from collections definitions.</skos:changeNote>
+    <dct:title xml:lang="en">EO Parameter Code List - Earth Topics</dct:title>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+    <dct:description xml:lang="en">ESA Science Application keywords</dct:description>
+    <skos:changeNote xml:lang="en">2019/05/13 - Update according to eo_sci_app_keywords_v11 (JCCB-CP-494).</skos:changeNote>
+    <skos:changeNote xml:lang="en">2019/11/15 - remove fields reporting names</skos:changeNote>
+    <owl:versionInfo xml:lang="en">1.0</owl:versionInfo>
+    <skos:changeNote xml:lang="en">2018/08/07 - Original with Earth topics as used in Earth Online Web pages.</skos:changeNote>
+    <dct:rights xml:lang="en">Copyright 2018-2020 European Space Agency.</dct:rights>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/natural-hazards-disaster-risk">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:prefLabel xml:lang="en">Natural Hazards and Disaster Risk</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-radio"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/ec0e2762-f57a-4fdc-b395-c8d7d5590d18"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/surface-thermal-properties">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:prefLabel xml:lang="en">Surface Thermal Properties</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a228b67f-0791-470b-a4ca-71b8da279332"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/vegetation">
+    <skos:prefLabel xml:lang="en">Vegetation</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/biosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c7b5c02c-724d-4a19-b824-98180f3900c9"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/geodetics">
+    <skos:prefLabel xml:lang="en">Geodetics</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/5498572c-aaed-4c08-8aad-8b297057e9c9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/environmental-vulnerability-index">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/897b3d65-709c-4739-9ba6-85911295d843"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Environmental Vulnerability Index</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/weather-events">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Weather Events</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/b7d562cf-9b9b-4461-900b-50423a8c4d29"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/aquaculture">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/8916dafb-5ad5-45c6-ab64-3500ea1e9577"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Aquaculture</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/f6c057c9-c789-4cd5-ba22-e9b08aae152b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/soil-texture">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+    <skos:prefLabel xml:lang="en">Soil Texture</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/afd1d3cb-d31d-4069-8cff-b592887aa18c"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ecological-dynamics">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/biosphere"/>
+    <skos:prefLabel xml:lang="en">Ecological Dynamics</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/6bef0291-a9ca-4832-bbb4-80459dc1493f"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/biospheric-indicators">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/76943142-e5a9-4ecf-b496-050dd3d97101"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/climate"/>
+    <skos:prefLabel xml:lang="en">Biospheric Indicators</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/crops-yields">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:prefLabel xml:lang="en">Crops and Yields</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/f12d8026-f24a-4413-91d0-4704c243c9e7"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/population">
+    <skos:prefLabel xml:lang="en">Population</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/085edf65-1c8c-414a-b8e4-a1a08ff08f22"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/forest-mensuration-inventory">
+    <skos:prefLabel xml:lang="en">Forest Mensuration/Inventory</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/31d01087-d5b8-4474-820c-d84d523dfb39"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/forestry"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/habitat-conversion-fragmentation">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/f1682ed1-2d9c-41ec-9553-49b9ab55df9b"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Habitat Conversion and Fragmentation</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/sea-surface-topography">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Sea Surface Topography</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/68f93a0c-1525-4f5a-9545-5d94191a3dbf"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/diseases-pests">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <skos:prefLabel xml:lang="en">Diseases and Pests</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/213cefd8-806f-40f5-b3ca-05022cde9498"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/energy-natural-resources">
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-cameras"/>
+    <skos:prefLabel xml:lang="en">Energy and Natural Resources</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/cdbe5ef5-408d-489d-b6ff-4482ce4a99c7"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/human-dimensions"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/biosphere">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ecosystems"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/earth-topic"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/vegetation"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/91c64c46-d040-4daa-b26c-61952fdfaf50"/>
+    <skos:narrower rdf:resource="https://earth.esa.int/concept/ecological-dynamics"/>
+    <skos:prefLabel xml:lang="en">Biosphere</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/aerosols">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/2e5a401b-1507-4f57-82b8-36557c13b154"/>
+    <skos:prefLabel xml:lang="en">Aerosols</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/atmosphere"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-circulation">
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-radar-altimeters"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a031952d-9f00-4ba5-9966-5f87ab9dfdd4"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Ocean Circulation</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-heat-budget">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/63bc0693-52eb-4ebd-a39e-e77e96409072"/>
+    <skos:prefLabel xml:lang="en">Ocean Heat Budget</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/agricultural-chemicals">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/afd084b9-1f4c-4eb5-a58e-689a360e7abf"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/agriculture"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Agricultural Chemicals</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/frozen-ground-permafrost">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/376a1d5c-2496-4381-981f-bc047af92044"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/cryosphere"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-scatterometers"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/8073b62d-a2f3-4ad9-b619-de26f28877a7"/>
+    <skos:prefLabel xml:lang="en">Frozen Ground and Permafrost</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/salinity-density">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/a46016d7-e571-403a-ab37-7223fd74e68e"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Salinity and Density</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-chemistry">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:prefLabel xml:lang="en">Ocean Chemistry</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/6eb3919b-85ce-4988-8b78-9d0018fd8089"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ionosphere-magnetosphere-dynamics">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/sun-earth-interaction"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/3a942e8a-d2f2-42bf-9e83-b7b3793b100e"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Ionosphere and Magnetosphere Dynamics</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/solar-energetic-particle-flux">
+    <skos:prefLabel xml:lang="en">Solar Energetic Particle Flux</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/sun-earth-interaction"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/cad91f82-7e2a-43b7-b272-2dc77e2791f4"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/bathymetry-seafloor-topography">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/c16bda61-353b-4668-af2f-bbb98785b6fa"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:prefLabel xml:lang="en">Bathymetry and Seafloor Topography</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/gravity-gravitational-field">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:prefLabel xml:lang="en">Gravity and Gravitational Field</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/221386f6-ef9b-4990-82b3-f990b0fe39fa"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/marine-geophysics">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:prefLabel xml:lang="en">Marine Geophysics</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/bb04ee83-bf49-4f96-898d-20bb6e92bc93"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/landscape">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/land-surface"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:prefLabel xml:lang="en">Landscape</skos:prefLabel>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/f36d71c6-f2ad-49c4-809f-09b4f0688412"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-photon-optical-detectors"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/ocean-optics">
+    <skos:prefLabel xml:lang="en">Ocean Optics</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/oceans"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/457883c4-b30c-4d26-bed8-6c2887ebbc90"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/earth-gases-liquids">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/e3fa1998-b003-4d55-a92e-16b42ac0fc17"/>
+    <skos:prefLabel xml:lang="en">Earth Gases and Liquids</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/forest-fires">
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/e5a8c6ed-5b59-40fe-a83b-18b39fb7c31b"/>
+    <skos:prefLabel xml:lang="en">Forest Fires</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-imaging-spectrometers-radiometers"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/forestry"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/rocks-minerals-crystals">
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/solid-earth"/>
+    <skos:prefLabel xml:lang="en">Rocks, Minerals and Crystals</skos:prefLabel>
+    <skos:related rdf:resource="https://earth.esa.int/concept/a-imaging-radars"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/ba8d7f68-ad3a-4874-bc75-312b24b1b1ac"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/soil-moisture">
+    <skos:broader rdf:resource="https://earth.esa.int/concept/groundwater"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/p-interferometric-radiometers"/>
+    <skos:inScheme rdf:resource="https://earth.esa.int/concepts/concept_scheme/earth-topics"/>
+    <skos:exactMatch rdf:resource="https://gcmdservices.gsfc.nasa.gov/kms/concept/88e1a654-5cfd-423f-9350-0ef48d85e085"/>
+    <skos:prefLabel xml:lang="en">Soil Moisture</skos:prefLabel>
+    <skos:broader rdf:resource="https://earth.esa.int/concept/soils"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://earth.esa.int/concept/a-lidar-laser-sounders">
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-indicators"/>
+    <skos:related rdf:resource="https://earth.esa.int/concept/atmospheric-winds"/>
+  </rdf:Description>
+</rdf:RDF>

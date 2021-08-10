@@ -1,0 +1,39 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"                 
+                 xmlns:p="http://primefaces.org/ui"                 
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:submenu label="Download" 
+               icon="fa fa-fw fa-cloud-download"                               
+               styleClass="spb-menuitem-text">
+        <p:menuitem value="Download XML"
+                    icon="spb-xml-icon"
+                    rendered="#{mainBean.showMenuItem('xml')}"
+                    styleClass="spb-menuitem-text"
+                    ajax="false">
+            <p:fileDownload value="#{mainBean.workspace.download('xml')}" />
+        </p:menuitem>                                         
+
+        <p:menuitem value="Download GeoJSON"
+                    icon="spb-json-icon"
+                    rendered="#{mainBean.showMenuItem('geojson')}"
+                    styleClass="spb-menuitem-text"
+                    ajax="false">
+            <p:fileDownload value="#{mainBean.workspace.download('geojson')}" />
+        </p:menuitem>
+
+        <p:menuitem value="Download DIF-10"
+                    icon="fa fa-fw fa-file-text-o"
+                    rendered="#{mainBean.showMenuItem('dif10')}"
+                    styleClass="spb-menuitem-text"
+                    ajax="false">
+            <p:fileDownload value="#{mainBean.workspace.download('dif10')}" />
+        </p:menuitem>
+        
+        <p:menuitem value="Download internal model"
+                    icon="spb-json-icon"                    
+                    styleClass="spb-menuitem-text"
+                    ajax="false">
+            <p:fileDownload value="#{mainBean.workspace.download('internal')}" />
+        </p:menuitem> 
+    </p:submenu>
+</ui:composition>

@@ -1,0 +1,202 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:p="http://primefaces.org/ui"	
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                 xmlns:spb="http://www.spacebel.be/jsf"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">   
+
+    <div class="spb-search-results-table" style="height: 800px;">
+        <c:choose>
+            <c:when test="#{mainBean.catalog.view.list}">
+                <div class="list-view">
+                    <p:dataTable var="item" rows="#{userAuthBean.config.rowsPerPage}"   
+                                 rendered="#{not empty mainBean.catalog.paginator.data.items}"
+                                 selectionMode="single"                                 
+                                 rowKey="#{item.uuid}"
+                                 rowStyleClass="#{mainBean.catalog.highlight(item) ? 'row-highlight' : ''}"
+                                 value="#{mainBean.catalog.paginator.data.items}">
+
+                        <p:ajax event="rowSelect" listener="#{mainBean.catalog.onViewSelectedItemDetails}" 
+                                update="@form @([id$=messageForm])" />
+
+                        <p:column style="width:20px;text-align:center;padding:2px;">
+                            <f:facet name="header">
+                                <p:selectBooleanCheckbox value="#{mainBean.catalog.selectedAll}"                                                         
+                                                         title="Select all" styleClass="all-item-checkbox">
+                                    <p:ajax update="@form @([id$=searchResult]) @([id$=messageForm])" listener="#{mainBean.catalog.onSelectAllItems}" />
+                                </p:selectBooleanCheckbox>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.selected}"                                                     
+                                                     title="Select this collection" styleClass="item-checkbox">							
+                                <p:ajax update="@form @([id$=messageForm])" listener="#{mainBean.catalog.onSelectItem(item.selected)}" />
+                            </p:selectBooleanCheckbox>                            
+                        </p:column>                                                                                            
+
+                        <p:column headerText="Identifier" style="width:200px;">                            
+                            <h:outputText value="#{spb:shortStr(item.metadataFile.flatList.id,30)}"
+                                          title="#{item.metadataFile.flatList.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Modified" style="width:80px;">
+                            <h:outputText value="#{item.metadataFile.flatList.modifiedDate}" />
+                        </p:column>
+
+                        <p:column headerText="Title">
+                            <h:outputText value="#{spb:shortStr(item.metadataFile.flatList.title,70)}"
+                                          title="#{item.metadataFile.flatList.title}"/>
+                        </p:column>
+
+                        <p:column headerText="Abstract">
+                            <h:outputText value="#{spb:shortStr(item.metadataFile.flatList.abst,100)}"
+                                          title="#{item.metadataFile.flatList.abst}"/>
+                        </p:column>                        
+
+                        <ui:remove>
+                            <p:column headerText="Start" style="width:80px;">
+                                <h:outputText value="#{item.metadataFile.flatList.startDate}" />
+                            </p:column>
+
+                            <p:column headerText="End" style="width:80px;">
+                                <h:outputText value="#{item.metadataFile.flatList.endDate}" />
+                            </p:column>
+                        </ui:remove>
+
+                        <p:column headerText="Organisation" style="width:150px;">
+                            <h:outputText value="#{item.metadataFile.flatList.organisationName}"/>
+                        </p:column>
+
+                        <p:column style="width:70px;text-align:center;padding: 2px;">
+                            <p:commandButton
+                                icon="fa fa-fw fa-info-circle"
+                                styleClass="list-view-button"
+                                global="true"
+                                title="View details"						
+                                update="@form @([id$=messageForm])"
+                                actionListener="#{mainBean.catalog.onViewItemDetails(item)}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock()"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>                            
+
+                            <p:commandButton id="catalogueListViewMoreButton" type="button"                                            
+                                             icon="fa fa-fw fa-ellipsis-v" 
+                                             title="More options"
+                                             styleClass="list-view-button"/>	
+
+                            <p:menu overlay="true" trigger="catalogueListViewMoreButton" my="left top" at="left bottom"
+                                    styleClass="menu-button">
+
+                                <p:menuitem value="Download"
+                                            icon="fa fa-fw fa-cloud-download"
+                                            ajax="false"
+                                            styleClass="spb-menuitem-text">
+                                    <p:fileDownload value="#{mainBean.catalog.download(item)}" />
+                                </p:menuitem>                                
+
+                                <p:menuitem value="Copy to workspace"
+                                            icon="fa fa-fw fa-plus-circle"
+                                            styleClass="spb-menuitem-text"                                            
+                                            update="@form @([id$=messageForm]) @([id$=wsSearchForm])"
+                                            actionListener="#{mainBean.copyToWorkspace(item)}"
+                                            onstart="PF('waitingBlockUI').block();"
+                                            oncomplete="PF('waitingBlockUI').unblock()"
+                                            onsuccess="PF('waitingBlockUI').unblock()"
+                                            onerror="PF('waitingBlockUI').unblock()"/>                                
+
+                                <p:menuitem value="Remove from catalogue"
+                                            rendered="#{userAuthBean.canWrite(item.metadataFile)}"
+                                            icon="fa fa-fw fa-remove"
+                                            styleClass="spb-menuitem-text"                                            
+                                            update="@form @([id$=messageForm]) @([id$=catalogueAuthenticationForm])"
+                                            oncomplete="handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                            actionListener="#{mainBean.removeFromCatalogue(item)}">
+                                    <p:confirm header="Confirmation" 
+                                               message="Would you like to remove metadata record (#{item.metadataFile.flatList.id}) from the catalogue (#{userAuthBean.userPreferences.catalogue.title})?" 
+                                               icon="fa fa-fw fa-exclamation-triangle" />
+                                </p:menuitem>                                
+                            </p:menu>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </c:when>
+            <c:otherwise> 
+                <div class="thumbnails-view">
+                    <pe:fluidGrid id="os-collection-search-results-carrousel"                          
+                                  value="#{mainBean.catalog.paginator.data.fluidItems}" 
+                                  var="fluidItem"
+                                  fitWidth="false" hGutter="1" vGutter="1">
+                        <pe:fluidGridItem styleClass="fluidgrid-cell">					
+                            <div class="#{mainBean.catalog.highlight(fluidItem) ? 'fluidgrid-cell-info highlight' : 'fluidgrid-cell-info'}"
+                                 id="#{fluidItem.uuid}"
+                                 title="#{fluidItem.metadataFile.flatList.title}">
+
+                                <p:selectBooleanCheckbox value="#{fluidItem.selected}"                                                         
+                                                         title="Select this collection" styleClass="item-checkbox">							
+                                    <p:ajax update="@form @([id$=messageForm])" listener="#{mainBean.catalog.onSelectItem(fluidItem.selected)}" />
+                                </p:selectBooleanCheckbox>
+
+                                <div class="title">
+                                    <h:panelGrid columns="2" columnClasses="text-label,text-value">
+                                        <h:outputText value="Identifier"/>
+                                        <h:outputText value="#{spb:shortStr(fluidItem.metadataFile.flatList.id,30)}"
+                                                      rendered="#{not empty fluidItem.metadataFile.flatList.id}" 
+                                                      title="#{fluidItem.metadataFile.flatList.id}"/>
+
+                                        <h:outputText value="Title"/>
+                                        <h:outputText value="#{spb:shortStr(fluidItem.metadataFile.flatList.title,30)}"
+                                                      rendered="#{not empty fluidItem.metadataFile.flatList.title}" />
+                                    </h:panelGrid>
+                                </div>
+
+                                <div class="actions">				
+                                    <p:commandButton
+                                        icon="fa fa-fw fa-info-circle"
+                                        styleClass="action-button"
+                                        immediate="true" global="true"
+                                        title="View details"
+                                        process="os-collection-search-results-carrousel"
+                                        update="@form @([id$=messageForm])"
+                                        actionListener="#{mainBean.catalog.onViewItemDetails(fluidItem)}" />                                    
+
+                                    <p:commandButton icon="fa fa-fw fa-cloud-download"
+                                                     styleClass="action-button" ajax="false"
+                                                     title="Download">
+                                        <p:fileDownload value="#{mainBean.catalog.download(fluidItem)}" />
+                                    </p:commandButton>
+
+                                    <p:commandButton
+                                        rendered="#{not empty fluidItem.metadataFile}"
+                                        icon="fa fa-fw fa-plus-circle"
+                                        styleClass="action-button"
+                                        immediate="true" global="true"
+                                        title="Copy to Workspace"
+                                        update="@form @([id$=messageForm]) @([id$=wsSearchForm])"
+                                        actionListener="#{mainBean.copyToWorkspace(fluidItem)}"/>
+
+
+                                    <p:commandButton
+                                        rendered="#{userAuthBean.canWrite(fluidItem.metadataFile)}"
+                                        icon="fa fa-fw fa-remove"
+                                        styleClass="action-button"
+                                        title="Remove from catalogue"
+                                        update="@([id$=catalogueResultForm]) @([id$=messageForm]) @([id$=catalogueAuthenticationForm])"
+                                        oncomplete="handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                        actionListener="#{mainBean.removeFromCatalogue(fluidItem)}">
+                                        <p:confirm header="Confirmation" 
+                                                   message="Would you like to remove metadata record (#{fluidItem.metadataFile.flatList.id}) from the catalogue (#{userAuthBean.userPreferences.catalogue.title})?" 
+                                                   icon="fa fa-fw fa-exclamation-triangle" />
+                                    </p:commandButton>
+
+                                </div>
+                            </div>
+                        </pe:fluidGridItem>
+
+                    </pe:fluidGrid>
+                </div>
+            </c:otherwise>
+        </c:choose>        
+    </div>
+
+</ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<faces-config
+    version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+    
+    <component>
+        <component-type>be.spacebel.metadataeditor.utils.jsf.AttachCalendarConverterComponent</component-type>
+        <component-class>be.spacebel.metadataeditor.utils.jsf.AttachCalendarConverterComponent</component-class>
+    </component>
+     <converter>
+        <converter-id>paramOptionConverter</converter-id>
+        <converter-class>be.spacebel.metadataeditor.utils.jsf.ParameterOptionConverter</converter-class>
+    </converter>
+    
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>fr</supported-locale>
+        </locale-config>
+        <message-bundle>MessageResources</message-bundle>
+        <!--
+        <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+        -->
+    </application>
+    <!--
+    <factory>
+        <exception-handler-factory>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+    -->
+</faces-config>

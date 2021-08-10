@@ -1,0 +1,371 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"	
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"
+                 xmlns:spb="http://www.spacebel.be/jsf"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div class="details-unit">
+        <div class="details-unit-header">
+            Metadata identification
+        </div>
+        <div class="details-unit-content">
+            <h:panelGroup rendered="#{not empty metadata.others.fileIdentifier}">
+                <h:outputText value="Identifier: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.others.fileIdentifier}"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty metadata.identification.title}">
+                <br/>
+                <h:outputText value="Title: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.title}"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty metadata.identification.altTitle}">
+                <ui:fragment rendered="#{not empty metadata.identification.title}"><br /></ui:fragment>
+                <h:outputText value="Alternate title: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.altTitle}"/>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{not empty metadata.identification.otherCitationDetails}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.otherCitationDetails}"><br /></ui:fragment>
+                <h:outputText value="Bibliographic citation: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.otherCitationDetails}"/>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{not empty metadata.identification.doi}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.otherCitationDetails}"><br /></ui:fragment>
+                <h:outputText value="DOI: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.doi}"/>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{not empty metadata.identification.edition}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.otherCitationDetails or not empty metadata.identification.doi}"><br /></ui:fragment>
+                <h:outputText value="Version: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.edition}"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty metadata.identification.creationDate}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.doi or not empty metadata.identification.otherCitationDetails or not empty metadata.identification.edition}"><br /></ui:fragment>
+                <h:outputText value="Creation date: " styleClass="details-text-label"/>
+                <h:outputText value="#{mainBean.customFunctions.dateToStr(metadata.identification.creationDate)}"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty metadata.others.lastUpdateDate}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.creationDate or not empty metadata.identification.doi or not empty metadata.identification.edition or not empty metadata.identification.otherCitationDetails }"><br /></ui:fragment>
+                <h:outputText value="Last update date: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.others.lastUpdateDate}"/>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not empty metadata.identification.plainTextAbstract}">
+                <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.creationDate or not empty metadata.others.lastUpdateDate or not empty metadata.identification.doi or not empty metadata.identification.edition or not empty metadata.identification.otherCitationDetails }"><br /></ui:fragment>
+                <h:outputText value="Abstract: " styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.plainTextAbstract}"/>
+            </h:panelGroup>
+
+            <ui:remove>
+                <h:panelGroup rendered="#{not empty metadata.identification.purpose}">
+                    <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.plainTextAbstract}"><br /></ui:fragment>
+                    <h:outputText value="Purpose: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.purpose}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.statusListValue}">
+                    <ui:fragment rendered="#{not empty metadata.identification.title or not empty metadata.identification.altTitle or not empty metadata.identification.plainTextAbstract or not empty metadata.identification.purpose}"><br /></ui:fragment>
+                    <h:outputText value="Status: " styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.statusListValue}"/>
+                </h:panelGroup>
+            </ui:remove>
+
+        </div>
+    </div>
+
+    <ui:repeat var="contact" value="#{metadata.others.contacts}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Organisation information
+            </div>
+            <div class="details-unit-content">
+                <h:panelGroup rendered="#{not empty contact.orgName}">			
+                    <h:outputText value="Organisation name: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.orgName}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.individualName}">	
+                    <ui:fragment rendered="#{not empty contact.orgName}"><br /></ui:fragment>
+                    <h:outputText value="Individual name: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.individualName}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.positionName}" >
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName}"><br /></ui:fragment>
+                    <h:outputText value="Position name: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.positionName}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.phone}" >
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName}"><br /></ui:fragment>
+                    <h:outputText value="Phone: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.phone}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.fax}">
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName or not empty contact.positionName 
+                                             or not empty contact.phone}"><br /></ui:fragment>
+                    <h:outputText value="Facsimile: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.fax}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.address}" >
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax}"><br /></ui:fragment>
+                    <h:outputText value="Delivery point: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.address}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.city}" >	
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address}"><br /></ui:fragment>
+                    <h:outputText value="City: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.city}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.postal}" >	
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address 
+                                             or not empty contact.city}"><br /></ui:fragment>
+                    <h:outputText value="Postal code: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.postal}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.country}">
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address 
+                                             or not empty contact.city
+                                             or not empty contact.postal}"><br /></ui:fragment>
+                    <h:outputText value="Country: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.country}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.email}">
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName  
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address 
+                                             or not empty contact.city					 
+                                             or not empty contact.postal 
+                                             or not empty contact.country}"><br /></ui:fragment>
+                    <h:outputText value="E-mail: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.email}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.onlineRs}">
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address 
+                                             or not empty contact.city					 
+                                             or not empty contact.postal 
+                                             or not empty contact.country 
+                                             or not empty contact.email}"><br /></ui:fragment>
+                    <h:outputText value="Online resource" styleClass="details-text-label"/>	
+                    <h:outputText value=": " styleClass="details-text-label"/>
+                    <a href="#{contact.onlineRs}" target="_blank" class="href-icon">#{contact.onlineRs}</a>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty contact.role}" >
+                    <ui:fragment rendered="#{not empty contact.orgName 
+                                             or not empty contact.individualName 
+                                             or not empty contact.positionName 
+                                             or not empty contact.phone 
+                                             or not empty contact.fax 
+                                             or not empty contact.address 
+                                             or not empty contact.city					 
+                                             or not empty contact.postal 
+                                             or not empty contact.country 
+                                             or not empty contact.email 
+                                             or not empty contact.onlineRs}"><br /></ui:fragment>
+                    <h:outputText value="Role: " styleClass="details-text-label"/>
+                    <h:outputText value="#{contact.role}" />
+                </h:panelGroup>
+            </div>
+        </div>
+    </ui:repeat>
+
+    <h:panelGroup rendered="#{not empty metadata.identification.bbox}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Spatial extent
+            </div>
+            <div class="details-unit-content">
+                <h:outputText value="West: "  styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.bbox.west}" />
+                <br/>
+
+                <h:outputText value="North: "  styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.bbox.north}" />
+                <br/>
+
+                <h:outputText value="East: "  styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.bbox.east}" />
+                <br/>
+
+                <h:outputText value="South: "  styleClass="details-text-label"/>
+                <h:outputText value="#{metadata.identification.bbox.south}" />
+            </div>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{not empty metadata.identification.temporal}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Temporal extent
+            </div>
+            <div class="details-unit-content">
+                <h:panelGroup rendered="#{not empty metadata.identification.temporal.startDate}">
+                    <h:outputText value="Start date: "  styleClass="details-text-label"/>
+                    <h:outputText value="#{mainBean.customFunctions.dateToStr(metadata.identification.temporal.startDate)}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.temporal.endDate}">
+                    <ui:fragment rendered="#{not empty metadata.identification.temporal.startDate}"><br /></ui:fragment>
+                    <h:outputText value="End date: "  styleClass="details-text-label"/>
+                    <h:outputText value="#{mainBean.customFunctions.dateToStr(metadata.identification.temporal.endDate)}"/>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty metadata.identification.temporal.description and not empty metadata.identification.temporal.description.text}">
+                    <ui:fragment rendered="#{not empty metadata.identification.temporal.startDate or not empty metadata.identification.temporal.endDate}"><br /></ui:fragment>
+                    <h:outputText value="Description: "  styleClass="details-text-label"/>
+                    <h:outputText value="#{metadata.identification.temporal.description.text}"/>
+                </h:panelGroup>
+            </div>
+        </div>		
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{not empty metadata.identification.constraints}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Constraints
+            </div>
+            <div class="details-unit-content">
+                <ui:repeat var="constraint" value="#{metadata.identification.constraints}" varStatus="cStatus">
+                    <ui:fragment rendered="#{not cStatus.first}"><br /></ui:fragment>
+
+                    <h:panelGroup rendered="#{not empty constraint.useLimitations}">
+                        <h:outputText value="Use limitation: "  styleClass="details-text-label"/>
+                        <ui:repeat var="limit" value="#{constraint.useLimitations}" varStatus="lStatus">
+                            <h:outputText value="#{limit.text}"/>
+                            <h:outputText value=", " rendered="#{not lStatus.last}"/>
+                        </ui:repeat>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{not empty constraint.accesses}">
+                        <ui:fragment rendered="#{not empty constraint.useLimitations}"><br /></ui:fragment>						
+                        <h:outputText value="Access: "  styleClass="details-text-label"/>
+                        <ui:repeat var="access" value="#{constraint.accesses}" varStatus="lStatus">
+                            <h:outputText value="#{access.text}"/>
+                            <h:outputText value=", " rendered="#{not lStatus.last}"/>
+                        </ui:repeat>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{not empty constraint.uses}">
+                        <ui:fragment rendered="#{not empty constraint.useLimitations or not empty constraint.accesses}"><br /></ui:fragment>						
+                        <h:outputText value="Use: "  styleClass="details-text-label"/>
+                        <ui:repeat var="use" value="#{constraint.uses}" varStatus="lStatus">
+                            <h:outputText value="#{use.text}"/>
+                            <h:outputText value=", " rendered="#{not lStatus.last}"/>
+                        </ui:repeat>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{not empty constraint.others}">
+                        <ui:fragment rendered="#{not empty constraint.useLimitations or not empty constraint.accesses or not empty constraint.uses}"><br /></ui:fragment>						
+                        <h:outputText value="Other: "  styleClass="details-text-label"/>
+                        <ui:repeat var="other" value="#{constraint.others}" varStatus="lStatus">
+                            <h:outputText value="#{other.text}"/>
+                            <h:outputText value=", " rendered="#{not lStatus.last}"/>
+                        </ui:repeat>
+                    </h:panelGroup>
+                </ui:repeat>
+            </div>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{not empty metadata.acquisition.platforms}">
+        <div class="details-unit">
+            <div class="details-unit-header">
+                Acquisition information
+            </div>
+            <div class="details-unit-content">
+                <ui:repeat var="platform" value="#{metadata.acquisition.platforms}">
+                    <h:outputText value="Platform: " styleClass="details-text-label"/>
+                    <h:outputText value="#{platform.label}"/>
+                    <br/>
+                    <h:outputText value="Platform URI: " styleClass="details-text-label"/>
+                    <h:outputText value="#{platform.uri}"/>
+
+                    <ui:repeat var="sps" varStatus="vStatus" 
+                               value="#{platform.operators}">
+                        <h:panelGroup rendered="#{(not empty sps.operator.label) and (not empty sps.operator.uuid)}">
+                            <br/>
+                            <h:outputText value="Operator: " styleClass="details-text-label"/>
+                            <h:outputText value="#{sps.operator.label}"/>
+                        </h:panelGroup>
+                    </ui:repeat>
+
+                    <h:panelGroup rendered="#{not empty platform.launchDate}">
+                        <br/>
+                        <h:outputText value="Launch date: " styleClass="details-text-label"/>
+                        <h:outputText value="#{mainBean.customFunctions.dateToStr(platform.launchDate)}"/>
+                    </h:panelGroup>
+
+                    <ui:repeat var="instrument" value="#{platform.instruments}">
+                        <br/>
+                        <h:outputText value="Instrument: " styleClass="details-text-label"/>
+                        <h:outputText value="#{instrument.label}"/>
+                        <br/>
+                        <h:outputText value="Instrument URI: " styleClass="details-text-label"/>
+                        <h:outputText value="#{instrument.uri}"/>
+
+                        <ui:repeat var="broader" value="#{instrument.broaders}">
+                            <br/>
+                            <h:outputText value="Instrument type: " styleClass="details-text-label"/>
+                            <h:outputText value="#{broader.label}"/>
+                            
+                            <br/>
+                            <h:outputText value="Instrument type URI: " styleClass="details-text-label"/>
+                            <h:outputText value="#{broader.uri}"/>                                                               
+                        </ui:repeat>
+                        <br/>
+                    </ui:repeat>
+                    <br/><br/>
+                </ui:repeat>
+            </div>
+        </div>    
+    </h:panelGroup>
+</ui:composition>

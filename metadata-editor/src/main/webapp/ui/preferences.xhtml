@@ -1,0 +1,151 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id ="preferencesForm">        
+        <p:panel header="Profile">
+            <h:panelGrid columns="2" columnClasses="input-label,input-value"
+                         rendered="#{not userAuthBean.editUser}"
+                         styleClass="user-form">
+                <h:outputText value="Username"/>
+                <h:outputText value="#{userAuthBean.username}"/>               
+
+                <h:outputText value="Password"/>
+                <p:commandLink 
+                    update="@form @([id$=messageForm])" 
+                    action="#{userAuthBean.toChangePassword()}">
+                    <h:outputText value="Change password ?" />
+                </p:commandLink>               
+            </h:panelGrid>
+
+            <h:panelGrid columns="2" columnClasses="input-label,input-value"
+                         rendered="#{userAuthBean.editUser}"
+                         styleClass="user-form">
+                <h:outputText value="Username"/>
+                <h:outputText value="#{userAuthBean.username}"/>               
+
+
+                <h:outputText value="Current password"/>
+                <p:password size="45" value="#{userAuthBean.oldPassword}"/>
+
+                <h:outputText value="New password"/>
+                <p:password size="45" value="#{userAuthBean.newPassword}"/>
+
+                <h:outputText value="Confirm new password"/>
+                <p:password size="45" value="#{userAuthBean.confirmNewPassword}"/>
+
+            </h:panelGrid>
+
+            <p:commandButton value="Change password"
+                             rendered="#{userAuthBean.editUser}"
+                             actionListener="#{userAuthBean.changePassword()}"
+                             update="@form @([id$=messageForm])">
+            </p:commandButton>
+            <p:commandButton value="Cancel"                             
+                             rendered="#{userAuthBean.editUser}"
+                             actionListener="#{userAuthBean.cancelChangePassword()}"
+                             update="@form @([id$=messageForm])">
+            </p:commandButton>
+        </p:panel>
+        <br/>
+
+        <p:panel header="Metadata formats">
+            <h:panelGrid columns="1" columnClasses="input-value"                        
+                         styleClass="user-form">
+                <h:outputText value="Configure the list of metadata formats which should be allowed to be viewed (in source code View), downloaded and proposed for metadata validation:"/>
+            </h:panelGrid>
+
+            <div class="editor-tab">
+                <table class="spb-keywords-table">
+                    <tr>
+                        <td class="spb-keyword-column input-label" style="width: 40%;">
+                            <h:outputText value="Collection" />
+                        </td>
+                        <td class="spb-keyword-column input-label" style="width: 60%">
+                            <h:outputText value="Service" />
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <td class="spb-keyword-column input-value">
+                            <p:selectManyCheckbox value="#{userAuthBean.seriesFormats}" layout="grid" columns="1">
+                                <f:selectItem itemLabel="ISO 19139-2 (XML) schema validation" itemValue="xml" />
+                                <f:selectItem itemLabel="OGC 17-084 (GeoJSON) schema validation" itemValue="json" />
+                                <f:selectItem itemLabel="DIF-10 completeness check and validation against NASA validation endpoint" itemValue="dif10" />                
+                                <p:ajax event="change" 
+                                        listener="#{userAuthBean.onChangeSeriesFormats}"
+                                        update="@([id$=preferencesForm]) @([id$=messageForm])"/>
+                            </p:selectManyCheckbox>
+                        </td>
+                        <td class="spb-keyword-column input-value">
+                            <p:selectManyCheckbox value="#{userAuthBean.serviceFormats}" layout="grid" columns="1">
+                                <f:selectItem itemLabel="ISO 19139 (XML) schema validation" itemValue="xml" />
+                                <f:selectItem itemLabel="OGC 19-020 (GeoJSON) schema validation" itemValue="json" />                    
+                                <p:ajax event="change" 
+                                        listener="#{userAuthBean.onChangeServiceFormats}"
+                                        update="@([id$=preferencesForm]) @([id$=messageForm])"/>
+                            </p:selectManyCheckbox>
+                        </td>                        
+                    </tr> 
+                </table>
+            </div>
+
+            <p:commandButton value="Save"
+                             actionListener="#{mainBean.saveMetadataFormatChange()}"                             
+                             update="@form @([id$=messageForm]) @([id$=wsSearchForm]) @([id$=workspaceTab])"
+                             onstart="PF('waitingBlockUI').block();"
+                             oncomplete="PF('waitingBlockUI').unblock()"
+                             onsuccess="PF('waitingBlockUI').unblock()"
+                             onerror="PF('waitingBlockUI').unblock()">
+            </p:commandButton>
+        </p:panel>
+
+        <p:panel header="Catalogues"
+                 rendered="#{not empty userAuthBean.userPreferences.catalogue}">
+
+            <c:if test="#{userAuthBean.userPreferences.hasMultipleCatalogues()}">
+                <f:facet name="header">
+                    <h:outputText value="Catalogues "/>
+                    <p:spacer width="10"/>
+                    <p:selectOneMenu value="#{userAuthBean.userPreferences.selectedCatalogueUrl}"
+                                     title="Switch catalogue">
+                        <f:selectItems value="#{userAuthBean.userPreferences.availableCatalogues}" />
+                        <p:ajax event="itemSelect" 
+                                listener="#{mainBean.onChangeCatalogue}"
+                                update="@([id$=preferencesForm]) @([id$=messageForm]) @([id$=mainTab])"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock()"
+                                onsuccess="PF('waitingBlockUI').unblock()"                                            
+                                onerror="PF('waitingBlockUI').unblock()"/>
+                    </p:selectOneMenu>
+                </f:facet>
+            </c:if>
+
+            <c:set var="catalogue" value="#{userAuthBean.userPreferences.catalogue}" />
+            <ui:include src="management/catalogueInfo.xhtml" />   
+        </p:panel>
+        <p:panel header="Thesaurus">
+            <ui:include src="thesauri.xhtml" />
+        </p:panel>
+    </h:form>
+    <h:form id ="settingsForm">
+        <p:panel header="Synchronise thesaurus" rendered="#{userAuthBean.admin}">
+            <h:panelGrid columns="1" columnClasses="spb-grid">
+                <p:selectBooleanCheckbox value="#{userAuthBean.config.refreshEsaThesaurus}" itemLabel="Synchronise ESA thesaurus"/>
+                <p:selectBooleanCheckbox value="#{userAuthBean.config.refreshGcmdThesaurus}" itemLabel="Synchronise NASA GCMD thesaurus"/>
+            </h:panelGrid>
+            <p:commandButton value="Save"
+                             actionListener="#{userAuthBean.config.storeSettings()}"                             
+                             update="@([id$=messageForm]) @([id$=settingsForm])"
+                             onstart="PF('waitingBlockUI').block();"
+                             oncomplete="PF('waitingBlockUI').unblock()"
+                             onsuccess="PF('waitingBlockUI').unblock()"
+                             onerror="PF('waitingBlockUI').unblock()">
+            </p:commandButton>
+        </p:panel>
+
+    </h:form>
+
+</ui:composition>

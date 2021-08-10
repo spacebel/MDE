@@ -1,0 +1,176 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:spb="http://www.spacebel.be/jsf">
+
+
+    <table class="catalogue-management-form">
+        <p:outputPanel rendered="#{not empty catalogue.title or not empty catalogue.landingUrl}">
+            <tr style="background-color: #d9d9d9;">
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="Name"/>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="#{catalogue.title}"/>  
+                    <h:panelGroup rendered="#{not empty catalogue.landingUrl}">
+                        <p:spacer width="5"/>
+                        <a href="#{catalogue.landingUrl}" target="_blank" class="href-icon">
+                            (#{catalogue.landingUrl})
+                        </a>
+                    </h:panelGroup>
+
+                </td>
+            </tr>
+        </p:outputPanel>       
+        <p:outputPanel rendered="#{not empty catalogue.osddUrl}">
+            <tr>
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="OSDD URL"/>
+                </td>
+                <td class="input-value">
+                    <a href="#{catalogue.osddUrl}" target="_blank" class="href-icon">
+                        #{catalogue.osddUrl}
+                    </a>
+                </td>
+            </tr>
+        </p:outputPanel>              
+        <p:outputPanel rendered="#{not empty catalogue.providerName}">
+            <tr>
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="Provider"/>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="#{catalogue.providerName}"/>
+                </td>
+            </tr>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{not empty catalogue.description}">
+            <tr>
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="Description"/>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="#{catalogue.description}"/>
+                </td>
+            </tr>
+        </p:outputPanel>
+
+        <p:outputPanel rendered="#{not empty catalogue.seriesInterface and (userAuthBean.admin or not empty catalogue.seriesInterface.searchUrl or catalogue.seriesWrite)}">
+            <tr>
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="Collection metadata"/>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="Read"
+                                  rendered="#{(userAuthBean.admin and catalogue.seriesWrite) or not empty catalogue.seriesInterface.searchUrl}"/>
+                    <h:outputText value=" / "
+                                  rendered="#{(userAuthBean.admin or not empty catalogue.seriesInterface.searchUrl) and catalogue.seriesWrite}"/>
+                    <h:outputText value="Write"
+                                  rendered="#{catalogue.seriesWrite}"/>
+                </td>
+            </tr>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{not empty catalogue.serviceInterface and (not empty catalogue.serviceInterface.searchUrl or catalogue.serviceWrite)}">
+            <tr>
+                <td class="input-label" style="width: 170px;">
+                    <h:outputText value="Service metadata"/>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="Read"
+                                  rendered="#{(userAuthBean.admin and catalogue.serviceWrite) or not empty catalogue.serviceInterface.searchUrl}"/>
+                    <h:outputText value=" / "
+                                  rendered="#{(userAuthBean.admin or not empty catalogue.serviceInterface.searchUrl) and catalogue.serviceWrite}"/>
+                    <h:outputText value="Write"
+                                  rendered="#{catalogue.serviceWrite}"/>
+                </td>
+            </tr>
+        </p:outputPanel>
+
+        <ui:remove>
+            <p:outputPanel rendered="#{not empty catalogue.searchTemplateUrl}">
+                <tr>
+                    <td class="input-label" style="width: 170px;">
+                        <h:outputText value="Search URL (HTTP GET)"/>
+                    </td>
+                    <td class="input-value">
+                        <h:outputText value="#{catalogue.searchTemplateUrl}"/>
+                    </td>
+                </tr>
+            </p:outputPanel>
+
+            <p:outputPanel rendered="#{catalogue.writeAccess}">
+                <tr>
+                    <td class="input-label" style="width: 170px;">
+                        <h:outputText value="Insert URL (HTTP POST)"/>
+                    </td>
+                    <td class="input-value">
+                        <h:outputText value="#{catalogue.insertUrl}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input-label">
+                        <h:outputText value="Delete URL (HTTP DELETE)"/>
+                    </td>
+                    <td class="input-value">
+                        <h:outputText value="#{catalogue.deleteUrl}"/>
+                    </td>
+                </tr>
+            </p:outputPanel>
+        </ui:remove>
+        <ui:remove>
+            <tr>
+                <td colspan="2">
+                    <table class="catalogue-management-form">
+                        <tr>
+                            <td colspan="4" class="input-label">Interfaces</td>
+                        </tr>
+                        <tr>
+                            <th class="input-label" style="width: 100px;">Function</th>                        
+                            <th class="input-label" style="width: 50px;">Method</th>                                                
+                            <th class="input-label">URL</th>
+                        </tr>
+                        <tr>                        
+                            <td class="input-value" style="width: 100px;">Search</td>
+                            <td class="input-value" style="width: 50px;">GET</td>
+                            <td class="input-value">
+                                <h:outputText value="#{catalogue.searchTemplateUrl}"/>
+                            </td>
+                        </tr>
+                        <h:panelGroup rendered="#{catalogue.writeAccess}">
+                            <tr>                        
+                                <td class="input-value">Insert</td>
+                                <td class="input-value">POST</td>
+                                <td class="input-value">
+                                    <h:outputText value="#{catalogue.insertUrl}"/>
+                                </td>
+                            </tr>
+                            <tr>                        
+                                <td class="input-value">Delete</td>
+                                <td class="input-value">DELETE</td>
+                                <td class="input-value">
+                                    <h:outputText value="#{catalogue.deleteUrl}"/>
+                                </td>
+                            </tr>
+                        </h:panelGroup>
+                    </table>
+                </td>
+            </tr>
+        </ui:remove>
+        <h:panelGroup rendered="#{userAuthBean.admin}">
+            <tr>            
+                <td class="input-value">
+                    <p:selectBooleanCheckbox value="#{catalogue.publish}">
+                        <p:ajax update="@form @([id$=messageForm])" listener="#{catalogueBean.publishCatalogue(catalogue)}" />
+                    </p:selectBooleanCheckbox>
+                </td>
+                <td class="input-value">
+                    <h:outputText value="Allow access to anonymous users"/>
+                </td>
+            </tr>
+        </h:panelGroup>
+    </table>
+</ui:composition>

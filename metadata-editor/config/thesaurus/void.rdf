@@ -1,0 +1,77 @@
+<rdf:RDF xmlns:void="http://rdfs.org/ns/void#" 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:owl="http://www.w3.org/2002/07/owl#"	
+	xml:base="#">
+	<!-- ESA Earth Topics -->
+	<void:Dataset rdf:about="https://earth.esa.int/concepts/concept_scheme/earth-topics">
+		<rdfs:label>Earth Topics</rdfs:label>
+		<dcterms:title>EO Parameter Code List - Earth Topics</dcterms:title>
+		<dcterms:modified>2019-05-13</dcterms:modified>
+		<void:dataDump rdf:resource="file://earth-topics.rdf"/>
+		<void:dataDump rdf:resource="http://fedeo.spacebel.be:8080/thesaurus/data?graph=default"/>		
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />
+		<void:uriSpace>https://earth.esa.int/concept</void:uriSpace>
+	</void:Dataset>
+	<!-- ESA Earth Instruments -->
+	<void:Dataset rdf:about="https://earth.esa.int/concepts/concept_scheme/instruments">
+		<rdfs:label>ESA Instruments</rdfs:label>
+		<dcterms:title>EO Parameter Code List - Instruments</dcterms:title>
+		<dcterms:modified>2019-07-25</dcterms:modified>
+		<void:dataDump rdf:resource="file://instruments.rdf"/>
+		<void:dataDump rdf:resource="http://fedeo.spacebel.be:8080/thesaurus/data?graph=default"/>
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />
+		<void:uriSpace>https://earth.esa.int/concept</void:uriSpace>
+	</void:Dataset>
+	<!-- ESA Earth Platforms -->
+	<void:Dataset rdf:about="https://earth.esa.int/concepts/concept_scheme/platforms">
+		<rdfs:label>ESA Platforms</rdfs:label>
+		<dcterms:title>EO Parameter Code List - Platforms</dcterms:title>
+		<dcterms:modified>2019-07-24</dcterms:modified>
+		<void:dataDump rdf:resource="file://platforms.rdf"/>
+		<void:dataDump rdf:resource="http://fedeo.spacebel.be:8080/thesaurus/data?graph=default"/>
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />
+		<void:uriSpace>https://earth.esa.int/concept</void:uriSpace>
+	</void:Dataset>
+	<!-- NASA GCMD Science Keywords-->
+	<void:Dataset rdf:about="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords">
+		<rdfs:label>GCMD Science Keywords</rdfs:label>
+		<dcterms:title>Global Change Master Directory (GCMD). {#YEAR} Earth Science Keywords. #{VERSION}</dcterms:title>
+		<dcterms:modified>2020-09-29</dcterms:modified>		
+		<void:dataDump rdf:resource="file://sciencekeywords.csv"/>
+		<void:dataDump rdf:resource="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords/?format=csv"/>		
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/CSV" />		
+		<void:uriSpace>https://gcmd.earthdata.nasa.gov/kms/concept</void:uriSpace>	
+	</void:Dataset>
+	<!-- NASA GCMD Instruments-->
+	<void:Dataset rdf:about="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/instruments">
+		<rdfs:label>GCMD Instruments</rdfs:label>
+		<dcterms:title>Global Change Master Directory (GCMD). {#YEAR} Instrument Keywords. #{VERSION}</dcterms:title>
+		<dcterms:modified>2020-09-28</dcterms:modified>
+		<void:dataDump rdf:resource="file://gcmd_instruments.rdf"/>
+		<void:dataDump rdf:resource="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/instruments/?format=rdf"/>
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />		
+		<void:uriSpace>https://gcmd.earthdata.nasa.gov/kms/concept</void:uriSpace>	
+	</void:Dataset>
+	<!-- NASA GCMD Platforms-->
+	<void:Dataset rdf:about="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/platforms">
+		<rdfs:label>GCMD Platforms</rdfs:label>
+		<dcterms:title>Global Change Master Directory (GCMD). {#YEAR} Platform Keywords. #{VERSION}</dcterms:title>
+		<dcterms:modified>2020-10-02</dcterms:modified>
+		<void:dataDump rdf:resource="file://gcmd_platforms.rdf"/>
+		<void:dataDump rdf:resource="https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/platforms/?format=rdf"/>		
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />		
+		<void:uriSpace>https://gcmd.earthdata.nasa.gov/kms/concept</void:uriSpace>
+	</void:Dataset>
+	<!-- Spatial Data Service Category -->
+	<void:Dataset rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory">
+		<rdfs:label>Spatial Data Service Category</rdfs:label>
+		<dcterms:title>COMMISSION REGULATION (EC) No 1205/2008 of 3 December 2008 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards metadata, Part D 4, Classification of Spatial Data Services</dcterms:title>
+		<dcterms:modified>2008-12-03</dcterms:modified>
+		<void:dataDump rdf:resource="file://spatial_data_service_category.rdf"/>
+		<void:dataDump rdf:resource="https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/SpatialDataServiceCategory.en.rdf"/>		
+		<void:feature rdf:resource="http://www.w3.org/ns/formats/RDF_XML" />		
+		<void:uriSpace>http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory</void:uriSpace>
+	</void:Dataset>
+</rdf:RDF>

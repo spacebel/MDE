@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:spb="http://www.spacebel.be/jsf">
+
+    <h:form id ="usersForm">        
+        <p:panel header="User selection"
+                 rendered="#{not empty userBean.selectionUser and userBean.view eq 2}">
+            <input style="opacity: 0;position: absolute;"/>
+            <input type="password" style="opacity: 0;position: absolute;"/>
+
+            <h:panelGrid columns="2" columnClasses="input-label,input-value" 
+                         styleClass="user-form">
+                <h:outputText value="Username"/>
+                <h:outputText value="#{userBean.selectionUser.username}"/>                               
+
+                <h:outputText value="Password"/>
+                <p:password size="60" value="#{userBean.selectionUser.passwordForm}" autocomplete="off"/>
+
+                <h:outputText value="Role"/>
+                <p:selectOneMenu value="#{userBean.selectionUser.role}">
+                    <f:selectItems value="#{userBean.availableRoles}" />
+                </p:selectOneMenu>
+
+                <h:outputText value="Catalogues"/>                
+                <p:selectManyCheckbox value="#{userBean.selectionUser.catalogueUrls}" layout="grid" columns="1">
+                    <f:selectItems value="#{userBean.availableCatalogues}" var="cat" itemLabel="#{cat.label}" itemValue="#{cat.value}" />
+                </p:selectManyCheckbox>                                
+            </h:panelGrid>   
+            <p:commandButton value="Update"
+                             actionListener="#{userBean.updateUser}"
+                             update="@([id$=usersForm]) @([id$=preferencesForm]) @([id$=messageForm]) @([id$=mainTab])"
+                             onstart="PF('waitingBlockUI').block();"
+                             oncomplete="PF('waitingBlockUI').unblock()"
+                             onsuccess="PF('waitingBlockUI').unblock()"                                            
+                             onerror="PF('waitingBlockUI').unblock()"/>
+        </p:panel>
+
+        <p:panel header="User creation"
+                 rendered="#{not empty userBean.creatingUser and userBean.view eq 3}">
+            <h:panelGrid columns="2" columnClasses="input-label,input-value"
+                         styleClass="user-form">
+                <h:outputText value="Username"/>               
+                <p:inputText size="40" value="#{userBean.creatingUser.username}" 
+                             required="true"/> 
+
+                <h:outputText value="Password"/>
+                <p:password size="45" value="#{userBean.creatingUser.password}" 
+                            required="true"/>
+
+                <h:outputText value="Role"/>
+                <p:selectOneMenu value="#{userBean.creatingUser.role}">
+                    <f:selectItems value="#{userBean.availableRoles}" />
+                </p:selectOneMenu>
+
+                <h:outputText value="Catalogues"/>                
+                <p:outputPanel>
+                    <p:selectManyCheckbox value="#{userBean.creatingUser.catalogueUrls}" layout="grid" columns="1">
+                        <f:selectItems value="#{userBean.availableCatalogues}" var="cat" itemLabel="#{cat.label}" itemValue="#{cat.value}" />
+                    </p:selectManyCheckbox>
+                </p:outputPanel>
+            </h:panelGrid>   
+            <p:commandButton value="Create"
+                             actionListener="#{userBean.createUser}"
+                             update="@form"
+                             onstart="PF('waitingBlockUI').block();"
+                             oncomplete="PF('waitingBlockUI').unblock()"
+                             onsuccess="PF('waitingBlockUI').unblock()"                                            
+                             onerror="PF('waitingBlockUI').unblock()"/>            
+        </p:panel>
+
+
+        <p:outputPanel rendered="#{userBean.view eq 1 or userBean.view eq 2}"
+                       style="padding-top: 10px; padding-bottom: 10px;">
+            <p:commandButton value="Create user"
+                             rendered="#{userBean.view eq 1 or userBean.view eq 2}"
+                             actionListener="#{userBean.prepareCreatingUser}"
+                             update="@form">
+            </p:commandButton>
+        </p:outputPanel>        
+
+        <p:panel header="List of users">
+            <p:dataTable var="user" value="#{userBean.users}" rows="10"
+                         styleClass="user-list"
+                         selectionMode="single"
+                         rowKey="#{user.username}"
+                         paginator="true"    
+                         paginatorPosition="top"                         
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         currentPageReportTemplate="Users {startRecord}-{endRecord} of {totalRecords}">
+
+                <p:ajax event="rowSelect" listener="#{userBean.onUserSelect}" update="@form" />
+
+                <p:column headerText="Username" sortBy="#{user.username}">
+                    <h:outputText value="#{user.username}" />
+                </p:column>
+
+                <p:column headerText="Role" sortBy="#{user.role}">
+                    <h:outputText value="#{user.role}" />
+                </p:column>
+
+                <p:column headerText="Catalogues">
+                    <h:outputText value="#{user.cataloguesName}" />
+                </p:column>
+
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton icon="fa fa-fw fa-remove" title="Delete user" 
+                                     rendered="#{userAuthBean.userPreferences.username ne user.username}"
+                                     action="#{userBean.removeUser(user)}" update="@form">
+                        <p:confirm header="Confirmation" 
+                                   message="Would you like to delete user #{user.username}?" 
+                                   icon="fa fa-fw fa-exclamation-triangle" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:panel>       
+    </h:form>
+</ui:composition>

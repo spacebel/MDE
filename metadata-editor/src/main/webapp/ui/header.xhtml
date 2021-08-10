@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"	
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div class="spb-ad-tool-banner">
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4 title">Metadata Editor</div>
+            <div class="ui-g-4 banner-controls">
+                <h:form id="headerForm">
+                    <p:commandButton value="Login" onclick="PF('wsLoginWv').show()" 
+                                     rendered="#{not userAuthBean.authenticated}"/>
+
+                    <h:outputText value="#{userAuthBean.username}" styleClass="signed-user"
+                                  rendered="#{userAuthBean.authenticated}"/>
+
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Logout" actionListener="#{mainBean.doLogout}"
+                                     rendered="#{userAuthBean.authenticated}"
+                                     onstart="PF('waitingBlockUI').block();"						
+                                     oncomplete="PF('waitingBlockUI').unblock()"
+                                     onsuccess="PF('waitingBlockUI').unblock()"
+                                     onerror="PF('waitingBlockUI').unblock()"
+                                     update="@([id$=mainTab]) @([id$=headerForm]) @([id$=loginForm]) @([id$=catalogueSearchForm]) @([id$=catalogueResultForm]) @([id$=workspaceTab]) @([id$=messageForm])"/>
+                </h:form>
+            </div>			
+        </div>
+    </div>	
+</ui:composition>

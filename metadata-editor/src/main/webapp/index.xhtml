@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"	
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>
+        <title>Metadata Editor</title>
+        <ui:include src="ui/css.xhtml"/>        
+        <link rel="stylesheet" href="/md-editor/css/editormd.css" />
+        <script src="/md-editor/editormd.js"></script>
+    </h:head>
+
+    <h:body>
+        <script>
+            function spbOverrideFluidGridDestroy(widgetVarId) {
+                try {
+                    PF(widgetVarId).destroy = function () {
+                        try {
+                            var container = $(PrimeFaces.escapeClientId(this.id));
+                            //console.log(container);
+                            if (container) {
+                                container.masonry("destroy");
+                            }
+                        } catch (err) {
+                            //console.log(err);
+                        }
+                    };
+                } catch (err) {
+                    //console.log(err);
+                }
+            }
+
+            function spbToogleMarkdownEditor(elemId) {
+                var divId = "spbMEMarkdownDiv_" + elemId;
+                var pfTextareaId = "textarea_" + elemId;
+                var linkId = "#spbMELink_" + elemId;
+                var linkText = $(linkId).text();
+                if (linkText === "Show rich text") {
+                    $(linkId).text("Hide rich text");
+                } else {
+                    $(linkId).text("Show rich text");
+                }
+
+                spbMELoadMarkdownEditor(elemId, divId, pfTextareaId);
+
+                $("#spbMEMarkdownParentDiv_" + elemId).toggle();
+            }
+
+            function spbMELoadMarkdownEditor(elemId, divId, pfTextareaId) {
+                editormd(divId, {
+                    mode: "markdown",
+                    width: "90%",
+                    height: 400,
+                    placeholder: "",
+                    syncScrolling: "single",
+                    path: "/md-editor/lib/",
+                    emoji: true,
+                    toolbarIcons: function () {
+                        return [
+                            "undo", "redo", "|",
+                            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                            "h1", "h2", "h3", "h4", "h5", "h6", "|",
+                            "list-ul", "list-ol", "hr", "|",
+                            "link", "reference-link", "image", "code", "table", "code-block", "pagebreak", "|",
+                            "goto-line", "watch", "preview", "clear", "search", "|",
+                            "help"
+                        ];
+                    },
+                    onload: function () {
+                        //console.log("Here");
+                        //console.log($(PF(pfTextareaId).jqId).val()); 
+                        this.setMarkdown(PF(pfTextareaId).jq.val());
+                    },
+                    onchange: function () {
+                        if (elemId) {
+                            spbME_onChangeRichTextValue(elemId, this.getValue());
+                            spbME_onFormChangeConstTab();
+                        }
+
+                        //$(PF(pfTextareaId).jqId).val(this.getValue());
+                        //alert(PF(pfTextareaId).jq.val());
+                    },
+                    lang: {
+                        name: "en",
+                        description: "Open source online Markdown editor.",
+                        tocTitle: "Table of Contents",
+                        toolbar: {
+                            undo: "Undo(Ctrl+Z)",
+                            redo: "Redo(Ctrl+Y)",
+                            bold: "Bold",
+                            del: "Strikethrough",
+                            italic: "Italic",
+                            quote: "Block quote",
+                            ucwords: "Words first letter convert to uppercase",
+                            uppercase: "Selection text convert to uppercase",
+                            lowercase: "Selection text convert to lowercase",
+                            h1: "Heading 1",
+                            h2: "Heading 2",
+                            h3: "Heading 3",
+                            h4: "Heading 4",
+                            h5: "Heading 5",
+                            h6: "Heading 6",
+                            "list-ul": "Unordered list",
+                            "list-ol": "Ordered list",
+                            hr: "Horizontal rule",
+                            link: "Link",
+                            "reference-link": "Reference link",
+                            image: "Image",
+                            code: "Code inline",
+                            "preformatted-text": "Preformatted text / Code block (Tab indent)",
+                            "code-block": "Code block (Multi-languages)",
+                            table: "Tables",
+                            datetime: "Datetime",
+                            emoji: "Emoji",
+                            "html-entities": "HTML Entities",
+                            pagebreak: "Page break",
+                            "goto-line": "Go to line",
+                            watch: "Unwatch",
+                            unwatch: "Watch",
+                            preview: "HTML Preview (Press Shift + ESC exit)",
+                            fullscreen: "Fullscreen (Press ESC exit)",
+                            clear: "Clear",
+                            search: "Search",
+                            help: "Help",
+                            info: "About Editor.md"
+                        },
+                        buttons: {
+                            enter: "Enter",
+                            cancel: "Cancel",
+                            close: "Close"
+                        },
+                        dialog: {
+                            link: {
+                                title: "Link",
+                                url: "Address",
+                                urlTitle: "Title",
+                                urlEmpty: "Error: Please fill in the link address."
+                            },
+                            referenceLink: {
+                                title: "Reference link",
+                                name: "Name",
+                                url: "Address",
+                                urlId: "ID",
+                                urlTitle: "Title",
+                                nameEmpty: "Error: Reference name can't be empty.",
+                                idEmpty: "Error: Please fill in reference link id.",
+                                urlEmpty: "Error: Please fill in reference link url address."
+                            },
+                            image: {
+                                title: "Image",
+                                url: "Address",
+                                link: "Link",
+                                alt: "Title",
+                                uploadButton: "Upload",
+                                imageURLEmpty: "Error: picture url address can't be empty.",
+                                uploadFileEmpty: "Error: upload pictures cannot be empty!",
+                                formatNotAllowed: "Error: only allows to upload pictures file, upload allowed image file format:"
+                            },
+                            preformattedText: {
+                                title: "Preformatted text / Codes",
+                                emptyAlert: "Error: Please fill in the Preformatted text or content of the codes.",
+                                placeholder: "coding now...."
+                            },
+                            codeBlock: {
+                                title: "Code block",
+                                selectLabel: "Languages: ",
+                                selectDefaultText: "select a code language...",
+                                otherLanguage: "Other languages",
+                                unselectedLanguageAlert: "Error: Please select the code language.",
+                                codeEmptyAlert: "Error: Please fill in the code content.",
+                                placeholder: "coding now...."
+                            },
+                            htmlEntities: {
+                                title: "HTML Entities"
+                            },
+                            help: {
+                                title: "Help"
+                            }
+                        }
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                setInterval(function () {
+                    spbME_onKeepSessionAlive();
+                }, 1780000); // 1780000 = ((30 minutes * 60s) - 20s) * 1000
+
+            });
+
+            function handleCompleteCatalogueAuthentication(xhr, status, args) {
+                console.log("Invoke handleCompleteCatalogueAuthentication");
+                if (args.catAuthForm !== undefined) {
+                    if (args.catAuthForm === true) {
+                        console.log("Show Cat Auth form");
+                        PF('catalogueAuthenticationWv').show();
+                    }
+
+                    if (args.catAuthForm === false) {
+                        PF('catalogueAuthenticationWv').hide();
+                    }
+                    if (args.catAuthForm === 'true') {
+                        PF('catalogueAuthenticationWv').show();
+                    }
+                }
+
+                if (args.nextAction !== undefined) {
+                    if (args.nextAction === 'refreshSearch') {
+                        spbME_onRefreshSearch();
+                    }
+                }
+            }
+
+        </script>
+        <h:form id="messageForm">
+            <p:growl showDetail="true" showSummary="false" 
+                     sticky="true" escape="false"/>
+
+            <p:remoteCommand name="spbME_onKeepSessionAlive"	
+                             actionListener="#{mainBean.keepSessionAlive}"/>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-fw fa-remove" />
+            </p:confirmDialog>         
+
+        </h:form>
+
+        <ui:include src="ui/header.xhtml" />
+
+        <p:dialog widgetVar="wsLoginWv" modal="true"
+                  header="Login" resizable="false"
+                  styleClass="spb-login-dlg">
+            <h:form id="loginForm">
+                <table style="width: 100%;" class="spb-ad-tool-login-form">
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="User name"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="40" value="#{userAuthBean.username}"/>
+                        </td>							
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Password"/>
+                        </td>
+                        <td class="input-value">
+                            <p:password size="40" value="#{userAuthBean.password}"/>
+                        </td>							
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p:commandButton value="Login"
+                                             actionListener="#{mainBean.doLogin}"
+                                             onstart="PF('waitingBlockUI').block();"						
+                                             oncomplete="PF('waitingBlockUI').unblock()"
+                                             onsuccess="PF('waitingBlockUI').unblock()"
+                                             onerror="PF('waitingBlockUI').unblock()"
+                                             update="@([id$=mainTab]) @([id$=headerForm]) @([id$=loginForm]) @([id$=catalogueSearchForm]) @([id$=catalogueResultForm]) @([id$=workspaceTab]) @([id$=messageForm])"/>
+                        </td>                        
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="catalogueAuthenticationWv" modal="true"
+                  header="Catalogue authentication" resizable="false"
+                  styleClass="spb-login-dlg">
+            <h:form id="catalogueAuthenticationForm">
+                <h:outputText value="#{mainBean.catalogueAuthenticationMsg}" styleClass="spb-ad-tool-authentication-error"
+                              rendered="#{not empty mainBean.catalogueAuthenticationMsg}"/>
+                <ui:fragment rendered="#{not empty mainBean.catalogueAuthenticationMsg}"><br /></ui:fragment>
+
+                <table style="width: 100%;" class="spb-ad-tool-login-form">
+                    <tr>
+                        <td class="input-value" colspan="2">
+                            <h:outputText value="Please provide user name and password for write access to the catalogue (#{userAuthBean.userPreferences.catalogue.title})"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="User name"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="40" value="#{userAuthBean.userPreferences.catalogue.username}"/>
+                        </td>							
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Password"/>
+                        </td>
+                        <td class="input-value">
+                            <p:password size="40" value="#{userAuthBean.userPreferences.catalogue.password}"/>
+                        </td>							
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p:commandButton value="Authenticate"
+                                             oncomplete="handleCompleteCatalogueAuthentication(xhr, status, args)"                                             
+                                             actionListener="#{mainBean.authenticateCatalogue}"
+                                             update="@([id$=catalogueAuthenticationForm]) @([id$=catalogueSearchForm]) @([id$=catalogueResultForm]) @([id$=workspaceTab]) @([id$=messageForm])"/>
+                        </td>                        
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
+
+        <h:panelGroup layout="block" styleClass="spb-ad-tool-main-layout">
+            <p:tabView styleClass="spb-tab-view" id="mainTab" activeIndex="#{userAuthBean.activeTabIndex}"> 
+                <p:ajax event="tabChange" listener="#{userAuthBean.onTabChange}" />
+                <p:tab title="Workspace" titleStyleClass="spb-main-tab-title">
+                    <ui:include src="ui/workspace.xhtml" />
+                </p:tab>
+                <p:tab title="Catalogue" titleStyleClass="spb-main-tab-title"
+                       rendered="#{mainBean.hasCatalogue()}">
+                    <ui:include src="ui/catalog.xhtml" />
+                </p:tab>                
+                <p:tab title="Preferences" titleStyleClass="spb-main-tab-title"
+                       rendered="#{userAuthBean.authenticated}">                    
+                    <ui:include src="ui/preferences.xhtml" />
+                </p:tab>
+                <p:tab title="Manage users" titleStyleClass="spb-main-tab-title"
+                       rendered="#{userAuthBean.admin}">
+                    <ui:include src="ui/users.xhtml" />
+                </p:tab>
+                <p:tab title="Manage catalogues" titleStyleClass="spb-main-tab-title"
+                       rendered="#{userAuthBean.admin}">
+                    <ui:include src="ui/management/catalogueManagement.xhtml" />
+                </p:tab>
+                <ui:remove>
+                    <p:tab title="Settings" titleStyleClass="spb-main-tab-title"
+                           rendered="#{userAuthBean.admin}">
+                        <ui:include src="ui/settings.xhtml" />
+                    </p:tab>
+                </ui:remove>
+            </p:tabView>          
+        </h:panelGroup>
+
+        <h:form id="nextActionForm">
+            <pe:remoteCommand name="spbME_onRefreshSearch"
+                              actionListener="#{mainBean.refreshSearch()}"
+                              immediate="true"
+                              onstart="PF('waitingBlockUI').block()"
+                              oncomplete="PF('waitingBlockUI').unblock()"
+                              onsuccess="PF('waitingBlockUI').unblock()"
+                              onerror="PF('waitingBlockUI').block()"
+                              update="@([id$=catalogueResultForm]), @([id$=messageForm])"/> 
+
+        </h:form>
+
+        <pe:blockUI widgetVar="searchingBlockUI" 
+                    css="{position: 'absolute', right: '50%', top: '20%', width: '150px', cursor: 'wait'}"
+                    centerY="false"> 
+            <h:panelGrid columns="2" columnClasses="blockui-message-column-left,blockui-message-column-right">					
+                <p:graphicImage value="/images/loading.gif" />					
+                <h:outputText value="Searching..." />	
+            </h:panelGrid>            
+        </pe:blockUI>			
+
+        <pe:blockUI widgetVar="waitingBlockUI" 
+                    css="{position: 'absolute', right: '50%', top: '20%', width: '150px', cursor: 'wait'}"
+                    centerY="false"> 
+            <h:panelGrid columns="2" columnClasses="blockui-message-column-left,blockui-message-column-right">					
+                <p:graphicImage value="/images/loading.gif" />					
+                <h:outputText value="Waiting..." />	
+            </h:panelGrid>            
+        </pe:blockUI>
+    </h:body>
+</html>

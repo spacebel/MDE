@@ -1,0 +1,1200 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "GeoJSON encoding of EO Processing and Application metadata",
+	"description": "Definition of document with EO Processing and Application metadata in GeoJSON encoding.  Note that numbers in the instance should not be surrounded by double-quotes to validate against this schema. ",
+	"$ref": "#/definitions/Feature",
+	"definitions": {
+		"Point": {
+			"title": "Point",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "One position (longitude, lattitude)",
+					"type": "array",
+					"minItems": 2,
+					"maxItems": 2,
+					"items": {
+						"type": "number"
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"Point"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"MultiPoint": {
+			"title": "MultiPoint",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "Array of positions",
+					"type": "array",
+					"minItems": 1,
+					"items": 
+						{
+							"description": "One position",
+							"type": "array",
+							"minItems": 2,
+							"maxItems": 2,
+							"items": {
+								"type": "number"
+							}
+						},
+					
+					"additionalItems": false
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"MultiPoint"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"LineString": {
+			"title": "LineString",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "Array of positions",
+					"type": "array",
+					"minItems": 2,
+					"items": {
+						"description": "One position",
+						"type": "array",
+						"minItems": 2,
+						"maxItems": 2,
+						"items": {
+							"type": "number"
+						}
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"LineString"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"MultiLineString": {
+			"title": "MultiLineString",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "Array of linestring",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"description": "Linestring, i.e. array of positions",
+						"type": "array",
+						"minItems": 2,
+						"items": {
+							"description": "Position (longitude, lattitude)",
+							"type": "array",
+							"minItems": 2,
+							"maxItems": 2,
+							"items": {
+								"type": "number"
+							}
+						}
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"MultiLineString"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"Polygon": {
+			"title": "Polygon",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "Array of linestrings",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"description": "Linear ring, i.e. linestring or array of positions",
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"description": "One position",
+							"type": "array",
+							"minItems": 2,
+							"maxItems": 2,
+							"items": {
+								"type": "number"
+							}
+						}
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"Polygon"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"MultiPolygon": {
+			"title": "MultiPolygon",
+			"type": "object",
+			"properties": {
+				"coordinates": {
+					"title": "coordinates",
+					"description": "Array of Polygons",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"description": "Array of linestrings",
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"description": "Linear ring, i.e. linestring or array of positions",
+							"type": "array",
+							"items": {
+								"description": "One position",
+								"type": "array",
+								"minItems": 2,
+								"maxItems": 2,
+								"items": {
+									"type": "number"
+								}
+							}
+						}
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": [
+						"MultiPolygon"
+					]
+				}
+			},
+			"required": [
+				"coordinates",
+				"type"
+			],
+			"additionalProperties": false
+		},
+		"Geometry": {
+			"title": "Geometry",
+			"type": "object",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/Point"
+				},
+				{
+					"$ref": "#/definitions/MultiPoint"
+				},
+				{
+					"$ref": "#/definitions/LineString"
+				},
+				{
+					"$ref": "#/definitions/MultiLineString"
+				},
+				{
+					"$ref": "#/definitions/Polygon"
+				},
+				{
+					"$ref": "#/definitions/MultiPolygon"
+				}
+			]
+		},
+		"Links": {
+			"title": "Links",
+			"description": "OGC 14-055r2",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Links"
+					]
+				}
+			},
+			"patternProperties": {
+				"^(profiles|alternates|via|previews)$": {
+					"description": "OGC 14-055r2",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Link"
+					}
+				},
+				"^(search|describedby|related)$": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Link"
+					}
+				}
+			},
+			"additionalProperties": {
+				"type": "array",
+				"minItems": 1,
+				"items": {
+					"$ref": "#/definitions/Link"
+				}
+			}
+		},
+		"Properties": {
+			"title": "Properties",
+			"type": "object",
+			"allOf": [
+				{
+					"type": "object",
+					"properties": {
+						"acquisitionInformation": {
+							"description": "OGC 17-003",
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/AcquisitionInformation"
+							}
+						},
+						"productInformation": {
+							"$ref": "#/definitions/ProductInformation"
+						},
+						"spatial": {
+							"$ref": "#/definitions/Location"
+						},
+						"priceSpecification": {
+							"$ref": "#/definitions/CompoundPriceSpecification"
+						}
+					}
+				},
+				{
+					"$ref": "#/definitions/MetadataInformation"
+				},
+				{
+					"$ref": "#/definitions/ServiceIdentification"
+				},
+				{
+					"$ref": "#/definitions/RightsInformation"
+				},
+				{
+					"$ref": "#/definitions/DescriptiveKeywords"
+				},
+				{
+					"$ref": "#/definitions/RelatedUrl"
+				}
+			]
+		},
+		"Feature": {
+			"description": "GeoJSON Feature",
+			"type": "object",
+			"properties": {
+				"@context": {},
+				"type": {
+					"title": "type",
+					"type": "string",
+					"enum": [
+						"Feature"
+					]
+				},
+				"id": {
+					"type": "string",
+					"format": "uri"
+				},
+				"geometry": {
+					"oneOf": [
+						{
+							"$ref": "#/definitions/Geometry"
+						},
+						{
+							"type": "null"
+						}
+					]
+				},
+				"properties": {
+					"$ref": "#/definitions/Properties"
+				},
+				"bbox": {
+					"type": "array",
+					"minItems": 4,
+					"maxItems": 4,
+					"items": {
+						"type": "number"
+					}
+				}
+			},
+			"required": [
+				"type",
+				"id",
+				"geometry",
+				"properties"
+			]
+		},
+		"Link": {
+			"description": "OGC 14-055r2",
+			"type": "object",
+			"properties": {
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"type": {
+					"description": "MIME type",
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"length": {
+					"type": "integer",
+					"minimum": 0,
+					"exclusiveMinimum": true
+				},
+				"lang": {
+					"description": "RFC-3066",
+					"type": "string"
+				}
+			},
+			"required": [
+				"href"
+			]
+		},
+		"Offering": {
+			"title": "Offering",
+			"description": "Offering as defined in OGC 14-055r2",
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string",
+					"format": "uri"
+				},
+				"operations": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Operation"
+					}
+				},
+				"contents": {
+					"type": "array"
+				},
+				"styles": {
+					"type": "array"
+				}
+			},
+			"required": [
+				"code"
+			]
+		},
+		"Operation": {
+			"description": "OGC 14-055r2",
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"method": {
+					"type": "string",
+					"enum": [
+						"GET",
+						"POST",
+						"PUT",
+						"HEAD",
+						"PATCH",
+						"DELETE"
+					]
+				},
+				"type": {
+					"description": "Media type",
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"request": {
+					"type": "object"
+				},
+				"result": {
+					"type": "object"
+				}
+			},
+			"required": [
+				"code",
+				"method",
+				"href"
+			]
+		},
+		"Agent": {
+			"description": "vcard:Kind, foaf:Agent subset. OGC 14-055r2.",
+			"type": "object",
+			"minProperties": 1,
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Individual",
+						"Kind",
+						"Person",
+						"Organization",
+						"Agent"
+					]
+				},
+				"name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string",
+					"format": "email"
+				},
+				"uri": {
+					"type": "string",
+					"format": "uri"
+				}
+			}
+		},
+		"Category": {
+			"description": "OGC 14-055r2 §7.1.1.15",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Category"
+					]
+				},
+				"scheme": {
+					"type": "string",
+					"format": "uri"
+				},
+				"term": {
+					"type": "string"
+				},
+				"label": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"term"
+			],
+			"additionalProperties": false
+		},
+		"DescriptiveKeywords": {
+			"type": "object",
+			"properties": {
+				"subject": {
+					"description": "Topic category",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Category"
+					}
+				},
+				"categories": {
+					"description": "OGC 14-055r2 - Keywords associated with a controlled vocabulary.",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Category"
+					}
+				},
+				"keyword": {
+					"description": "dcat:keyword.  Keywords not associated with a controlled vocabulary.",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"theme": {
+					"description": "dcat:theme",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Concept"
+					}
+				}
+			}
+		},
+		"ServiceContact": {
+			"type": "object",
+			"properties": {
+				"publisher": {
+					"description": "role=\"publisher\" (OGC 14-055r2)",
+					"type": "string"
+				},
+				"authors": {
+					"description": "role=\"creator\" (OGC 14-055r2)",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Agent"
+					}
+				},
+				"contactPoint": {
+					"description": "Role=\"contact point\"",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Agent"
+					}
+				},
+				"qualifiedAttribution": {
+					"description": "Role=other",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Attribution"
+					}
+				}
+			}
+		},
+		"MetadataInformation": {
+			"type": "object",
+			"properties": {
+				"updated": {
+					"description": "OGC 14-055r2",
+					"type": "string",
+					"format": "date-time"
+				},
+				"lang": {
+					"description": "OGC 14-055r2",
+					"type": "string"
+				},
+				"published": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"updated"
+			]
+		},
+		"ServiceIdentification": {
+			"type": "object",
+			"allOf": [
+				{
+					"type": "object",
+					"properties": {
+						"kind": {
+							"description": "dct:type",
+							"type": "string",
+							"format": "uri"
+						},
+						"title": {
+							"description": "OGC 14-055r2",
+							"type": "string"
+						},
+						"identifier": {
+							"type": "string"
+						},
+						"date": {
+							"description": "OGC 14-055r2",
+							"type": "string"
+						},
+						"abstract": {
+							"description": "OGC 14-055r2",
+							"oneOf": [
+								{
+									"type": "string"
+								},
+								{
+									"$ref": "#/definitions/mimebundle"
+								}
+							]
+						},
+						"provenance": {
+							"description": "dct:ProvenanceStatement",
+							"type": "array",
+							"minItems": 1,
+							"items": {
+								"$ref": "#/definitions/ProvenanceStatement"
+							}
+						},
+						"wasUsedBy": {
+							"description": "prov:Activity",
+							"type": "array",
+							"minItems": 1,
+							"items": {
+								"$ref": "#/definitions/Activity"
+							}
+						},
+						"doi": {
+							"description": "adms:identifier",
+							"type": "string"
+						},
+						"bibliographicCitation": {
+							"description": "dct:bibliographicCitation",
+							"type": "string"
+						},
+						"versionInfo": {
+							"description": "owl:versionInfo",
+							"type": "string"
+						},
+						"versionNotes": {
+							"description": "adms:versionNotes",
+							"type": "string"
+						}
+					},
+					"required": [
+						"title",
+						"identifier"
+					]
+				},
+				{
+					"$ref": "#/definitions/ServiceContact"
+				}
+			]
+		},
+		"Attribution": {
+			"description": "prov:Attribution",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Attribution"
+					]
+				},
+				"role": {
+					"description": "ResponsibleParty role",
+					"type": "string",
+					"enum": [
+						"resourceProvider",
+						"custodian",
+						"owner",
+						"user",
+						"distributor",
+						"originator",
+						"pointOfContact",
+						"principalInvestigator",
+						"processor",
+						"publisher",
+						"author"
+					]
+				},
+				"agent": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Agent"
+					}
+				}
+			},
+			"required": [
+				"role",
+				"agent"
+			]
+		},
+		"AcquisitionParameters": {
+			"type": "object",
+			"allOf": [
+				{
+					"$ref": "#/definitions/TemporalInformation"
+				}
+			]
+		},
+		"TemporalInformation": {
+			"description": "Subset of AcquisitionParameters",
+			"type": "object",
+			"properties": {
+				"beginningDateTime": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"endingDateTime": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"beginningDateTime"
+			]
+		},
+		"AcquisitionInformation": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"AcquisitionInformation"
+					]
+				},
+				"platform": {
+					"$ref": "#/definitions/Platform"
+				},
+				"instrument": {
+					"$ref": "#/definitions/Instrument"
+				}
+			}
+		},
+		"Platform": {
+			"type": "object",
+			"minProperties": 1,
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Platform"
+					]
+				},
+				"id": {
+					"type": "string",
+					"format": "uri"
+				},
+				"platformShortName": {
+					"type": "string"
+				},
+				"platformSerialIdentifier": {
+					"type": "string"
+				},
+				"orbitType": {
+					"type": "string",
+					"enum": [
+						"GEO",
+						"LEO"
+					]
+				}
+			},
+			"required": [
+				"platformShortName"
+			],
+			"additionalProperties": false
+		},
+		"Instrument": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Instrument"
+					]
+				},
+				"id": {
+					"type": "string",
+					"format": "uri"
+				},
+				"sensorType": {
+					"type": "string",
+					"enum": [
+						"OPTICAL",
+						"RADAR",
+						"ATMOSPHERIC",
+						"ALTIMETRIC",
+						"LIMB"
+					]
+				},
+				"instrumentShortName": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"instrumentShortName"
+			],
+			"additionalProperties": false
+		},
+		"ProductInformation": {
+			"description": "OGC 17-003",
+			"type": "object"
+		},
+		"RelatedUrl": {
+			"type": "object",
+			"properties": {
+				"links": {
+					"description": "OGC 14-055r2 and OGC 17-069r2",
+					"oneOf": [
+						{
+							"$ref": "#/definitions/Links"
+						},
+						{
+							"description": "OGC 17-069r2",
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Link_"
+							}
+						}
+					]
+				},
+				"offerings": {
+					"description": "OGC 14-055r2",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/Offering"
+					}
+				},
+				"endpointDescription": {
+					"description": "dcat:endpointDescription",
+					"type": "array"
+				},
+				"hasPart": {
+					"description": "dct:hasPart (coupled resource).",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/CoupledResource"
+					}
+				}
+			}
+		},
+		"Location": {
+			"description": "Alternative representation of geometry.",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Location"
+					]
+				},
+				"id": {
+					"type": "string",
+					"format": "uri"
+				},
+				"geometry": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string"
+							},
+							"value": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		},
+		"LicenseDocument": {
+			"description": "dct:LicenseDocument",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"LicenseDocument"
+					]
+				},
+				"label": {
+					"description": "rdfs:label",
+					"oneOf": [
+								{
+									"type": "string"
+								},
+								{
+									"$ref": "#/definitions/mimebundle"
+								}
+							]
+				}
+			},
+			"required": [
+				"label"
+			]
+		},
+		"RightsStatement": {
+			"description": "dct:RightsStatement",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"RightsStatement"
+					]
+				},
+				"label": {
+					"description": "rdfs:label",
+					"oneOf": [
+								{
+									"type": "string"
+								},
+								{
+									"$ref": "#/definitions/mimebundle"
+								}
+							]
+				}
+			},
+			"required": [
+				"label"
+			]
+		},
+		"ProvenanceStatement": {
+			"title": "dct:provenance",
+			"description": "dct:ProvenanceStatement",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"ProvenanceStatement"
+					]
+				},
+				"label": {
+					"description": "rdfs:label",
+					"type": "string"
+				}
+			},
+			"required": [
+				"label"
+			]
+		},
+		"Activity": {
+			"description": "prov:Activity",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Activity"
+					]
+				},
+				"generated": {
+					"$ref": "#/definitions/Entity"
+				},
+				"qualifiedAssociation": {
+					"$ref": "#/definitions/Association"
+				}
+			},
+			"required": [
+				"generated",
+				"qualifiedAssociation"
+			]
+		},
+		"Entity": {
+			"description": "prov:Entity",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Entity"
+					]
+				},
+				"degree": {
+					"type": "string",
+					"format": "uri"
+				},
+				"description": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"degree"
+			]
+		},
+		"Association": {
+			"description": "prov:Association",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Association"
+					]
+				},
+				"hadPlan": {
+					"$ref": "#/definitions/Plan"
+				}
+			},
+			"required": [
+				"hadPlan"
+			]
+		},
+		"Plan": {
+			"description": "prov:Plan",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Plan"
+					]
+				},
+				"wasDerivedFrom": {
+					"$ref": "#/definitions/Standard"
+				}
+			},
+			"required": [
+				"wasDerivedFrom"
+			]
+		},
+		"Standard": {
+			"description": "dct:Standard",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Standard"
+					]
+				},
+				"title": {
+					"type": "string"
+				},
+				"issued": {
+					"description": "dct:issued",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"title"
+			]
+		},
+		"Concept": {
+			"description": "skos:Concept",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uri"
+				}
+			}
+		},
+		"CoupledResource": {
+			"description": "GeoDCAT-AP §II.6 - coupled resource",
+			"type": "string",
+			"format": "uri"
+		},
+		"RightsInformation": {
+			"type": "object",
+			"properties": {
+				"rights": {
+					"description": "dct:rights and OGC 14-055r2 §7.1.2.7",
+					"type": "string"
+				},
+				"license": {
+					"description": "dct:LicenseDocument",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/LicenseDocument"
+					}
+				},
+				"accessRights": {
+					"description": "dct:RightsStatement",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/RightsStatement"
+					}
+				}
+			}
+		},
+		"Link_": {
+			"description": "OGC 17-069r2",
+			"type": "object",
+			"properties": {
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"rel": {
+					"type": "string"
+				},
+				"type": {
+					"description": "MIME type",
+					"type": "string"
+				},
+				"hreflang": {
+					"description": "RFC-3066",
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"length": {
+					"type": "integer",
+					"minimum": 0,
+					"exclusiveMinimum": true
+				}
+			},
+			"required": [
+				"href"
+			]
+		},
+		"CompoundPriceSpecification": {
+			"description": "schema.org",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"CompoundPriceSpecification"
+					]
+				},
+				"description": {
+					"type": "string"
+				},
+				"priceComponent": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/UnitPriceSpecification"
+					}
+				}
+			}
+		},
+		"UnitPriceSpecification": {
+			"description": "schema.org",
+			"type": "object"
+		},
+		"mimebundle": {
+			"description": "A mime-type keyed dictionary of data",
+			"type": "object",
+			"additionalProperties": {
+				"description": "mimetype output (e.g. text/plain), represented as either an array of strings or a string.",
+				"$ref": "#/definitions/multiline_string"
+			},
+			"patternProperties": {
+				"^application/(.*\\+)?json$": {
+					"description": "Mimetypes with JSON output, can be any type"
+				}
+			}
+		},
+		"multiline_string": {
+			"oneOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			]
+		}
+	}
+}

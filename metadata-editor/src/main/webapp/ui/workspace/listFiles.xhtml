@@ -1,0 +1,331 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:spb="http://www.spacebel.be/jsf">
+
+    <div class="spb-search-results-table" style="height: 800px;">
+        <c:choose>
+            <c:when test="#{mainBean.workspace.view.list}">
+                <div class="list-view">
+                    <p:dataTable var="item" rows="#{userAuthBean.config.rowsPerPage}"
+                                 id="workspaceListTable"
+                                 selectionMode="single"
+                                 rowKey="#{item.uuid}"
+                                 rowStyleClass="#{mainBean.workspace.highlight(item) ? 'row-highlight' : ''}"
+                                 rendered="#{not empty mainBean.workspace.paginator.data.items}"
+                                 value="#{mainBean.workspace.paginator.data.items}">
+
+                        <p:columnToggler datasource="workspaceListTable" trigger="toggler" />
+
+                        <p:ajax event="sort" listener="#{mainBean.workspace.paginator.onSort}" 
+                                update="@([id$=workspaceListTable]) @([id$=messageForm])" />   
+
+                        <p:ajax event="rowSelect" listener="#{mainBean.workspace.onEditSelectedItem}" 
+                                update="@([id$=workspaceTab]) @([id$=messageForm])" />
+
+                        <p:column style="width:20px;text-align:center;padding:2px;">
+                            <p:selectBooleanCheckbox value="#{item.selected}" 
+                                                     title="Select this metadata record" 
+                                                     styleClass="item-checkbox">
+                                <p:ajax update="@form @([id$=messageForm])" listener="#{mainBean.workspace.onSelect(item.selected)}" />
+                            </p:selectBooleanCheckbox>                            
+                        </p:column>                                                                                            
+
+                        <p:column headerText="Identifier" style="width:150px;"
+                                  sortBy="#{item.flatList.id}">
+                            <table>
+                                <tr>
+                                    <td style="width: 18px; border: none; border-width: 0;">
+                                        <h:outputText value="C" styleClass="spb-metadata-collection-type"
+                                                      title="Collection metadata"
+                                                      rendered="#{item.metadata.series}"/>
+                                        <h:outputText value="S" styleClass="spb-metadata-service-type" 
+                                                      title="Service metadata"
+                                                      rendered="#{item.metadata.service}"/>
+                                    </td>
+                                    <td style="border: none; border-width: 0;">
+                                        <h:outputText value="#{spb:shortStr(item.flatList.id,30)}"
+                                                      title="#{item.flatList.id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:column>
+
+                        <p:column headerText="Modified" style="width:80px;"
+                                  sortBy="#{item.flatList.modifiedDate}">
+                            <h:outputText value="#{item.flatList.modifiedDate}" />
+                        </p:column>
+
+                        <p:column headerText="Title" style="width:200px;"
+                                  sortBy="#{item.flatList.title}">
+                            <h:outputText value="#{spb:shortStr(item.flatList.title,80)}"
+                                          title="#{item.flatList.title}"/>
+                        </p:column>
+
+                        <p:column headerText="Abstract" sortBy="#{item.flatList.abst}">
+                            <h:outputText value="#{spb:shortStr(item.flatList.abst,200)}"
+                                          title="#{item.flatList.abst}"/>
+                        </p:column>
+
+                        <p:column headerText="Organisation" style="width:100px;"
+                                  sortBy="#{item.flatList.organisationName}">
+                            <h:outputText value="#{item.flatList.organisationName}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Start" style="width:80px;"
+                                  visible="false"
+                                  sortBy="#{item.flatList.startDate}">
+                            <h:outputText value="#{item.flatList.startDate}" />
+                        </p:column>
+
+                        <p:column headerText="End" style="width:80px;"
+                                  visible="false"
+                                  sortBy="#{item.flatList.endDate}">
+                            <h:outputText value="#{item.flatList.endDate}" />
+                        </p:column>
+
+                        <p:column headerText="Status" style="width:80px;"
+                                  sortBy="#{item.validationStatus.status}">
+                            <p:commandButton
+                                rendered="#{item.validationStatus.error}"
+                                icon="fa fa-fw fa-times-circle"
+                                styleClass="list-view-button validation-error-button"                                
+                                value=" Error"
+                                global="true"
+                                title="View validation report"						
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.workspace.onViewValidationReport(item)}"/>
+
+                            <p:commandButton
+                                rendered="#{item.validationStatus.warn}"
+                                icon="fa fa-fw fa-warning"
+                                styleClass="list-view-button #{mainBean.workspace.highlight(item) ? 'validation-warn-highlight-button': 'validation-warn-button'}"
+                                value=" Warning"
+                                global="true"
+                                title="View validation report"						
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.workspace.onViewValidationReport(item)}"/>
+
+                            <h:panelGroup rendered="#{item.validationStatus.valid}">
+                                <h:outputText styleClass="fa fa-fw fa-check-circle validation-valid"/>                            
+                                <h:outputText value="Valid" styleClass="validation-valid-text"/>
+                            </h:panelGroup>
+
+                        </p:column>
+
+                        <p:column style="width:70px;text-align:center;padding: 2px;">
+                            <p:commandButton
+                                icon="fa fa-fw fa-edit"
+                                styleClass="list-view-button"
+                                global="true"
+                                title="Edit"						
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.workspace.onEdit(item)}"/>
+
+                            <p:commandButton id="workspaceListViewMoreButton" type="button"                                            
+                                             icon="fa fa-fw fa-ellipsis-v" 
+                                             title="More options"
+                                             styleClass="list-view-button"/>	
+
+                            <p:tieredMenu overlay="true" trigger="workspaceListViewMoreButton" my="left top" at="left bottom"
+                                          styleClass="menu-button">
+
+                                <p:menuitem value="View details"                                            
+                                            icon="fa fa-fw fa-info-circle"
+                                            styleClass="spb-menuitem-text"
+                                            update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                            actionListener="#{mainBean.workspace.onViewDetails(item)}"
+                                            onstart="PF('waitingBlockUI').block();"
+                                            oncomplete="PF('waitingBlockUI').unblock()"
+                                            onsuccess="PF('waitingBlockUI').unblock()"                                            
+                                            onerror="PF('waitingBlockUI').unblock()"/>
+
+                                <p:menuitem value="Clone"
+                                            icon="fa fa-fw fa-copy"
+                                            styleClass="spb-menuitem-text"
+                                            update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                            actionListener="#{mainBean.cloneMetadataRecord(item)}"
+                                            onstart="PF('waitingBlockUI').block();"
+                                            oncomplete="PF('waitingBlockUI').unblock()"
+                                            onsuccess="PF('waitingBlockUI').unblock()"
+                                            onerror="PF('waitingBlockUI').unblock()"/>                                                            
+
+                                <p:menuitem value="Copy to catalogue"
+                                            icon="fa fa-fw fa-copy"
+                                            styleClass="spb-menuitem-text"
+                                            rendered="#{userAuthBean.canWrite(item)}"
+                                            update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                            actionListener="#{mainBean.checkExistingAndCopyToCatalogue(item,false)}"
+                                            onstart="PF('waitingBlockUI').block();"
+                                            oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                            onsuccess="PF('waitingBlockUI').unblock()"
+                                            onerror="PF('waitingBlockUI').unblock()"/>
+
+                                <p:menuitem value="Move to catalogue"
+                                            icon="fa fa-fw fa-arrow-circle-up"
+                                            styleClass="spb-menuitem-text"
+                                            rendered="#{userAuthBean.canWrite(item)}"
+                                            update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                            actionListener="#{mainBean.checkExistingAndCopyToCatalogue(item,true)}"
+                                            onstart="PF('waitingBlockUI').block();"
+                                            oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                            onsuccess="PF('waitingBlockUI').unblock()"
+                                            onerror="PF('waitingBlockUI').unblock()"/>
+
+                                <p:menuitem value="Remove from workspace"
+                                            icon="fa fa-fw fa-remove"
+                                            styleClass="spb-menuitem-text"                                            
+                                            update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                            actionListener="#{mainBean.removeFromWorkspace(item)}">
+                                    <p:confirm header="Confirmation" 
+                                               message="Would you like to remove metadata record (#{item.flatList.id}) from workspace?" 
+                                               icon="fa fa-fw fa-exclamation-triangle" />
+                                </p:menuitem>  
+                                <p:submenu label="Download" 
+                                           icon="fa fa-fw fa-cloud-download"                               
+                                           styleClass="spb-menuitem-text">
+                                    <p:menuitem value="Download XML"
+                                                icon="spb-xml-icon"
+                                                rendered="#{mainBean.showMenuItem(item,'xml')}"
+                                                styleClass="spb-menuitem-text"
+                                                ajax="false">
+                                        <p:fileDownload value="#{mainBean.workspace.download(item,'xml')}" />
+                                    </p:menuitem>                                         
+
+                                    <p:menuitem value="Download GeoJSON"
+                                                icon="spb-json-icon"
+                                                rendered="#{mainBean.showMenuItem(item,'geojson')}"
+                                                styleClass="spb-menuitem-text"
+                                                ajax="false">
+                                        <p:fileDownload value="#{mainBean.workspace.download(item,'geojson')}" />
+                                    </p:menuitem>
+
+                                    <p:menuitem value="Download DIF-10"
+                                                icon="spb-xml-icon"
+                                                rendered="#{mainBean.showMenuItem(item,'dif10')}"
+                                                styleClass="spb-menuitem-text"
+                                                ajax="false">
+                                        <p:fileDownload value="#{mainBean.workspace.download(item,'dif10')}" />
+                                    </p:menuitem>
+
+                                    <p:menuitem value="Download internal model"
+                                                icon="spb-json-icon"                                              
+                                                styleClass="spb-menuitem-text"
+                                                ajax="false">
+                                        <p:fileDownload value="#{mainBean.workspace.download(item,'internal')}" />
+                                    </p:menuitem>
+                                </p:submenu>
+
+                            </p:tieredMenu>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="thumbnails-view">
+                    <pe:fluidGrid                         
+                        value="#{mainBean.workspace.paginator.data.fluidItems}" 
+                        var="fluidItem"
+                        fitWidth="false" hGutter="1" vGutter="1">
+                        <pe:fluidGridItem styleClass="fluidgrid-cell">					                            
+                            <div class="#{mainBean.workspace.highlight(fluidItem) ? 'fluidgrid-cell-info highlight' : 'fluidgrid-cell-info'}"
+                                 title="#{fluidItem.metadata.identification.title}">
+
+                                <p:selectBooleanCheckbox value="#{fluidItem.selected}" 
+                                                         title="Select this metadata record" 
+                                                         styleClass="item-checkbox">
+                                    <p:ajax update="@form @([id$=messageForm])" listener="#{mainBean.workspace.onSelect(fluidItem.selected)}" />
+                                </p:selectBooleanCheckbox>
+
+                                <div class="title">
+                                    <h:panelGrid columns="2" columnClasses="text-label,text-value">
+                                        <h:outputText value="Identifier"/>
+                                        <h:outputText value="#{spb:shortStr(fluidItem.metadata.others.fileIdentifier,30)}"
+                                                      rendered="#{not empty fluidItem.metadata.others.fileIdentifier}" />
+
+                                        <h:outputText value="Title"/>
+                                        <h:outputText value="#{spb:shortStr(fluidItem.metadata.identification.title,30)}"
+                                                      rendered="#{not empty fluidItem.metadata.identification.title}" />
+                                    </h:panelGrid>
+                                </div>
+
+                                <div class="actions">
+
+                                    <p:commandButton
+                                        icon="fa fa-fw fa-info-circle"
+                                        styleClass="action-button"
+                                        global="true"
+                                        title="View details"						
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                        actionListener="#{mainBean.workspace.onViewDetails(fluidItem)}" />
+
+                                    <p:commandButton
+                                        icon="fa fa-fw fa-edit"
+                                        styleClass="action-button"
+                                        global="true"
+                                        title="Edit"						
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                        actionListener="#{mainBean.workspace.onEdit(fluidItem)}"/>
+
+                                    <p:commandButton
+                                        icon="fa fa-fw fa-copy"
+                                        styleClass="action-button"
+                                        global="true"
+                                        title="Clone"						
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                        actionListener="#{mainBean.cloneMetadataRecord(fluidItem)}"/>
+
+                                    <p:commandButton icon="fa fa-fw fa-cloud-download"
+                                                     styleClass="action-button" ajax="false"
+                                                     title="Download">
+                                        <p:fileDownload value="#{mainBean.workspace.download(fluidItem)}" />
+                                    </p:commandButton>
+
+                                    <p:commandButton icon="fa fa-fw fa-cloud-upload"								
+                                                     styleClass="action-button"
+                                                     title="Copy to catalogue"
+                                                     rendered="#{userAuthBean.canWrite(fluidItem)}"
+                                                     actionListener="#{mainBean.checkExistingAndCopyToCatalogue(fluidItem, false)}"
+                                                     update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                                     onstart="PF('waitingBlockUI').block();"
+                                                     oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                                     onsuccess="PF('waitingBlockUI').unblock()"
+                                                     onerror="PF('waitingBlockUI').unblock()"/>
+
+                                    <p:commandButton icon="fa fa-fw fa-arrow-circle-up"								
+                                                     styleClass="action-button"
+                                                     title="Move to catalogue"
+                                                     rendered="#{userAuthBean.canWrite(fluidItem)}"
+                                                     update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                                     actionListener="#{mainBean.checkExistingAndCopyToCatalogue(fluidItem, true)}"
+                                                     onstart="PF('waitingBlockUI').block();"
+                                                     oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                                     onsuccess="PF('waitingBlockUI').unblock()"
+                                                     onerror="PF('waitingBlockUI').unblock()"/>
+
+                                    <p:commandButton
+                                        icon="fa fa-fw fa-remove"								
+                                        styleClass="action-button"
+                                        title="Remove from workspace"
+                                        actionListener="#{mainBean.removeFromWorkspace(fluidItem)}"
+                                        update="@([id$=workspaceTab]) @([id$=messageForm])">
+                                        <p:confirm header="Confirmation" 
+                                                   message="Would you like to remove metadata record (#{fluidItem.flatList.id}) from workspace?" 
+                                                   icon="fa fa-fw fa-exclamation-triangle" />
+                                    </p:commandButton>
+
+                                </div>
+                            </div>
+                        </pe:fluidGridItem>
+
+                    </pe:fluidGrid>
+                </div>
+            </c:otherwise>                    
+        </c:choose>        
+    </div>	
+</ui:composition>

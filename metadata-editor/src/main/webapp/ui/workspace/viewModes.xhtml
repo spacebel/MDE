@@ -1,0 +1,39 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"                 
+                 xmlns:p="http://primefaces.org/ui"                 
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p:commandButton id="workspaceViewOptionsButton" type="button" 
+                     icon="fa fa-fw fa-file-code-o" 
+                     title="More view options"
+                     styleClass="paginator-button #{mainBean.workspace.view.xml or mainBean.workspace.view.geojson or mainBean.workspace.view.internalModel or mainBean.workspace.view.dif10 ? 'paginator-button-active' : ''}"/>
+    <p:menu overlay="true" trigger="workspaceViewOptionsButton" my="left top" at="left bottom"
+            styleClass="menu-button-small">                    
+
+        <p:menuitem value="View XML"
+                    icon="spb-xml-icon"
+                    rendered="#{mainBean.showMenuItem('xml')}"
+                    styleClass="spb-menuitem-text #{mainBean.getSelectedMenuItemCssClass('xml')}"
+                    actionListener="#{mainBean.workspace.onXmlView()}"
+                    update="@([id$=workspaceTab]) @([id$=messageForm])"/>        
+
+        <p:menuitem value="View GeoJSON"
+                    icon="spb-json-icon"
+                    rendered="#{mainBean.showMenuItem('geojson')}"
+                    styleClass="spb-menuitem-text #{mainBean.getSelectedMenuItemCssClass('geojson')}"
+                    actionListener="#{mainBean.workspace.onGeoJsonView()}"
+                    update="@([id$=workspaceTab]) @([id$=messageForm])"/>        
+        
+        <p:menuitem value="View DIF-10"
+                    icon="fa fa-fw fa-file-text-o"                    
+                    rendered="#{mainBean.showMenuItem('dif10')}"
+                    styleClass="spb-menuitem-text #{mainBean.getSelectedMenuItemCssClass('dif10')}"
+                    actionListener="#{mainBean.workspace.onDif10View()}"
+                    update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+        
+        <p:menuitem value="View internal model"
+                    icon="spb-json-icon"                    
+                    styleClass="spb-menuitem-text #{mainBean.getSelectedMenuItemCssClass('internal')}"
+                    actionListener="#{mainBean.workspace.onInternalModelView()}"
+                    update="@([id$=workspaceTab]) @([id$=messageForm])"/>  
+    </p:menu>
+</ui:composition>

@@ -1,0 +1,216 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:spb="http://www.spacebel.be/jsf">
+
+    <p:outputPanel styleClass="ui-paginator ui-widget-header paginator-bar"
+                   rendered="#{not empty mainBean.workspace.paginator and mainBean.workspace.paginator.showPaginator}">			
+        <div class="ui-g">
+            <div class="ui-g-4" style="padding: 0; text-align: left;">
+                <ui:remove>
+                    <p:selectBooleanCheckbox value="#{mainBean.workspace.selectedAll}" 
+                                             title="Select all metadata of all pages" styleClass="all-checkbox">
+                        <p:ajax update="@([id$=workspaceTab]) @([id$=messageForm])" listener="#{mainBean.workspace.onSelectAll}" />
+                    </p:selectBooleanCheckbox>
+                </ui:remove>
+
+                <p:commandButton icon="fa fa-th-list"                                
+                                 styleClass="paginator-button #{mainBean.workspace.view.list ? 'paginator-button-active' : ''}"
+                                 actionListener="#{mainBean.workspace.toListView}" 
+                                 rendered="#{not mainBean.workspace.view.list}"
+                                 title="List view"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <ui:remove>
+                    <p:commandButton icon="fa fa-th-large"
+                                     styleClass="paginator-button"					
+                                     actionListener="#{mainBean.workspace.toThumbnailView}" 
+                                     rendered="#{not mainBean.workspace.view.thumbnail}"
+                                     title="Grid view"
+                                     update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+                </ui:remove>
+
+                <p:commandButton icon="fa fa-fw fa-file"
+                                 styleClass="paginator-button"                                 
+                                 actionListener="#{mainBean.workspace.toDetailsView}" 
+                                 title="Details view"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+            </div>
+
+            <div class="ui-g-4" style="padding: 0;">
+                <p:commandButton icon="fa fa-step-backward"					
+                                 actionListener="#{mainBean.workspace.paginator.pageNavigate('first')}"
+                                 title="First page"
+                                 styleClass="paginator-button"
+                                 disabled="#{not mainBean.workspace.paginator.showFirst}"
+                                 onclick="PF('waitingBlockUI').block();this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <p:spacer width="10" />
+
+                <p:commandButton icon="fa fa-backward"					
+                                 actionListener="#{mainBean.workspace.paginator.pageNavigate('previous')}"
+                                 title="Previous page"
+                                 styleClass="paginator-button"
+                                 disabled="#{not mainBean.workspace.paginator.showPrev}"
+                                 onclick="PF('waitingBlockUI').block();this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()"
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <p:spacer width="10" />
+
+                <h:outputText value="Page " styleClass="page-number"/>
+                <p:inputNumber value="#{mainBean.workspace.paginator.currentPage}" 
+                               minValue="0" maxValue="#{mainBean.workspace.paginator.totalPages}"
+                               styleClass="jumpPageText"
+                               onkeypress="if (event.keyCode === 13) {
+                                           spbME_jumpToLocalPage(this.value);
+                                           return false;
+                                       }"/>
+                <h:outputText value=" of #{mainBean.workspace.paginator.totalPages}" 
+                              styleClass="page-number"/>
+
+                <p:spacer width="10" />				
+
+                <p:commandButton icon="fa fa-forward"					
+                                 actionListener="#{mainBean.workspace.paginator.pageNavigate('next')}"
+                                 title="Next page"
+                                 styleClass="paginator-button"
+                                 disabled="#{not mainBean.workspace.paginator.showNext}"
+                                 onclick="PF('waitingBlockUI').block();this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <p:spacer width="10" />
+
+                <p:commandButton icon="fa fa-step-forward"					
+                                 actionListener="#{mainBean.workspace.paginator.pageNavigate('last')}"
+                                 title="Last page"
+                                 styleClass="paginator-button"
+                                 disabled="#{not mainBean.workspace.paginator.showLast}"
+                                 onclick="PF('waitingBlockUI').block(); this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>										
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">                
+                <p:commandButton id="workspaceMoreButton" type="button"                                 
+                                 icon="fa fa-fw fa-ellipsis-v" 
+                                 title="More options"
+                                 styleClass="paginator-button"/>
+
+                <p:tieredMenu overlay="true" trigger="workspaceMoreButton" my="left top" at="left bottom"
+                              styleClass="menu-button">
+                    <p:menuitem value="View validation report"
+                                icon="fa fa-fw fa-file-text"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.workspace.onViewValidationReport()}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock()"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>
+
+                    <p:menuitem value="Remove from workspace" 
+                                styleClass="spb-menuitem-text"                                
+                                icon="fa fa-fw fa-remove"
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.removeMultipleFromWorkspace()}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock()"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()">
+                        <p:confirm header="Confirmation" 
+                                   message="Would you like to remove #{mainBean.workspace.numberOfHandlingMetadataFiles} metadata records from workspace?" 
+                                   icon="fa fa-fw fa-exclamation-triangle" />        
+                    </p:menuitem>                                        
+
+                    <p:menuitem value="Copy to catalogue"
+                                rendered="#{userAuthBean.hasCatalogueWriteAccess()}"
+                                icon="fa fa-fw fa-cloud-upload"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.copyMultipleToCatalogue(false)}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>
+
+                    <p:menuitem value="Move to catalogue"
+                                rendered="#{userAuthBean.hasCatalogueWriteAccess()}"
+                                icon="fa fa-fw fa-cloud-upload"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.copyMultipleToCatalogue(true)}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>
+
+                    <p:submenu label="Download" 
+                               icon="fa fa-fw fa-cloud-download"                               
+                               styleClass="spb-menuitem-text">
+                        <p:menuitem value="Download XML"
+                                    icon="spb-xml-icon"
+                                    rendered="#{mainBean.showMergedMenuItem('xml')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.downloadMultiple('xml')}" />
+                        </p:menuitem>                                         
+
+                        <p:menuitem value="Download GeoJSON"
+                                    icon="spb-json-icon"
+                                    rendered="#{mainBean.showMergedMenuItem('geojson')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.downloadMultiple('geojson')}" />
+                        </p:menuitem>
+
+                        <p:menuitem value="Download DIF-10"
+                                    icon="spb-xml-icon"
+                                    rendered="#{mainBean.showMergedMenuItem('dif10')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.downloadMultiple('dif10')}" />
+                        </p:menuitem>
+
+                        <p:menuitem value="Download internal model"
+                                    icon="spb-json-icon"                                    
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.downloadMultiple('internal')}" />
+                        </p:menuitem>                       
+
+                    </p:submenu>
+                </p:tieredMenu>
+
+                <p:commandButton icon="fa fa-fw fa-warning"					
+                                 actionListener="#{mainBean.workspace.onViewThesaurusWarns()}"
+                                 title="Thesaurus change warnings"
+                                 styleClass="paginator-button paginator-button-warning"
+                                 rendered="#{mainBean.workspace.numOfWarnRecords gt 0}"
+                                 onclick="PF('waitingBlockUI').block(); this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>                
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">
+                <c:set var="recordInfo" value="#{mainBean.workspace.paginator.recordInfo}" />
+
+                <h:outputText value="#{recordInfo}" 
+                              styleClass="ui-paginator-current" style="right: 5px;"
+                              rendered="#{not empty recordInfo}"/>
+            </div>	
+        </div>
+    </p:outputPanel>
+</ui:composition>

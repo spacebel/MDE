@@ -1,0 +1,108 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:p="http://primefaces.org/ui"	
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                 xmlns:spb="http://www.spacebel.be/jsf"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">   
+
+    <p:outputPanel styleClass="ui-paginator ui-widget-header paginator-bar">
+        <div class="ui-g">
+            <div class="ui-g-5" style="padding: 0; text-align: left;">
+                <p:commandButton icon="fa fa-th-list"                                 
+                                 styleClass="paginator-button #{mainBean.catalog.view.list ? 'paginator-button-active' : ''}"
+                                 actionListener="#{mainBean.catalog.toListView}" 
+                                 title="List view"
+                                 update="@form @([id$=messageForm])"/>
+                <ui:remove>
+                    <p:commandButton icon="fa fa-th-large"                                 
+                                     styleClass="paginator-button"
+                                     actionListener="#{mainBean.catalog.toThumbnailView}" 
+                                     title="Grid view"
+                                     update="@form @([id$=messageForm])"/>                               
+                </ui:remove>
+
+                <p:commandButton icon="fa fa-fw fa-file-code-o"
+                                 title="XML view"					
+                                 styleClass="paginator-button"
+                                 actionListener="#{mainBean.catalog.toXmlView}"
+                                 update="@form @([id$=messageForm])"/>
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">			
+                <p:commandButton icon="fa fa-backward"
+                                 actionListener="#{mainBean.catalog.navigateDetails('prev')}"
+                                 title="View the previous metadata"
+                                 styleClass="paginator-button"					
+                                 disabled="#{mainBean.catalog.selectedItem.index == 0 and (empty mainBean.catalog.paginator.previous)}"
+                                 onclick="PF('searchingBlockUI').block();this.blur();"
+                                 oncomplete="PF('searchingBlockUI').unblock()"
+                                 onerror="PF('searchingBlockUI').unblock()"
+                                 update="@form @([id$=messageForm])"/>
+
+                <p:spacer width="10" />
+
+                <p:commandButton icon="fa fa-forward"
+                                 actionListener="#{mainBean.catalog.navigateDetails('next')}"
+                                 title="View the next metadata"
+                                 styleClass="paginator-button"
+                                 disabled="#{((mainBean.catalog.selectedItem.index + 1) ge (mainBean.catalog.paginator.data.itemCount)) and (empty mainBean.catalog.paginator.next)}"					
+                                 onclick="PF('searchingBlockUI').block();this.blur();"
+                                 oncomplete="PF('searchingBlockUI').unblock()" 
+                                 onerror="PF('searchingBlockUI').unblock()"
+                                 update="@form @([id$=messageForm])"/>
+            </div>
+
+            <div class="ui-g-3" style="padding: 0;">
+                <p:commandButton icon="fa fa-fw fa-cloud-download"
+                                 styleClass="paginator-button" ajax="false"
+                                 title="Download">
+                    <p:fileDownload value="#{mainBean.catalog.download(mainBean.catalog.selectedItem)}" />
+                </p:commandButton>                
+
+                <p:commandButton id="catalogMoreButton" type="button" 
+                                 icon="fa fa-fw fa-ellipsis-v" 
+                                 title="More options"
+                                 styleClass="paginator-button"/>
+                <p:menu overlay="true" trigger="catalogMoreButton" my="left top" at="left bottom"
+                        styleClass="menu-button">                   
+
+                    <p:menuitem value="Copy to Workspace"                                
+                                styleClass="spb-menuitem-text"
+                                actionListener="#{mainBean.copyToWorkspace()}" 
+                                update="@([id$=wsSearchForm]) @([id$=messageForm])" 
+                                icon="fa fa-fw fa-plus-circle"/>                    
+
+                    <p:menuitem value="Remove from catalogue"
+                                rendered="#{userAuthBean.canWrite(mainBean.catalog.selectedItem.metadataFile)}"
+                                icon="fa fa-fw fa-remove"
+                                styleClass="spb-menuitem-text"                                            
+                                update="@([id$=catalogueResultForm]) @([id$=messageForm]) @([id$=catalogueAuthenticationForm])"
+                                oncomplete="handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                actionListener="#{mainBean.removeCurrentItemFromCatalogue}">
+                        <p:confirm header="Confirmation" 
+                                   message="Would you like to remove metadata record (#{mainBean.catalog.selectedItem.metadataFile.flatList.id}) from the catalogue (#{userAuthBean.userPreferences.catalogue.title})?" 
+                                   icon="fa fa-fw fa-exclamation-triangle" />
+                    </p:menuitem> 
+                </p:menu>
+
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">				
+                <h:outputText value="#{mainBean.catalog.paginator.getRecordDetailsInfo(mainBean.catalog.selectedItem.index)}" 
+                              styleClass="ui-paginator-current" style="right: 10px;"/>
+
+                <ui:remove>
+                    <p:selectBooleanButton value="#{mainBean.catalog.toggle}"
+                                           onIcon="fa fa-fw fa-compress" offIcon="fa fa-fw fa-expand" 
+                                           title="#{mainBean.catalog.toggle ? 'Compact': 'Expand'}"
+                                           onLabel="ui-button" offLabel="ui-button"
+                                           styleClass="results-toggle-icon">
+                        <p:ajax update="@form"/>
+                    </p:selectBooleanButton>
+                </ui:remove>
+            </div>
+        </div>
+    </p:outputPanel>	
+</ui:composition>

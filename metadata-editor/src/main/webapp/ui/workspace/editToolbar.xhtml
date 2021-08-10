@@ -1,0 +1,172 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:pe="http://primefaces.org/ui/extensions"
+                 xmlns:spb="http://www.spacebel.be/jsf">
+
+    <p:outputPanel styleClass="ui-paginator ui-widget-header paginator-bar">			
+        <div class="ui-g">
+            <div class="ui-g-5" style="padding: 0; text-align: left;">
+                <p:commandButton icon="fa fa-th-list"
+                                 styleClass="paginator-button #{mainBean.workspace.view.list ? 'paginator-button-active' : ''}"					
+                                 actionListener="#{mainBean.workspace.toListView}"                                  
+                                 title="List view"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <ui:remove>
+                    <p:commandButton icon="fa fa-th-large"
+                                     styleClass="paginator-button"					
+                                     actionListener="#{mainBean.workspace.toThumbnailView}"                                 
+                                     title="Grid view"
+                                     update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+                </ui:remove>
+
+                <p:commandButton icon="fa fa-fw fa-info-circle"
+                                 title="Details view"					
+                                 styleClass="paginator-button"
+                                 actionListener="#{mainBean.workspace.onViewDetails(mainBean.workspace.selectedMetadataFile)}"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <ui:include src="viewModes.xhtml" />
+
+                <ui:remove>
+                    <p:commandButton icon="fa fa-fw fa-file-code-o"
+                                     title="XML view"					
+                                     styleClass="paginator-button"
+                                     actionListener="#{mainBean.workspace.onXmlView()}"
+                                     update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+                </ui:remove>
+
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">
+                <p:commandButton icon="fa fa-backward"					
+                                 actionListener="#{mainBean.workspace.navigateDetails('prev')}"
+                                 title="View the previous metadata"
+                                 styleClass="paginator-button"					
+                                 disabled="#{(mainBean.workspace.selectedMetadataFile.index le 1) and (empty mainBean.workspace.paginator.showPrev)}"
+                                 onclick="PF('waitingBlockUI').block();this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()"
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>
+
+                <p:spacer width="10" />
+
+                <p:commandButton icon="fa fa-forward"					
+                                 actionListener="#{mainBean.workspace.navigateDetails('next')}"
+                                 title="View the next metadata"
+                                 styleClass="paginator-button"
+                                 disabled="#{((mainBean.workspace.selectedMetadataFile.index + 1) ge (mainBean.workspace.paginator.data.itemCount)) and (not mainBean.workspace.paginator.showNext)}"
+                                 onclick="PF('waitingBlockUI').block();this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/>									
+            </div>
+
+            <div class="ui-g-3" style="padding: 0;">
+                <ui:remove>
+                    <p:commandButton id="workspaceDownloadMenuButton" type="button" 
+                                     icon="fa fa-fw fa-cloud-download" 
+                                     title="Download"
+                                     styleClass="paginator-button"/>
+                    <p:tieredMenu  overlay="true" trigger="workspaceDownloadMenuButton" my="left top" at="left bottom"
+                                   styleClass="menu-button-small">                    
+
+                        <p:menuitem value="Download XML"
+                                    icon="spb-xml-icon"
+                                    rendered="#{mainBean.showMenuItem('xml')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.download('xml')}" />
+                        </p:menuitem>                                         
+
+                        <p:menuitem value="Download GeoJSON"
+                                    icon="spb-json-icon"
+                                    rendered="#{mainBean.showMenuItem('geojson')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.download('geojson')}" />
+                        </p:menuitem>
+
+                        <p:menuitem value="Download DIF-10"
+                                    icon="fa fa-fw fa-file-text-o"
+                                    rendered="#{mainBean.showMenuItem('dif10')}"
+                                    styleClass="spb-menuitem-text"
+                                    ajax="false">
+                            <p:fileDownload value="#{mainBean.workspace.download('dif10')}" />
+                        </p:menuitem>                   
+                    </p:tieredMenu >
+                </ui:remove>                
+
+                <p:commandButton id="workspaceMoreButton" type="button" 
+                                 icon="fa fa-fw fa-ellipsis-v" 
+                                 title="More options"
+                                 styleClass="paginator-button"/>					
+                <p:tieredMenu overlay="true" trigger="workspaceMoreButton" my="left top" at="left bottom"
+                              styleClass="menu-button">                    
+
+                    <p:menuitem value="Clone"
+                                icon="fa fa-fw fa-copy"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.cloneSelectedMetadataRecord()}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock()"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>
+
+                    <p:menuitem value="Copy to catalogue"
+                                rendered="#{userAuthBean.canWrite(mainBean.workspace.selectedMetadataFile)}"
+                                icon="fa fa-fw fa-cloud-upload"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.checkExistingAndCopyToCatalogue(false)}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>
+
+                    <p:menuitem value="Move to catalogue"
+                                rendered="#{userAuthBean.canWrite(mainBean.workspace.selectedMetadataFile)}"
+                                icon="fa fa-fw fa-arrow-circle-up"
+                                styleClass="spb-menuitem-text"
+                                update="@([id$=catalogueAuthenticationForm]) @([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.checkExistingAndCopyToCatalogue(true)}"
+                                onstart="PF('waitingBlockUI').block();"
+                                oncomplete="PF('waitingBlockUI').unblock();handleCompleteCatalogueAuthentication(xhr, status, args)"
+                                onsuccess="PF('waitingBlockUI').unblock()"
+                                onerror="PF('waitingBlockUI').unblock()"/>                   
+
+                    <p:menuitem value="Remove from workspace" 
+                                styleClass="spb-menuitem-text"                                
+                                icon="fa fa-fw fa-remove"
+                                update="@([id$=workspaceTab]) @([id$=messageForm])"
+                                actionListener="#{mainBean.removeFromWorkspace()}">
+                        <p:confirm header="Confirmation" 
+                                   message="Would you like to remove metadata record (#{mainBean.workspace.selectedMetadataFile.flatList.id}) from workspace?" 
+                                   icon="fa fa-fw fa-exclamation-triangle" />
+                    </p:menuitem>
+                    <ui:include src="downloadSubmenu.xhtml"/>
+                </p:tieredMenu>
+
+                <p:commandButton icon="fa fa-fw fa-warning"					
+                                 actionListener="#{mainBean.workspace.onViewThesaurusWarns()}"
+                                 title="Thesaurus change warnings"
+                                 styleClass="paginator-button paginator-button-warning"
+                                 rendered="#{mainBean.workspace.warnMetadata}"
+                                 onclick="PF('waitingBlockUI').block(); this.blur();"
+                                 oncomplete="PF('waitingBlockUI').unblock()" 
+                                 onerror="PF('waitingBlockUI').unblock()"
+                                 update="@([id$=workspaceTab]) @([id$=messageForm])"/> 
+            </div>
+
+            <div class="ui-g-2" style="padding: 0;">
+                <h:outputText value="#{mainBean.workspace.paginator.getRecordDetailsInfo(mainBean.workspace.selectedMetadataFile.index)}" 
+                              styleClass="ui-paginator-current" style="right: 5px;"/>
+            </div>	
+        </div>
+    </p:outputPanel>
+</ui:composition>

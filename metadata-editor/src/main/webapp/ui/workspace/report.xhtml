@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:spb="http://www.spacebel.be/jsf"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <p:outputPanel styleClass="spb-validation-report" rendered="#{not empty mainBean.workspace.validationReport and not empty mainBean.workspace.validationReport.entries}">
+        <p:panel header="Validation summary" styleClass="spb-validation-report-summary">
+            <table style="width: 90%;">
+                <tr>
+                    <td class="input-label" style="width: 20%;">Number of records</td>
+                    <td class="input-label" style="width: 20%;">Error records</td>
+                    <td class="input-label" style="width: 20%;">Warning records</td>
+                    <td class="input-label">Valid records</td>
+                </tr>
+                <tr>
+                    <td class="input-label">
+                        <h:outputText value="#{mainBean.workspace.validationReport.total}"/> 
+                    </td>
+                    <td class="input-label">
+                        <h:outputText value="#{mainBean.workspace.validationReport.errors}"/>
+                    </td>
+                    <td class="input-label">
+                        <h:outputText value="#{mainBean.workspace.validationReport.warnings}"/>
+                    </td>
+                    <td class="input-label">
+                        <h:outputText value="#{mainBean.workspace.validationReport.valid}"/>
+                    </td>
+                </tr>
+            </table>            
+        </p:panel>
+        <p:panel header="Validation details" styleClass="spb-validation-report-details">            
+            <p:dataTable widgetVar="validationReportTable"
+                         var="entry" value="#{mainBean.workspace.validationReport.entries}" 
+                         rows="#{userAuthBean.config.rowsPerPage}"
+                         styleClass="user-list"
+                         paginator="true"
+                         paginatorPosition="top"                         
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         currentPageReportTemplate="Messages {startRecord}-{endRecord} of {totalRecords}">
+
+                <p:column headerText="Record identifier" 
+                          style="width:200px;"
+                          sortBy="#{entry.recordId}"                         
+                          rendered="#{mainBean.workspace.validationReport.all}"
+                          filterBy="#{entry.recordId}">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('validationReportTable').filter()">                            
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.validationReport.recordIds}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <table>
+                        <tr>
+                            <td style="width: 18px; border: none; border-width: 0;">
+                                <h:outputText value="C" styleClass="spb-metadata-collection-type"
+                                              title="Collection metadata"
+                                              rendered="#{entry.recordType == 1}"/>
+                                <h:outputText value="S" styleClass="spb-metadata-service-type" 
+                                              title="Service metadata"
+                                              rendered="#{entry.recordType == 2}"/>
+                            </td>
+                            <td style="border: none; border-width: 0;">                                
+                                <p:commandLink update="@([id$=workspaceTab]) @([id$=messageForm])"                                   
+                                               action="#{mainBean.workspace.onEdit(entry.recordId, 0)}" >
+                                    <h:outputText value="#{spb:shortStr(entry.recordId,22)}"
+                                                  title="#{entry.recordId}"/>
+                                </p:commandLink>
+                            </td>
+                        </tr>
+                    </table>                    
+                </p:column>
+
+                <p:column headerText="Record identifier" 
+                          style="width:200px;"                                                
+                          rendered="#{not mainBean.workspace.validationReport.all}">
+                    <table>
+                        <tr>
+                            <td style="width: 18px; border: none; border-width: 0;">
+                                <h:outputText value="C" styleClass="spb-metadata-collection-type"
+                                              title="Collection metadata"
+                                              rendered="#{entry.recordType == 1}"/>
+                                <h:outputText value="S" styleClass="spb-metadata-service-type" 
+                                              title="Service metadata"
+                                              rendered="#{entry.recordType == 2}"/>
+                            </td>
+                            <td style="border: none; border-width: 0;">                               
+                                <p:commandLink update="@([id$=workspaceTab]) @([id$=messageForm])"                                   
+                                               action="#{mainBean.workspace.onEdit(entry.recordId, 0)}" >
+                                    <h:outputText value="#{spb:shortStr(entry.recordId,22)}"
+                                                  title="#{entry.recordId}"/>
+                                </p:commandLink>
+                            </td>
+                        </tr>
+                    </table>                    
+                </p:column>
+                
+                <p:column headerText="Status" 
+                          style="width:70px;"
+                          sortBy="#{entry.status}"
+                          filterBy="#{entry.status}">
+
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('validationReportTable').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.validationReport.status}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    
+                    <h:panelGroup rendered="#{entry.status eq 'Warning'}">
+                        <h:outputText styleClass="fa fa-fw fa-warning validation-warn-icon"/>                            
+                        <h:outputText value="#{entry.status}" styleClass="validation-warn-text"/>
+                    </h:panelGroup>
+                    
+                    <h:panelGroup rendered="#{entry.status eq 'Error'}">
+                        <h:outputText styleClass="fa fa-fw fa-times-circle validation-error-icon"/>                            
+                        <h:outputText value="#{entry.status}" styleClass="validation-error-text"/>
+                    </h:panelGroup>
+                </p:column>
+
+                <p:column headerText="Format" 
+                          style="width:65px;"
+                          sortBy="#{entry.format}"
+                          filterBy="#{entry.format}">
+
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('validationReportTable').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.validationReport.formats}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <h:outputText value="#{entry.format}" />                    
+                </p:column>
+
+                <p:column headerText="Message">
+                    <h:outputText value="#{entry.message}" />
+                </p:column>                
+            </p:dataTable>
+        </p:panel>
+    </p:outputPanel>
+</ui:composition>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"	
+      xmlns:spb="http://www.spacebel.be/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition>		
+        <spb:attachCalendarConverterComponent>
+            <p:calendar size="45" styleClass="smallInput" 
+				widgetVar="#{name}SpbDateQuery"
+				name="#{name}" value="#{value}" 
+				pattern="#{pattern}" timeZone="#{timeZone}" 
+				yearRange="c-20:c+20" 
+				navigator="true" showOn="button"				
+				rendered="#{rendered and (empty minDate) and (empty maxDate)}">
+                <p:ajax event="dateSelect" process="@this" />
+            </p:calendar>
+
+            <p:calendar size="45" styleClass="smallInput" 
+				widgetVar="#{name}SpbDateQuery"
+				name="#{name}" value="#{value}" 
+                pattern="#{pattern}" timeZone="#{timeZone}" 
+				yearRange="c-20:c+20"
+				mindate="#{minDate}" maxdate="#{maxDate}"
+				navigator="true" showOn="button"
+				rendered="#{rendered and (not empty minDate) and (not empty maxDate)}">
+                <p:ajax event="dateSelect" process="@this"/>				
+            </p:calendar>
+
+            <p:calendar size="45" styleClass="smallInput" 
+				widgetVar="#{name}SpbDateQuery"
+				name="#{name}" value="#{value}" 
+				pattern="#{pattern}" timeZone="#{timeZone}" 
+				yearRange="c-20:c+20" mindate="#{minDate}"
+				navigator="true" showOn="button"				
+				rendered="#{rendered and (not empty minDate) and (empty maxDate)}">
+                <p:ajax event="dateSelect" process="@this"/>				
+            </p:calendar>
+
+            <p:calendar size="45" styleClass="smallInput" 
+				widgetVar="#{name}SpbDateQuery"
+				name="#{name}" value="#{value}" 
+				pattern="#{pattern}" timeZone="#{timeZone}"
+				yearRange="c-20:c+20" maxdate="#{maxDate}"
+				navigator="true" showOn="button"				
+				rendered="#{rendered and (empty minDate) and (not empty maxDate)}">
+                <p:ajax event="dateSelect" process="@this"/>
+            </p:calendar>
+        </spb:attachCalendarConverterComponent>	
+    </ui:composition>
+</html>

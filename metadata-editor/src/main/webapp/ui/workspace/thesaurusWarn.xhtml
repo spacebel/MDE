@@ -1,0 +1,233 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:spb="http://www.spacebel.be/jsf"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:outputPanel styleClass="editor-tab" 
+                   rendered="#{mainBean.workspace.numOfWarnRecords gt 0}">
+        <p:panel header="Thesaurus version change warnings" 
+                 rendered="#{not empty mainBean.workspace.thesaurusChangeWarns}">
+            <table style="width: 95%;">
+                <tr>
+                    <td class="input-label" style="width: 40%;">Thesaurus</td>
+                    <td class="input-label" style="width: 10%;">Version</td>
+                    <td class="input-label" style="width: 15%;">Modification date</td>
+                    <td class="input-label" style="width: 20%;">Number of impacted records </td>
+                </tr>
+                <ui:repeat var="warn" value="#{mainBean.workspace.thesaurusChangeWarns}">
+                    <tr>
+                        <td class="input-value">
+                            <h:outputText value="#{warn.thesaurus.fullTitle}"/> 
+                        </td>
+                        <td class="input-value">
+                            <h:outputText value="#{warn.thesaurus.version}"/>
+                        </td>
+                        <td class="input-value">
+                            <h:outputText value="#{warn.thesaurus.modified}"/>
+                        </td>
+                        <td class="input-value">
+                            <h:outputText value="#{warn.numOfFiles}"/>
+                        </td>
+                    </tr>
+                </ui:repeat>
+                <tr>
+                    <td class="input-value" colspan="2" style="font-style: italic;">
+                        <h:outputText value="The thesaurus changes (i.e. title, version and modification date) will be applied to the impacted records when the button Apply change below is submitted"/>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>						
+            <p:commandButton value="Apply change"
+                             actionListener="#{mainBean.applyThesaurusVersionChange()}" 
+                             update="@form @([id$=workspaceTab]) @([id$=messageForm])"/>
+        </p:panel>
+        <p:panel header="Thesaurus concept change warnings (automatic correction)"
+                 styleClass="spb-thesaurus-warning"
+                 rendered="#{not empty mainBean.workspace.thesaurusAutoCorrectionWarnReport and not empty mainBean.workspace.thesaurusAutoCorrectionWarnReport.warnEnties}">
+            <p:dataTable widgetVar="thesaurusAutoCorrectionWarnReportTable"
+                         var="entry" value="#{mainBean.workspace.thesaurusAutoCorrectionWarnReport.warnEnties}" 
+                         rows="#{userAuthBean.config.rowsPerPage}"
+                         styleClass="user-list"
+                         paginator="true"
+                         paginatorPosition="top"                         
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         currentPageReportTemplate="Changes {startRecord}-{endRecord} of {totalRecords}">
+
+                <p:column headerText="Record identifier" 
+                          style="width:200px;"
+                          sortBy="#{entry.recordId}"
+                          filterBy="#{entry.recordId}">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('thesaurusAutoCorrectionWarnReportTable').filter()">                            
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.thesaurusAutoCorrectionWarnReport.recordIds}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <table>
+                        <tr>
+                            <td style="width: 18px; border: none; border-width: 0;">
+                                <h:outputText value="C" styleClass="spb-metadata-collection-type"
+                                              title="Collection metadata"
+                                              rendered="#{entry.recordType == 1}"/>
+                                <h:outputText value="S" styleClass="spb-metadata-service-type" 
+                                              title="Service metadata"
+                                              rendered="#{entry.recordType == 2}"/>
+                            </td>
+                            <td style="border: none; border-width: 0;">
+                                <p:commandLink update="@([id$=workspaceTab]) @([id$=messageForm])"                                   
+                                               action="#{mainBean.workspace.onEdit(entry.recordId, entry.tabIndex)}" >                       
+                                    <h:outputText value="#{spb:shortStr(entry.recordId,30)}"
+                                                  title="#{entry.recordId}"/>
+                                </p:commandLink>
+                            </td>
+                        </tr>
+                    </table>
+                </p:column>
+
+                <p:column headerText="Scheme"
+                          style="width:120px;"
+                          sortBy="#{entry.thesaurusType}"
+                          filterBy="#{entry.schemeName}">
+
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('thesaurusAutoCorrectionWarnReportTable').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.thesaurusAutoCorrectionWarnReport.thesaurusType}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <h:outputText value="#{entry.schemeName}" />                    
+                </p:column>
+
+                <p:column headerText="Change description"
+                          style="width:150px;"
+                          sortBy="#{entry.warningType}">
+
+                    <h:outputText value="Label changed" 
+                                  rendered="#{entry.warningType == 1}" /> 
+                    <h:outputText value="The URI does not exist in the #{entry.schemeName} thesaurus" 
+                                  rendered="#{entry.warningType == 2}" />
+                    <h:outputText value="No equivalent GCMD science keyword" 
+                                  rendered="#{entry.thesaurusType == 1 and entry.warningType == 3}" />
+                    <h:outputText value="No equivalent earth topic" 
+                                  rendered="#{entry.thesaurusType == 4 and entry.warningType == 3}" />  
+                </p:column>
+
+                <p:column headerText="Concept URI"                           
+                          sortBy="#{entry.uri}">
+                    <h:outputText value="#{entry.uri}" />  
+                </p:column>
+                <p:column headerText="Proposed change">
+                    <h:outputText value="Replace the current label '#{entry.oldLabel}' by the new label '#{entry.newLabel}' in the metadata record." 
+                                  rendered="#{entry.warningType == 1}"/>  
+                    <h:outputText value="Remove this Earth Topic keyword from the metadata record." 
+                                  rendered="#{entry.thesaurusType == 1 and entry.warningType == 3}" />
+                    <h:outputText value="Remove this Science keyword from the metadata record." 
+                                  rendered="#{entry.thesaurusType == 4 and entry.warningType == 3}" /> 
+                    <h:outputText value="Remove this Earth Topic keyword from the metadata record." 
+                                  rendered="#{entry.warningType == 2 and entry.thesaurusType == 1}" />
+                    <h:outputText value="Remove this Science keyword from the metadata record." 
+                                  rendered="#{entry.warningType == 2 and entry.thesaurusType == 4}" />
+                </p:column>
+                <ui:remove>
+                    <p:column headerText="New label"
+                              sortBy="#{entry.newLabel}">
+                        <h:outputText value="#{entry.newLabel}" />  
+                    </p:column>
+                </ui:remove>
+            </p:dataTable>
+            <br/>
+
+            <h:outputText style="font-family: 'Source Sans Pro',sans-serif;text-align: left; font-size: 12px; font-style: italic;"
+                          value="The correction will be applied as described in the Proposed change column when the button Apply change below is submitted"/>
+            <br/>
+            <br/>						
+            <p:commandButton value="Apply change"
+                             actionListener="#{mainBean.applyThesaurusConceptChange}" 
+                             update="@form @([id$=workspaceTab]) @([id$=thesaurusWarnForm]) @([id$=messageForm])"/>
+        </p:panel>
+        <p:panel header="Thesaurus concept warnings"
+                 styleClass="spb-thesaurus-warning"
+                 rendered="#{not empty mainBean.workspace.thesaurusManualCorrectionWarnReport and not empty mainBean.workspace.thesaurusManualCorrectionWarnReport.warnEnties}">
+            <p:dataTable widgetVar="thesaurusManualCorrectionWarnReportTable"
+                         var="entry" value="#{mainBean.workspace.thesaurusManualCorrectionWarnReport.warnEnties}" 
+                         rows="#{userAuthBean.config.rowsPerPage}"
+                         styleClass="user-list"
+                         paginator="true"
+                         paginatorPosition="top"                         
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         currentPageReportTemplate="Changes {startRecord}-{endRecord} of {totalRecords}">
+
+                <p:column headerText="Record identifier" 
+                          style="width:200px;"
+                          sortBy="#{entry.recordId}"
+                          filterBy="#{entry.recordId}">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('thesaurusManualCorrectionWarnReportTable').filter()">                            
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.thesaurusManualCorrectionWarnReport.recordIds}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <table>
+                        <tr>
+                            <td style="width: 18px; border: none; border-width: 0;">
+                                <h:outputText value="C" styleClass="spb-metadata-collection-type"
+                                              title="Collection metadata"
+                                              rendered="#{entry.recordType == 1}"/>
+                                <h:outputText value="S" styleClass="spb-metadata-service-type" 
+                                              title="Service metadata"
+                                              rendered="#{entry.recordType == 2}"/>
+                            </td>
+                            <td style="border: none; border-width: 0;">
+                                <p:commandLink update="@([id$=workspaceTab]) @([id$=messageForm])"                                   
+                                               action="#{mainBean.workspace.onEdit(entry.recordId, 8)}" >
+                                    <h:outputText value="#{spb:shortStr(entry.recordId,30)}"
+                                                  title="#{entry.recordId}"/>
+                                </p:commandLink>
+                            </td>
+                        </tr>
+                    </table>                    
+                </p:column>
+
+                <p:column headerText="Scheme"
+                          style="width:80px;"
+                          sortBy="#{entry.thesaurusType}"
+                          filterBy="#{entry.schemeName}">
+
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('thesaurusManualCorrectionWarnReportTable').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{mainBean.workspace.thesaurusManualCorrectionWarnReport.thesaurusType}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <h:outputText value="#{entry.schemeName}" />                    
+                </p:column>
+
+                <p:column headerText="Concept URI" 
+                          style="width:150px;"                          
+                          sortBy="#{entry.uri}">
+                    <h:outputText value="#{entry.uri}" />  
+                </p:column>
+                <p:column headerText="Label"
+                          style="width:150px;"
+                          sortBy="#{entry.label}">
+                    <h:outputText value="#{entry.label}" />  
+                </p:column>
+
+                <p:column headerText="Warning"
+                          style="width:130px;"
+                          sortBy="#{entry.warningMsg}">
+
+                    <h:outputText value="#{entry.warningMsg}" />                                                                           
+                </p:column>                
+            </p:dataTable>
+        </p:panel>
+    </p:outputPanel>
+</ui:composition>

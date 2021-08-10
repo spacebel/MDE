@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"	
+                xmlns:f="http://java.sun.com/jsf/core"	
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:spb="http://www.spacebel.be/jsf"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <script>
+
+    </script>
+
+    <h:form id="catalogueSearchForm">				
+        <p:outputPanel rendered="#{not mainBean.catalog.toggle}">
+            <p:selectOneRadio value="#{mainBean.catalog.searchType}" 
+                              rendered="#{not empty userAuthBean.userPreferences.catalogue}">            
+                <f:selectItems value="#{userAuthBean.catInterfaces}"/>
+                <p:ajax event="change"
+                        listener="#{mainBean.onChangeSearchType}"
+                        update="@form @([id$=catalogueResultForm]), @([id$=messageForm])"/>
+            </p:selectOneRadio>
+
+            <p:outputPanel rendered="#{not mainBean.advancedSearch}">
+                <div class="simple-search">
+                    <div class="search-box">
+                        <p:selectBooleanButton value="#{mainBean.advancedSearch}"
+                                               onLabel="ui-button" offLabel="ui-button" 
+                                               styleClass="advancedButton ui-button-icon-only"
+                                               title="#{mainBean.advancedSearch ? 'Simple search': 'Advanced search'}"
+                                               onIcon="fa fa-fw fa-sliders" offIcon="fa fa-fw fa-sliders">
+                            <p:ajax event="change" update="@form @([id$=catalogueResultForm]), @([id$=messageForm])" />
+                        </p:selectBooleanButton>
+                        <p:inputText value="#{mainBean.openSearchUrl.freeTextParameter.formValue}"
+                                     styleClass="textSearchBar"                                                                         
+                                     placeholder="enter search term"
+                                     title="#{mainBean.openSearchUrl.freeTextParameter.help}"
+                                     onkeypress="if (event.keyCode === 13) {
+                                                 PF('freeTextSearchCommandButton').jq.click();
+                                                 return false;
+                                             }">
+                            <p:ajax event="blur" process="@this" />
+                        </p:inputText>
+                    </div>
+                    <div class="search-action" style="position: absolute;right: 0;">
+                        <p:commandButton styleClass="textSearchButton" 
+                                         value="Search metadata"
+                                         icon="fa fa-fw fa-search" 
+                                         actionListener="#{mainBean.search}"
+                                         widgetVar="freeTextSearchCommandButton"
+                                         title="Search metadata records in catalogue"
+                                         onstart="PF('searchingBlockUI').block()"
+                                         oncomplete="PF('searchingBlockUI').unblock()"
+                                         onsuccess="PF('searchingBlockUI').unblock()"
+                                         onerror="PF('searchingBlockUI').block()"
+                                         update="@form @([id$=catalogueResultForm]), @([id$=messageForm])"/>                                        
+                    </div>
+                </div>
+            </p:outputPanel>            
+            <p:outputPanel rendered="#{mainBean.advancedSearch}" styleClass="advanced-panel">
+                <p:selectBooleanButton value="#{mainBean.advancedSearch}"
+                                       onLabel="ui-button" offLabel="ui-button" 
+                                       styleClass="advancedButton ui-button-icon-only"
+                                       title="#{mainBean.advancedSearch ? 'Simple search': 'Advanced search'}"
+                                       onIcon="fa fa-fw fa-sliders" offIcon="fa fa-fw fa-sliders">
+                    <p:ajax event="change" update="@form @([id$=catalogueResultForm]), @([id$=messageForm])"/>
+                </p:selectBooleanButton>
+                <ui:include src="catalog/searchInput.xhtml" />
+                <p:commandButton value="Search" 
+                                 actionListener="#{mainBean.search}"
+                                 title="Search on catalogue"
+                                 onstart="PF('searchingBlockUI').block()"
+                                 oncomplete="PF('searchingBlockUI').unblock()"
+                                 onsuccess="PF('searchingBlockUI').unblock()"
+                                 onerror="PF('searchingBlockUI').block()"
+                                 update="@form @([id$=catalogueResultForm]), @([id$=messageForm])"/>
+            </p:outputPanel>
+
+            <br/>
+            <br/>
+        </p:outputPanel>
+    </h:form>
+
+    <h:form id="catalogueResultForm">
+        <pe:remoteCommand name="spbME_jumpToRemotePage"
+                          actionListener="#{mainBean.catalog.jumpToPage}"
+                          onstart="PF('searchingBlockUI').block();"
+                          oncomplete="PF('searchingBlockUI').unblock();"
+                          onerror="PF('searchingBlockUI').unblock()"
+                          update="@form, @([id$=messageForm])">  
+            <pe:methodSignature parameters="java.lang.Integer" />
+            <pe:methodParam name="targetPage"/>
+        </pe:remoteCommand>
+
+        <c:choose>
+            <c:when test="#{mainBean.catalog.view.list or mainBean.catalog.view.thumbnail}">
+                <p:outputPanel id="searchResult">
+                    <c:choose>
+                        <c:when test="#{(not empty mainBean.catalog.paginator) and (not empty mainBean.catalog.paginator.data)}">
+                            <ui:include src="catalog/resultsToolbar.xhtml" />
+                            <ui:include src="catalog/searchResult.xhtml" />
+                        </c:when>								
+                    </c:choose>
+                </p:outputPanel>
+            </c:when>
+            <c:when test="#{mainBean.catalog.view.details}">				
+                <c:choose>
+                    <c:when test="#{not empty mainBean.catalog.selectedItem}">                        
+                        <c:set var="metadata" value="#{mainBean.catalog.selectedItem.metadataFile.metadata}" />
+                        <ui:include src="catalog/detailsToolbar.xhtml" />
+                        <ui:include src="catalog/details.xhtml" />							
+                    </c:when>
+                    <c:otherwise>
+                        No selected collection
+                    </c:otherwise>
+                </c:choose>				
+            </c:when>           
+            <c:when test="#{mainBean.catalog.view.xml}">
+                <ui:include src="catalog/xmlToolbar.xhtml" />                            
+            </c:when>
+        </c:choose>
+        <pe:codeMirror mode="xml" theme="eclipse"
+                       rendered="#{mainBean.catalog.view.xml}"   
+                       value="#{mainBean.catalog.selectedItem.metadataFile.xmlSrc}" 
+                       readonly="true"
+                       lineNumbers="true"                                   
+                       matchBrackets="false" />    
+    </h:form>
+</ui:composition>

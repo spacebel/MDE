@@ -1,0 +1,2186 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"		
+                xmlns:spb="http://www.spacebel.be/jsf"		
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">    
+
+    <c:set var="metadata" value="#{metadataFile.metadata}" />
+
+    <br/>
+    <p:outputPanel id="metadataIdText">
+        <h:outputText value="#{metadata.others.fileIdentifier}" styleClass="editor-common-title"/>
+    </p:outputPanel>
+
+    <p:tabView activeIndex="#{metadataFile.activeTabIndex}">
+        <p:ajax event="tabChange" listener="#{userAuthBean.onTabChange}" />
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="idTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="#{metadata.series ? 'Data Identification' : 'Service Identification'}" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedIdTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:outputPanel styleClass="editor-tab">
+                <table style="width: 100%;">							  
+                    <tr>
+                        <td class="input-label" style="width: 130px;">
+                            <h:outputText value="Identifier"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="100" value="#{metadata.others.fileIdentifier}"
+                                         placeholder="String"
+                                         title="String"
+                                         required="true" requiredMessage="Metadata identification tab: Identifier should not be empty"
+                                         onchange="spbME_onFormChangeIdTab()">                                
+                                <p:ajax event="blur" update="@([id$=metadataIdText])" />
+                            </p:inputText>(*)                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Title"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="100" value="#{metadata.identification.title}"
+                                         required="true" requiredMessage="Metadata identification tab: Title should not be empty"
+                                         placeholder="IRS-1C"
+                                         title="String"
+                                         onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputText>(*)                           
+                        </td>
+                    </tr>
+                    <h:panelGroup rendered="#{metadata.service}">
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Service type"/>
+                            </td>
+                            <td class="input-value">
+                                <p:selectOneMenu value="#{metadata.identification.serviceType.value}" 
+                                                 styleClass="dropdown-list-normal"
+                                                 required="true"
+                                                 requiredMessage="Metadata identification tab: Service type / Local name should not be empty"
+                                                 onchange="spbME_onFormChangeIdTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{userAuthBean.config.serviceTypes}" />                 
+                                </p:selectOneMenu>(*)                             
+                            </td>
+                        </tr>
+                    </h:panelGroup>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Alternate title"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="100" value="#{metadata.identification.altTitle}"
+                                         placeholder="IRS-1C"
+                                         title="String"
+                                         onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputText>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Bibliographic citation"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputTextarea rows="3" cols="102" value="#{metadata.identification.otherCitationDetails}"                                             
+                                             placeholder="String expected (without HTML tags)"
+                                             title="Bibliographic citation (author, year, publisher, series,
+                                             volume, page numbers, etc.)"
+                                             onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputTextarea>                   
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="DOI"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="100" value="#{metadata.identification.doi}"
+                                         placeholder="10.XXXX/yyy"
+                                         title="String"
+                                         onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputText>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Version"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputText size="100" value="#{metadata.identification.edition}"
+                                         placeholder="1.0"
+                                         title="String"
+                                         onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputText>                              
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Creation date"/>
+                        </td>
+                        <td class="input-value">
+                            <p:calendar size="30" styleClass="smallInput"                                                             
+                                        value="#{metadata.identification.creationDate}"
+                                        pattern="yyyy-MM-dd"
+                                        timeZone="#{mainBean.customFunctions.timeZone}" 
+                                        yearRange="c-20:c+20"
+                                        placeholder="YYYY-MM-DD"
+                                        title="YYYY-MM-DD"
+                                        navigator="true">
+                                <p:ajax event="dateSelect" process="@this" 
+                                        oncomplete="spbME_onFormChangeIdTab()"/>
+                            </p:calendar>                            
+                        </td>
+                    </tr>                    
+                    <h:panelGroup rendered="#{not empty metadata.others.lastUpdateDate}">
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Last update date"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100"
+                                             readonly="true"
+                                             value="#{metadata.others.lastUpdateDate}"/>                                                                                                              
+                            </td>
+                        </tr>
+                    </h:panelGroup>
+
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Abstract (plain text)"/>
+                        </td>
+                        <td class="input-value">
+                            <p:inputTextarea rows="3" cols="102" value="#{metadata.identification.plainTextAbstract}"
+                                             required="true" requiredMessage="Metadata identification tab: Abstract should not be empty"
+                                             placeholder="String expected (without HTML tags)"
+                                             title="String expected (without HTML tags)"
+                                             onchange="spbME_onFormChangeIdTab()">
+                                <p:ajax event="blur" process="@this"/>
+                            </p:inputTextarea>(*)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Abstract (rich text)"/>
+                        </td>
+                        <td class="input-value">
+                            <div id="spb-me-editormd">
+                                <p:inputTextarea rows="5" cols="102" value="#{metadata.richTextAbstract}"
+                                                 widgetVar="abstractTextarea"                                                 
+                                                 placeholder=""
+                                                 title="Support entry of rich text (e.g Markdown)"
+                                                 onchange="spbME_onFormChangeIdTab()"/>
+                            </div>                            
+                        </td>
+                    </tr>
+                </table>
+
+                <script type="text/javascript">
+                    $(function () {
+                        spbMELoadMarkdownEditor('', 'spb-me-editormd', 'abstractTextarea');
+                    });
+                </script>
+
+                <ui:remove>
+                    <ui:include src="markdownEditor.xhtml" />
+                </ui:remove>
+
+                <ui:remove>                                    
+                    <p:panel header="Service type" id="serviceTypePanel" styleClass="editor-tab"
+                             rendered="#{not empty metadata.identification.serviceType}">
+
+                        <table>
+                            <tr>
+                                <td class="input-label">
+                                    <h:outputText value="Local name"/>
+                                </td>
+                                <td class="input-value">
+                                    <p:selectOneMenu value="#{metadata.identification.serviceType.value}" 
+                                                     styleClass="dropdown-list-normal"
+                                                     required="true"
+                                                     requiredMessage="Metadata identification tab: Service type / Local name should not be empty"
+                                                     onchange="spbME_onFormChangeIdTab()">
+                                        <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                        <f:selectItems value="#{userAuthBean.config.serviceTypes}" />                 
+                                    </p:selectOneMenu>(*)                             
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-label">
+                                    <h:outputText value="Code space"/>
+                                </td>
+                                <td class="input-value">
+                                    <p:inputText size="100" value="#{metadata.identification.serviceType.code}"  
+                                                 placeholder="http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType"
+                                                 onchange="spbME_onFormChangeIdTab()">
+                                        <p:ajax event="blur" process="@this"/>
+                                    </p:inputText>                          
+                                </td>
+                            </tr>                   
+                        </table>                
+                    </p:panel>
+                </ui:remove>
+            </p:outputPanel>
+        </p:tab>
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="orgTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Organisation Information" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedOrgTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:outputPanel styleClass="editor-tab">
+                <ui:repeat var="contact" value="#{metadata.others.contacts}">
+                    <table>							  
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Individual name"/>									
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.individualName}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Organisation name"/>						
+                            </td>
+                            <td class="input-value">
+                                <ui:remove>
+                                    <p:inputText size="100" value="#{contact.orgName}"
+                                                 onchange="spbME_onFormChangeOrgTab()"/>
+                                </ui:remove>
+                                <p:selectOneMenu value="#{contact.orgName}"
+                                                 styleClass="dropdown-list" 
+                                                 style="width: 650px;"                                                 
+                                                 title="Select or enter a value"
+                                                 editable="true">                                            
+                                    <p:ajax event="valueChange" oncomplete="spbME_onFormChangeOrgTab()"/>
+
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.identification.organisations}" />
+                                </p:selectOneMenu>
+                            </td>									
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Position name"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.positionName}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Phone"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.phone}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Fax"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.fax}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Address"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.address}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="City"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.city}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Postal"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.postal}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Country"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.country}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Email"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.email}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Web site URL"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100" value="#{contact.onlineRs}"
+                                             onchange="spbME_onFormChangeOrgTab()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Role"/>
+                            </td>
+                            <td class="input-value">
+                                <p:selectOneMenu value="#{contact.role}" styleClass="dropdown-list-normal"
+                                                 required="true" requiredMessage="Metadata tab: Role should not be empty"
+                                                 onchange="spbME_onFormChangeOrgTab()">
+                                    <f:selectItems value="#{mainBean.editor.roleCodes}" />
+                                </p:selectOneMenu>
+
+                                <ui:remove>
+                                    <p:inputText size="100" value="#{contact.role}" 
+                                                 required="true" requiredMessage="Metadata tab: Role should not be empty"
+                                                 onchange="spbME_onFormChangeOrgTab()"/> (*)
+                                </ui:remove>
+                            </td>
+                        </tr>
+                    </table>
+                </ui:repeat>
+            </p:outputPanel>
+        </p:tab>
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="geoTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Spatial Extent" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedGeoTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:outputPanel styleClass="editor-tab" id="geographicTab">
+                <h:panelGroup rendered="#{not empty metadata.identification.bbox}">
+                    <table>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="West"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputNumber value="#{metadata.identification.bbox.west}" 
+                                               minValue="-180" maxValue="180"
+                                               decimalPlaces="5"
+                                               emptyValue="zero"
+                                               placeholder="Number {-180,180}"
+                                               title="Number {-180,180}"
+                                               onblur="spbME_checkGeoValue(this.value, 'west')"/>(*)                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="East"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputNumber value="#{metadata.identification.bbox.east}" 
+                                               minValue="-180" maxValue="180"
+                                               decimalPlaces="5"
+                                               placeholder="Number {-180,180}"
+                                               title="Number {-180,180}"
+                                               emptyValue="zero"
+                                               onblur="spbME_checkGeoValue(this.value, 'east')"/>(*)                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="South"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputNumber value="#{metadata.identification.bbox.south}"
+                                               minValue="-90" maxValue="90"
+                                               decimalPlaces="5"
+                                               placeholder="Number {-90,90}"
+                                               title="Number {-90,90}"
+                                               emptyValue="zero"
+                                               onblur="spbME_checkGeoValue(this.value, 'south')"/>(*)                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="North"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputNumber value="#{metadata.identification.bbox.north}"
+                                               minValue="-90" maxValue="90"
+                                               decimalPlaces="5"
+                                               placeholder="Number {-90,90}"
+                                               title="Number {-90,90}"
+                                               emptyValue="zero"
+                                               onblur="spbME_checkGeoValue(this.value, 'north')"/>(*)                               
+                            </td>
+                        </tr>
+                    </table>						
+                </h:panelGroup>
+
+                <p:commandButton icon="fa fa-fw fa-plus-circle"					
+                                 styleClass="editor-button"
+                                 title="Add bounding box"
+                                 immediate="true"
+                                 update="geographicTab"					
+                                 rendered="#{empty metadata.identification.bbox}"
+                                 actionListener="#{metadata.identification.addBbox()}"
+                                 oncomplete="spbME_onFormChangeGeoTab()"/>
+            </p:outputPanel>
+        </p:tab>
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="tempTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Temporal Extent" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedTempTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:outputPanel styleClass="editor-tab" id="temporalTab">
+                <h:panelGrid columns="2" columnClasses="input-label,input-value"
+                             rendered="#{not empty metadata.identification.temporal}">
+                    <h:outputText value="Start date"/>                    
+
+                    <p:outputPanel>                        
+                        <p:calendar size="75" styleClass="smallInput" 
+                                    widgetVar="startDateSpbDateQuery"
+                                    value="#{metadata.identification.temporal.startDate}"
+                                    pattern="yyyy-MM-dd HH:mm:ss" timeZone="#{mainBean.customFunctions.timeZone}" 
+                                    yearRange="c-20:c+20"
+                                    placeholder="yyyy-MM-dd HH:mm:ss"
+                                    title="yyyy-MM-dd HH:mm:ss"
+                                    navigator="true" mode="popup" mask="true">
+                            <p:ajax event="dateSelect" process="@this" 
+                                    oncomplete="spbME_onFormChangeTempTab()"/>
+                        </p:calendar>                                              
+                    </p:outputPanel>	
+
+                    <h:outputText value="End date"/>                    					
+                    <p:outputPanel>                       
+                        <p:calendar size="75" styleClass="smallInput" 
+                                    widgetVar="endDateSpbDateQuery"
+                                    value="#{metadata.identification.temporal.endDate}"
+                                    pattern="yyyy-MM-dd HH:mm:ss" timeZone="#{mainBean.customFunctions.timeZone}" 
+                                    yearRange="c-20:c+20" 
+                                    mask="true"
+                                    placeholder="(yyyy-MM-dd HH:mm:ss)"
+                                    title="(yyyy-MM-dd HH:mm:ss)"
+                                    navigator="true" mode="popup">
+                            <p:ajax event="dateSelect" process="@this" 
+                                    oncomplete="spbME_onFormChangeTempTab()"/>
+                        </p:calendar>
+                    </p:outputPanel>	
+
+                    <h:outputText value="Description"/>
+                    <p:outputPanel>
+                        <p:inputText size="80" value="#{metadata.identification.temporal.description.text}"
+                                     placeholder="String (without HTML tags) e.g. 'archive data availability can be checked on COSMO-SkyMed products catalogue, accessible after registration'"
+                                     title="String (without HTML tags) e.g. 'archive data availability can be checked on COSMO-SkyMed products catalogue, accessible after registration'"
+                                     onchange="spbME_onFormChangeTempTab()"/>                        
+                    </p:outputPanel>
+
+                    <h:outputText value="Description URL"/>
+                    <p:outputPanel>
+                        <p:inputText size="80" value="#{metadata.identification.temporal.description.link}"
+                                     placeholder="String URL e.g. 'http://www.e-geos.it/catalog.html'"
+                                     title="String URL e.g. 'http://www.e-geos.it/catalog.html'"
+                                     onchange="spbME_onFormChangeTempTab()"/>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:outputPanel>
+            <p:commandButton icon="fa fa-fw fa-plus-circle"					
+                             styleClass="editor-button"
+                             title="Add temporal"
+                             immediate="true"
+                             update="geographicTab"
+                             rendered="#{empty metadata.identification.temporal}"
+                             actionListener="#{metadata.identification.addTemporal()}"
+                             oncomplete="spbME_onFormChangeTempTab()"/>
+        </p:tab>
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="constTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Constraints" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedConstTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+            <p:outputPanel styleClass="editor-tab">
+                <p:panel header="Use limitations" id="useLimitationsPanel">
+                    <ui:repeat var="constraints" value="#{metadata.identification.constraints}" >
+                        <table cellspacing="0" cellpadding="3" style="width: 100%;">
+                            <ui:repeat var="limit" varStatus="status" value="#{constraints.useLimitations}">
+
+                                <tr onmouseover="displayComponent(PF('#{limit.uuid}').id);"
+                                    onmouseout="hideComponent(PF('#{limit.uuid}').id);">
+
+                                    <td class="input-label spb-show-row-border-top">
+                                        <h:outputText value="Use limitation"/>									
+                                    </td>
+                                    <td class="input-value spb-show-row-border-top">
+                                        <ui:remove>
+                                            <p:inputText size="100" value="#{limit.text}"
+                                                         placeholder="String"
+                                                         title="String"
+                                                         onchange="spbME_onFormChangeConstTab()"/>
+                                        </ui:remove>
+
+                                        <p:selectOneMenu value="#{limit.text}" 
+                                                         styleClass="dropdown-list"                                 
+                                                         title="Select or enter a value"
+                                                         editable="true">                                            
+                                            <p:ajax event="valueChange" oncomplete="spbME_onFormChangeConstTab()"/>
+
+                                            <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                            <f:selectItems value="#{metadata.identification.useLimitations}" />
+                                        </p:selectOneMenu>
+                                        <br/>
+                                        <a href="#" id="spbMELink_#{limit.uuid}" 
+                                           onclick="spbToogleMarkdownEditor('#{limit.uuid}')">Show rich text</a>
+                                        <div id="spbMEMarkdownParentDiv_#{limit.uuid}" style="display:none;">
+                                            <div id="spbMEMarkdownDiv_#{limit.uuid}">
+                                                <p:inputTextarea rows="2" cols="50" value="#{limit.richText}"
+                                                                 widgetVar="textarea_#{limit.uuid}"                                                 
+                                                                 placeholder=""
+                                                                 title="Support entry of rich text (e.g Markdown)"/>                                                    
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td rowspan="3" >
+                                        <p:commandButton icon="fa fa-fw fa-minus-circle"
+                                                         widgetVar="#{limit.uuid}" 
+                                                         styleClass="remove-button element-state-hidden"
+                                                         title="Remove this limitation"
+                                                         immediate="true"
+                                                         update="@([id$=useLimitationsPanel])"
+                                                         actionListener="#{metadata.identification.removeUseLimitation(limit)}"
+                                                         oncomplete="spbME_onFormChangeConstTab()"/>
+                                    </td>                                  
+                                </tr>
+                                <tr onmouseover="displayComponent(PF('#{limit.uuid}').id);"
+                                    onmouseout="hideComponent(PF('#{limit.uuid}').id);">
+                                    <td class="input-label">
+                                        <h:outputText value="URL"/>									
+                                    </td>
+                                    <td class="input-value">
+                                        <p:inputText size="100" value="#{limit.link}"
+                                                     title="String URL to the page that provides additional information to access the data"
+                                                     placeholder="String URL to the page that provides additional information to access the data"
+                                                     onchange="spbME_onFormChangeConstTab()">
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>                                        
+                                    </td>
+                                </tr>                                
+                            </ui:repeat>
+                        </table>
+                    </ui:repeat>
+                    <p:commandButton icon="fa fa-fw fa-plus-circle"					
+                                     styleClass="editor-button"
+                                     title="Add use limitation"
+                                     immediate="true"
+                                     update="@([id$=useLimitationsPanel])"
+                                     actionListener="#{metadata.identification.addUseLimitation()}"
+                                     oncomplete="spbME_onFormChangeConstTab()"/>
+                </p:panel>
+                <br/>                
+                <p:panel header="Legal constraints" id="otherConstraintsPanel">
+
+                    <ui:repeat var="constraints" value="#{metadata.identification.constraints}">
+                        <table cellspacing="0" cellpadding="3" style="width: 100%;">
+                            <ui:repeat var="other" value="#{constraints.others}" varStatus="status">
+
+                                <tr onmouseover="displayComponent(PF('#{other.uuid}').id);"
+                                    onmouseout="hideComponent(PF('#{other.uuid}').id);">
+
+                                    <h:panelGroup rendered="#{status.first}">
+                                        <td class="input-label">
+                                            <h:outputText value="Constraint"/>									
+                                        </td>
+                                        <td class="input-value">                                        
+                                            <p:inputText size="100" value="#{other.text}"
+                                                         placeholder="Utilisation of this data is subject to the Terms and Conditions for ESA's Third Party Missions scheme"
+                                                         title="String free text optional e.g. 'Utilisation of this data is subject to the Terms and Conditions for ESA's Third Party Missions scheme'"
+                                                         onchange="spbME_onFormChangeConstTab()"/>
+                                            <br/>
+                                            <a href="#" id="spbMELink_#{other.uuid}" 
+                                               onclick="spbToogleMarkdownEditor('#{other.uuid}')">Show rich text</a>
+                                            <div id="spbMEMarkdownParentDiv_#{other.uuid}" style="display:none;">
+                                                <div id="spbMEMarkdownDiv_#{other.uuid}">
+                                                    <p:inputTextarea rows="2" cols="50" value="#{other.richText}"
+                                                                     widgetVar="textarea_#{other.uuid}"                                                 
+                                                                     placeholder=""
+                                                                     title="Support entry of rich text (e.g Markdown)"/>                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{not status.first}">
+                                        <td class="input-label spb-show-row-border-top">
+                                            <h:outputText value="Constraint"/>									
+                                        </td>
+                                        <td class="input-value spb-show-row-border-top">                                        
+                                            <p:inputText size="100" value="#{other.text}"
+                                                         onchange="spbME_onFormChangeConstTab()">
+                                                <p:ajax event="blur" process="@this"/>
+                                            </p:inputText>
+                                            <br/>
+                                            <a href="#" id="spbMELink_#{other.uuid}" 
+                                               onclick="spbToogleMarkdownEditor('#{other.uuid}')">Show rich text</a>
+                                            <div id="spbMEMarkdownParentDiv_#{other.uuid}" style="display:none;">
+                                                <div id="spbMEMarkdownDiv_#{other.uuid}">
+                                                    <p:inputTextarea rows="2" cols="50" value="#{other.richText}"
+                                                                     widgetVar="textarea_#{other.uuid}"                                                 
+                                                                     placeholder=""
+                                                                     title="Support entry of rich text (e.g Markdown)"/>                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </h:panelGroup>                                    
+
+                                    <td rowspan="3" >
+                                        <p:commandButton icon="fa fa-fw fa-minus-circle"
+                                                         widgetVar="#{other.uuid}" 
+                                                         styleClass="remove-button element-state-hidden"
+                                                         title="Remove this constraint"
+                                                         immediate="true"
+                                                         update="@([id$=otherConstraintsPanel])"
+                                                         actionListener="#{metadata.identification.removeOther(other)}"
+                                                         oncomplete="spbME_onFormChangeConstTab()"/>
+                                    </td>                                  
+                                </tr>
+                                <tr onmouseover="displayComponent(PF('#{other.uuid}').id);"
+                                    onmouseout="hideComponent(PF('#{other.uuid}').id);">
+                                    <td class="input-label">
+                                        <h:outputText value="URL"/>									
+                                    </td>
+                                    <td class="input-value">
+                                        <p:inputText size="100" value="#{other.link}"
+                                                     placeholder="https://earth.esa.int/pi/esa?type=file"
+                                                     title="String additional info URL e.g. 'https://earth.esa.int/pi/esa?type=file&amp;table=aotarget&amp;cmd=image&amp;alias=TPMterms'"
+                                                     onchange="spbME_onFormChangeConstTab()">
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>                                        
+                                    </td>
+                                </tr>                               
+                            </ui:repeat> 
+                        </table>
+                    </ui:repeat>
+                    <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                     styleClass="editor-button"
+                                     title="Add other constraints"
+                                     immediate="true"
+                                     update="@([id$=otherConstraintsPanel])"
+                                     actionListener="#{metadata.identification.addOther()}"
+                                     oncomplete="spbME_onFormChangeConstTab()"/>
+                </p:panel>
+                <br/>
+            </p:outputPanel>            
+
+        </p:tab>		
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="kwTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Keywords" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedKwTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:outputPanel styleClass="editor-tab">
+                <p:panel header="Topic category" styleClass="editor-tab"
+                         rendered="#{metadata.series}">
+                    <table>							  
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="ISO topic category"/>
+                            </td>
+                            <td class="input-value">
+                                <p:selectOneMenu value="#{metadata.identification.topicCategory}" 
+                                                 styleClass="dropdown-list"                                                 
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.identification.availableTopicCategories}" />                                   
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>                        
+                    </table>                      
+                </p:panel>
+
+                <p:panel header="Science keywords" id="esaEarthTopicsPanel" styleClass="editor-tab">
+                    <ui:remove>
+                        <h:panelGroup rendered="#{not empty metadata.identification.corrections}">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td class="spb-warning-message">
+                                        <h:outputText value="The metadata has been modified:"/>
+                                    </td>													
+                                </tr>
+                                <ui:repeat var="correctDetail" value="#{metadata.identification.corrections}">
+                                    <tr>
+                                        <td class="spb-warning-message" style="padding-left: 20px;">
+                                            <h:outputText value="- #{correctDetail}"/>
+                                        </td>													
+                                    </tr>
+                                </ui:repeat>
+                                <tr>
+                                    <td class="spb-warning-message">
+                                        <h:outputText value="Please click on Save button to save the modifications"/>
+                                    </td>													
+                                </tr>
+                            </table>
+                        </h:panelGroup>
+                    </ui:remove>
+
+                    <table class="spb-keywords-table">
+                        <tr>
+                            <td class="spb-keyword-column input-value">	
+                                <p:outputPanel rendered="#{not empty mainBean.editor.earthtopicTreeNode}">
+                                    <p:tree value="#{mainBean.editor.earthtopicTreeNode}" var="concept"
+                                            filterBy="#{concept.label}" filterMatchMode="contains"                                            
+                                            selectionMode="single"                                            
+                                            selection="#{mainBean.editor.selectedEarthtopicNode}">
+
+                                        <p:ajax event="select" update="@([id$=earthTopicList]) @([id$=messageForm])" 
+                                                listener="#{metadata.onSelectEarthTopic}" 
+                                                oncomplete="spbME_onFormChangeKwTab()"/>
+
+                                        <p:treeNode>
+                                            <h:outputText value="#{concept.label}"/>                                        
+                                        </p:treeNode>                                    
+                                    </p:tree>
+                                </p:outputPanel>                               
+                            </td>													
+                        </tr>
+                        <tr>                                
+                            <td class="spb-keyword-column input-value">
+                                <p:spacer width="10"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <h:panelGroup id="earthTopicList">
+                        <h:panelGroup rendered="#{not empty metadata.identification.earthTopics}">
+                            <table class="spb-related-concept-wrapper">
+                                <tr>
+                                    <td class="spb-keyword-column-header">
+                                        <h:outputText value="ESA Earth Topic" />
+                                    </td>
+                                    <td class="spb-keyword-column-header">
+                                        <h:outputText value="GCMD Science Keyword" />
+                                    </td>
+                                </tr>
+                                <ui:repeat var="earthTopic" 
+                                           value="#{metadata.identification.earthTopics}">
+                                    <tr onmouseover="displayComponent(PF('#{earthTopic.uuid}').id);"
+                                        onmouseout="hideComponent(PF('#{earthTopic.uuid}').id);">
+                                        <td class="spb-td-wrapper">
+                                            <table class="spb-keywords-table">
+                                                <tr>
+                                                    <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                        <h:outputText value="Concept" />
+                                                    </td>
+                                                    <td class="spb-keyword-column input-value">
+                                                        <h:outputText value="#{earthTopic.label}" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                        <h:outputText value="URI" />
+                                                    </td>
+                                                    <td class="spb-keyword-column input-value">
+                                                        <h:outputText value="#{earthTopic.uri}" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="spb-keyword-column input-value">
+                                                        <p:commandButton icon="fa fa-fw fa-minus-circle"                                                         
+                                                                         widgetVar="#{earthTopic.uuid}"                                                         
+                                                                         styleClass="remove-button element-state-hidden"                                                                                                                  
+                                                                         immediate="true"
+                                                                         title="Remove this Earth Topic"
+                                                                         update="@([id$=esaEarthTopicsPanel])"
+                                                                         actionListener="#{metadata.identification.removeEarthTopic(earthTopic)}"
+                                                                         oncomplete="spbME_onFormChangeKwTab()"/>
+                                                    </td>                                                    
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="spb-td-wrapper">
+                                            <table class="spb-keywords-table">  
+                                                <h:panelGroup rendered="#{not empty earthTopic.scienceKeywords}">
+                                                    <ui:repeat var="gcmd" 
+                                                               value="#{earthTopic.scienceKeywords}">
+                                                        <tr>
+                                                            <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                                <h:outputText value="Concept" />
+                                                            </td>
+                                                            <td class="spb-keyword-column input-value">
+                                                                <h:outputText value="#{mainBean.customFunctions.getScKwLabel(gcmd)}" />
+                                                            </td>
+                                                        </tr>  
+                                                        <tr>
+                                                            <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                                <h:outputText value="URI" />
+                                                            </td>
+                                                            <td class="spb-keyword-column input-value">
+                                                                <h:outputText value="#{gcmd.uri}" />
+                                                            </td>
+                                                        </tr>                                                                                               
+                                                    </ui:repeat>
+                                                </h:panelGroup>
+
+                                                <ui:remove>
+                                                    <ui:repeat var="warnSckw" 
+                                                               value="#{earthTopic.warnScienceKeywords}">
+                                                        <tr>
+                                                            <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                                <h:outputText value="Concept" />
+                                                            </td>
+                                                            <td class="spb-keyword-column input-value spb-warning-message">
+                                                                <h:outputText value="#{warnSckw.label}" />
+                                                            </td>
+                                                        </tr>  
+                                                        <tr>
+                                                            <td class="spb-keyword-column input-label" style="width: 80px;">
+                                                                <h:outputText value="URI" />
+                                                            </td>
+                                                            <td class="spb-keyword-column input-value">
+                                                                <h:outputText value="#{warnSckw.uri}" />
+                                                            </td>
+                                                        </tr>                                                                                               
+                                                    </ui:repeat>
+                                                </ui:remove>
+                                                <h:panelGroup rendered="#{empty earthTopic.scienceKeywords}">
+                                                    <tr>
+                                                        <td colspan="2" class="spb-warning-message">
+                                                            <h:outputText value="No equivalent GCMD science keyword" />
+                                                        </td>
+                                                    </tr>
+                                                </h:panelGroup>
+                                            </table>
+                                        </td>
+                                    </tr>                                
+                                </ui:repeat>
+                            </table>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </p:panel>
+                <p:panel header="Spatial data service categories"
+                         id="spatialDataServiceCategoriesPanel"
+                         rendered="#{metadata.service}" styleClass="editor-tab">
+                    <table class="spb-keywords-table">                       
+                        <tr>
+                            <td class="spb-keyword-column input-label" style="width: 55px;">
+                                Category
+                            </td>
+                            <td class="spb-keyword-column input-value"> 
+                                <p:selectOneMenu value="#{metadata.identification.spatialDataServiceCategoryKeywords.selectedValue}"                                                 
+                                                 styleClass="dropdown-list"                                                 
+                                                 title="Select a category to add"
+                                                 placeholder="Select a category to add"
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{mainBean.editor.spatialDataServiceCategories}" />
+                                    <p:ajax event="itemSelect" 
+                                            listener="#{metadata.identification.spatialDataServiceCategoryKeywords.onBlur}"
+                                            update="@([id$=spatialDataServiceCategoriesPanel])"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <h:panelGroup rendered="#{mainBean.hasKeyword(metadata.identification.spatialDataServiceCategoryKeywords)}">
+                            <tr>                                
+                                <td colspan="2">
+                                    <p:spacer width="1"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p:spacer width="1"/>
+                                </td>
+                                <td>
+                                    <div class="spb-keywords-view">
+                                        <pe:fluidGrid
+                                            widgetVar="fluidGridSpatialDataServiceCategoryKeyword"
+                                            value="#{metadata.identification.spatialDataServiceCategoryKeywords.fluidKeywords}"                                         
+                                            var="fluidItem"
+                                            fitWidth="false" hGutter="1" vGutter="1">
+                                            <pe:fluidGridItem>
+                                                <div class="label">
+                                                    <h:outputText value="#{fluidItem.label}" /> 
+                                                </div>
+                                                <div class="actions">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                     styleClass="action-button"
+                                                                     immediate="true"
+                                                                     title="Remove this category"
+                                                                     update="@([id$=spatialDataServiceCategoriesPanel])"
+                                                                     actionListener="#{metadata.identification.spatialDataServiceCategoryKeywords.removeKeyword(fluidItem)}"
+                                                                     oncomplete="spbME_onFormChangeKwTab()"/> 
+                                                </div>                                                                         
+                                            </pe:fluidGridItem>
+                                        </pe:fluidGrid>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            spbOverrideFluidGridDestroy("fluidGridSpatialDataServiceCategoryKeyword");
+                                        });
+                                    </script>
+                                </td>
+                            </tr>
+                        </h:panelGroup>
+                    </table>
+                </p:panel>
+                <p:panel header="Free keywords" id="freeKeywordPanel" styleClass="editor-tab">                    
+                    <table class="spb-keywords-table">                        
+                        <tr>   
+                            <td class="spb-keyword-column input-label" style="width: 80px;">
+                                Free keyword
+                            </td>
+                            <td>
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid
+                                        widgetVar="fluidGridFreeKeyword"
+                                        value="#{metadata.identification.freeKeyword.fluidKeywords}"                                            
+                                        var="fluidItem"
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="OADS,FedEO,..."
+                                                             title="Enter a string, free keywords not belonging to a thesaurus e.g. OADS, FedEO…"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this place keyword"
+                                                                 update="@([id$=placeKeywordPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.freeKeyword.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>
+                            </td>
+                        </tr> 
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more free keywords"
+                                                 immediate="true"
+                                                 update="@([id$=placeKeywordPanel])"
+                                                 actionListener="#{metadata.identification.freeKeyword.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:panel>
+                <p:panel header="Place keywords" id="placeKeywordPanel" styleClass="editor-tab">
+                    <table class="spb-keywords-table">                        
+                        <tr>   
+                            <td class="spb-keyword-column input-label" style="width: 40px;">
+                                Place
+                            </td>
+                            <td>
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid
+                                        widgetVar="fluidGridPlaceKeyword"
+                                        value="#{metadata.identification.placeKeyword.fluidKeywords}"                                            
+                                        var="fluidItem"                                        
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="e.g Belgium,France,Italy"
+                                                             title="Places covered by the current collection e.g Belgium,France,Italy"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this place keyword"
+                                                                 update="@([id$=placeKeywordPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.placeKeyword.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>
+                            </td>
+                        </tr> 
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more place keywords"
+                                                 immediate="true"
+                                                 update="@([id$=placeKeywordPanel])"
+                                                 actionListener="#{metadata.identification.placeKeyword.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:panel>
+                <p:panel header="Other properties" 
+                         rendered="#{metadata.series}"
+                         id="otherPropertiesPanel" styleClass="editor-tab">                    
+                    <table class="spb-keywords-table">                        
+                        <tr>
+                            <td class="spb-keyword-column input-label" style="width: 150px;">
+                                <h:outputText value="Wavelength information" />                               
+                            </td>
+                            <td class="spb-keyword-column input-value">
+                                <p:selectOneMenu value="#{metadata.identification.waveLength.selectedValue}" 
+                                                 styleClass="dropdown-list"                                                 
+                                                 title="Select a value"
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.identification.waveLength.options}" />
+                                    <p:ajax event="itemSelect" 
+                                            listener="#{metadata.identification.waveLength.onSelect}"
+                                            update="@([id$=otherPropertiesPanel])"/>
+                                </p:selectOneMenu>                                
+                            </td>
+                        </tr>
+                        <h:panelGroup rendered="#{mainBean.hasKeyword(metadata.identification.waveLength)}">                            
+                            <tr>
+                                <td>
+                                    <p:spacer width="1"/>
+                                </td>
+                                <td>
+                                    <div class="spb-keywords-view">
+                                        <pe:fluidGrid                         
+                                            value="#{metadata.identification.waveLength.fluidKeywords}"
+                                            widgetVar="fluidGridWaveLength"
+                                            var="fluidItem"
+                                            fitWidth="false" hGutter="1" vGutter="1">
+                                            <pe:fluidGridItem>
+                                                <div class="label">
+                                                    <h:outputText value="#{fluidItem.label}" /> 
+                                                </div>
+                                                <div class="actions">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                     styleClass="action-button"
+                                                                     title="Remove this waveLength information"
+                                                                     update="@([id$=otherPropertiesPanel])"
+                                                                     actionListener="#{metadata.identification.waveLength.removeKeyword(fluidItem)}"
+                                                                     oncomplete="spbME_onFormChangeKwTab()"/>
+                                                </div>
+                                            </pe:fluidGridItem>
+
+                                        </pe:fluidGrid>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            spbOverrideFluidGridDestroy("fluidGridWaveLength");
+                                        });
+                                    </script>
+                                </td>
+                            </tr>  
+                        </h:panelGroup>
+                        <tr>                                
+                            <td colspan="2">
+                                <p:spacer width="10"/>
+                            </td>
+                        </tr>
+
+                        <!-- orbitType -->                        
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Orbit type" />
+                            </td>
+                            <td class="spb-keyword-column input-value">
+                                <p:selectOneMenu value="#{metadata.identification.orbitType.selectedValue}" 
+                                                 styleClass="dropdown-list"                                                 
+                                                 title="Select a value"
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.identification.orbitType.options}" />
+                                    <p:ajax event="itemSelect" 
+                                            listener="#{metadata.identification.orbitType.onSelect}"
+                                            update="@([id$=otherPropertiesPanel])"/>
+                                </p:selectOneMenu>                                
+                            </td>
+                        </tr>
+                        <h:panelGroup rendered="#{mainBean.hasKeyword(metadata.identification.orbitType)}">                            
+                            <tr>   
+                                <td>
+                                    <p:spacer width="1"/>
+                                </td>
+                                <td>
+                                    <div class="spb-keywords-view">
+                                        <pe:fluidGrid                         
+                                            value="#{metadata.identification.orbitType.fluidKeywords}"
+                                            widgetVar="fluidGridOrbitType"
+                                            var="fluidItem"
+                                            fitWidth="false" hGutter="1" vGutter="1">
+                                            <pe:fluidGridItem>
+                                                <div class="label">
+                                                    <h:outputText value="#{fluidItem.label}" /> 
+                                                </div>
+                                                <div class="actions">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                     styleClass="action-button"
+                                                                     title="Remove this orbit type"
+                                                                     update="@([id$=otherPropertiesPanel])"
+                                                                     actionListener="#{metadata.identification.orbitType.removeKeyword(fluidItem)}"
+                                                                     oncomplete="spbME_onFormChangeKwTab()"/>
+                                                </div>
+                                            </pe:fluidGridItem>
+
+                                        </pe:fluidGrid>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            spbOverrideFluidGridDestroy("fluidGridOrbitType");
+                                        });
+                                    </script>
+                                </td>
+                            </tr>  
+                        </h:panelGroup>
+                        <tr>                                
+                            <td colspan="2">
+                                <p:spacer width="10"/>
+                            </td>
+                        </tr>
+
+                        <!-- resolution -->                        
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Resolution" />
+                            </td>
+                            <td class="spb-keyword-column input-value">
+                                <p:selectOneMenu value="#{metadata.identification.resolution.selectedValue}" 
+                                                 styleClass="dropdown-list"                                                 
+                                                 title="Select a value"
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.identification.resolution.options}" />
+                                    <p:ajax event="itemSelect" 
+                                            listener="#{metadata.identification.resolution.onSelect}"
+                                            update="@([id$=otherPropertiesPanel])"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <h:panelGroup rendered="#{mainBean.hasKeyword(metadata.identification.resolution)}">                            
+                            <tr> 
+                                <td>
+                                    <p:spacer width="1"/>
+                                </td>
+                                <td>
+                                    <div class="spb-keywords-view">
+                                        <pe:fluidGrid                         
+                                            value="#{metadata.identification.resolution.fluidKeywords}"
+                                            widgetVar="fluidGridResolution"                                            
+                                            var="fluidItem"
+                                            fitWidth="false" hGutter="1" vGutter="1">
+                                            <pe:fluidGridItem>
+                                                <div class="label">
+                                                    <h:outputText value="#{fluidItem.label}" /> 
+                                                </div>
+                                                <div class="actions">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                     styleClass="action-button"
+                                                                     title="Remove this resolution"
+                                                                     update="@([id$=otherPropertiesPanel])"
+                                                                     actionListener="#{metadata.identification.resolution.removeKeyword(fluidItem)}"
+                                                                     oncomplete="spbME_onFormChangeKwTab()"/>
+                                                </div>
+                                            </pe:fluidGridItem>
+
+                                        </pe:fluidGrid>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            spbOverrideFluidGridDestroy("fluidGridResolution");
+                                        });
+                                    </script>
+                                </td>
+                            </tr>  
+                        </h:panelGroup>
+                        <tr>                                
+                            <td colspan="2" class="spb-keyword-column input-value">
+                                <p:spacer width="10"/>
+                            </td>
+                        </tr>
+
+                        <!-- processorVersion -->
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Processor version" />
+                            </td>
+                            <td> 
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid                         
+                                        value="#{metadata.identification.processorVersion.fluidKeywords}"
+                                        widgetVar="fluidGridProcessorVersion" 
+                                        var="fluidItem"
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="GPD 4.0"
+                                                             title="Enter a string e.g. GPD 4.0"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this processor version"
+                                                                 update="@([id$=otherPropertiesPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.processorVersion.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>                         
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more processor version"
+                                                 immediate="true"
+                                                 update="@([id$=otherPropertiesPanel])"
+                                                 actionListener="#{metadata.identification.processorVersion.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>
+
+                        <tr>                                
+                            <td colspan="2" class="spb-keyword-column input-value">
+                                <p:spacer width="10"/>
+                            </td>
+                        </tr>                        
+
+                        <!-- productType -->
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Product type" />
+                            </td>
+                            <td> 
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid                         
+                                        value="#{metadata.identification.productType.fluidKeywords}"
+                                        widgetVar="fluidGridProductType" 
+                                        var="fluidItem"
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="GTC"
+                                                             title="Enter a string e.g. GTC"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this product type"
+                                                                 update="@([id$=otherPropertiesPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.productType.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>                         
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more product type"
+                                                 immediate="true"
+                                                 update="@([id$=otherPropertiesPanel])"
+                                                 actionListener="#{metadata.identification.productType.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>
+
+                        <tr>                                
+                            <td colspan="2">
+                                <p:spacer width="1"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Orbit height" />
+                            </td>
+                            <td> 
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid                         
+                                        value="#{metadata.identification.orbitHeight.fluidKeywords}"
+                                        widgetVar="fluidGridOrbitHeight"                                        
+                                        var="fluidItem"
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="619.6 km"
+                                                             title="Enter a string e.g. 619.6 km"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this orbit height"
+                                                                 update="@([id$=otherPropertiesPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.orbitHeight.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>                         
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more orbit height"
+                                                 immediate="true"
+                                                 update="@([id$=otherPropertiesPanel])"
+                                                 actionListener="#{metadata.identification.orbitHeight.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>                        
+
+                        <tr>                                
+                            <td colspan="2">
+                                <p:spacer width="1"/>
+                            </td>
+                        </tr>
+
+                        <!-- swathWidth -->   
+                        <tr>
+                            <td class="spb-keyword-column input-label">
+                                <h:outputText value="Swath width" />
+                            </td>
+                            <td> 
+                                <div class="spb-keywords-edit">
+                                    <pe:fluidGrid                         
+                                        value="#{metadata.identification.swathWidth.fluidKeywords}"
+                                        widgetVar="fluidGridSwathWidth"
+                                        var="fluidItem"
+                                        fitWidth="false" hGutter="5" vGutter="1">
+                                        <pe:fluidGridItem>
+                                            <div class="input-fields">
+                                                <p:inputText size="49"
+                                                             value="#{fluidItem.label}"
+                                                             placeholder="10-200 km"
+                                                             title="Enter a string e.g. 10-200 km"
+                                                             onchange="spbME_onFormChangeKwTab()">
+                                                    <p:ajax event="blur" process="@this" />
+                                                </p:inputText>                                                    
+                                            </div>
+                                            <div class="actions">
+                                                <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                 styleClass="action-button"                                                                     
+                                                                 title="Remove this orbit height"
+                                                                 update="@([id$=otherPropertiesPanel])"                                                                     
+                                                                 actionListener="#{metadata.identification.swathWidth.removeKeyword(fluidItem)}"
+                                                                 oncomplete="spbME_onFormChangeKwTab()"/> 
+                                            </div>
+                                        </pe:fluidGridItem>
+                                    </pe:fluidGrid>
+                                </div>                         
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <p:spacer width="1"/>
+                            </td>
+                            <td>
+                                <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                                 styleClass="editor-button"
+                                                 title="Add more swath width"
+                                                 immediate="true"
+                                                 update="@([id$=otherPropertiesPanel])"
+                                                 actionListener="#{metadata.identification.swathWidth.addEmptyKeywords()}"/>
+                            </td>
+                        </tr>                                                
+
+                        <tr>                                
+                            <td colspan="2">
+                                <p:spacer width="1"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="spb-keyword-column input-label" style="width: 100px;">
+                                Processing level
+                            </td>
+                            <td class="spb-keyword-column input-value">
+                                <p:selectOneMenu value="#{metadata.selectedProcessingLevel}" 
+                                                 styleClass="dropdown-list"                                                 
+                                                 title="Select a value"
+                                                 onchange="spbME_onFormChangeKwTab()">
+                                    <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                    <f:selectItems value="#{metadata.availableProcessingLevels}" />
+                                    <p:ajax event="itemSelect" 
+                                            listener="#{metadata.addProcessingLevel}"
+                                            update="@([id$=otherPropertiesPanel])"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+
+                        <h:panelGroup rendered="#{not empty metadata.processingLevels}">                            
+                            <tr>
+                                <td>
+                                    <p:spacer width="1"/>
+                                </td>
+                                <td>
+                                    <div class="spb-keywords-view">
+                                        <pe:fluidGrid                         
+                                            value="#{metadata.fluidProcessingLevels}"  
+                                            widgetVar="fluidGridProcessingLevels"
+                                            var="fluidItem"
+                                            fitWidth="false" hGutter="1" vGutter="1">
+                                            <pe:fluidGridItem>
+                                                <div class="label">
+                                                    <h:outputText value="#{fluidItem.processingLevel.label}" /> 
+                                                </div>
+                                                <div class="actions">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                          
+                                                                     styleClass="action-button"
+                                                                     title="Remove this processing level"
+                                                                     update="@([id$=otherPropertiesPanel])"
+                                                                     actionListener="#{metadata.removeProcessingLevel(fluidItem)}"
+                                                                     oncomplete="spbME_onFormChangeKwTab()"/>
+                                                </div>
+                                            </pe:fluidGridItem>
+
+                                        </pe:fluidGrid>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            spbOverrideFluidGridDestroy("fluidGridProcessingLevels");
+                                        });
+                                    </script>
+                                </td>
+                            </tr>  
+                        </h:panelGroup>
+                    </table>                                        
+                </p:panel>  
+
+                <script type="text/javascript">
+                    $(function () {
+                        spbOverrideFluidGridDestroy("fluidGridFreeKeyword");
+                        spbOverrideFluidGridDestroy("fluidGridPlaceKeyword");
+
+                        spbOverrideFluidGridDestroy("fluidGridProcessorVersion");
+                        spbOverrideFluidGridDestroy("fluidGridProductType");
+
+                        spbOverrideFluidGridDestroy("fluidGridOrbitHeight");
+                        spbOverrideFluidGridDestroy("fluidGridSwathWidth");
+                    });
+                </script>
+            </p:outputPanel>
+        </p:tab>        
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="distTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Distribution" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedDistTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:panel header="Online resource" id="distributionPanel" styleClass="editor-tab">
+                <ui:repeat var="transfer" value="#{metadata.distribution.transferOptions}">
+                    <table>
+                        <ui:repeat var="onlineRs" value="#{transfer.onlineRses}" varStatus="status">
+
+                            <tr onmouseover="displayComponent(PF('#{onlineRs.uuid}').id);"
+                                onmouseout="hideComponent(PF('#{onlineRs.uuid}').id);">
+                                <ui:remove>
+
+                                    <h:panelGroup rendered="#{status.first}">
+                                        <td>
+                                            <ui:include src="workspace/onlineRs.xhtml" />
+                                        </td>
+                                    </h:panelGroup>
+                                </ui:remove>
+
+
+                                <td class="spb-show-row-border-top">
+                                    <ui:include src="workspace/onlineRs.xhtml" />
+                                </td>                                    
+
+                                <td>
+                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                     
+                                                     widgetVar="#{onlineRs.uuid}"
+                                                     styleClass="remove-button element-state-hidden"
+                                                     title="Remove online resource"
+                                                     immediate="true"
+                                                     update="@([id$=distributionPanel])"
+                                                     actionListener="#{metadata.removeOnlineRs(onlineRs)}"
+                                                     oncomplete="spbME_onFormChangeDistTab()"/>
+                                </td>
+                            </tr>
+                        </ui:repeat>                        
+                    </table>
+                </ui:repeat>
+
+                <table>
+                    <tr>
+                        <td>
+                            <p:commandButton icon="fa fa-fw fa-plus-circle"
+                                             styleClass="editor-button"
+                                             title="Add more online resource"
+                                             immediate="true"
+                                             update="@([id$=distributionPanel])"
+                                             actionListener="#{metadata.addOnlineRs()}"
+                                             oncomplete="spbME_onFormChangeDistTab()"/>
+                        </td>
+                    </tr>						
+                </table>
+            </p:panel>            
+        </p:tab>
+
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="offeringTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Offerings" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedOfferingTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>                
+            </f:facet>
+
+            <p:outputPanel id="offeringPanel" styleClass="editor-tab">
+                <table>
+                    <tr>
+                        <td class="input-value" colspan="2">
+                            <h:outputText rendered="#{metadata.series}"
+                                value="Select offerings from the drop-down list or load an offering from a capabilities service endpoint"/>
+                            <h:outputText rendered="#{metadata.service}"
+                                value="Select offerings from the drop-down list"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="input-label">
+                            <h:outputText value="Offerings"/>
+                        </td>
+                        <td class="input-value">
+                            <p:selectOneMenu value="#{metadata.selectedOffering}" 
+                                             styleClass="dropdown-list"
+                                             title="Select an offering to add"
+                                             placeholder="Select an offering to add"
+                                             onchange="spbME_onFormChangeOfferingTab()">
+                                <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                <f:selectItems value="#{metadata.availableOfferings}" />
+                                <p:ajax event="itemSelect" 
+                                        listener="#{metadata.addOffering}"
+                                        update="@([id$=offeringPanel])"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+
+                    <h:panelGroup rendered="#{metadata.series}">
+                        <tr>
+                            <td class="input-label">
+                                <h:outputText value="Capabilities service endpoint"/>
+                            </td>
+                            <td class="input-value">
+                                <p:inputText size="100"
+                                             value="#{metadata.capabilitiesServiceUrl}"
+                                             onchange="spbME_onFormChangeOfferingTab()">
+                                    <p:ajax event="blur" process="@this"/>
+                                </p:inputText>
+                                <p:spacer width="10"/>
+                                <p:commandButton icon="fa fa-fw fa-refresh"                                                                                                      
+                                                 styleClass="editor-button"
+                                                 immediate="true"
+                                                 title="Extract offering from the given capabilities service endpoint"
+                                                 update="@([id$=offeringPanel]) @([id$=messageForm])"
+                                                 actionListener="#{mainBean.workspace.extractOfferings()}"
+                                                 oncomplete="spbME_onFormChangeOfferingTab()"/> 
+                            </td>
+                        </tr>
+                    </h:panelGroup>                    
+
+                    <ui:repeat var="offering" value="#{metadata.offerings}" varStatus="status">                    
+                        <tr>
+                            <td colspan="2">
+                                <p:panel header="#{not empty offering.code ? offering.code : 'Offering'}" styleClass="editor-tab">
+                                    <f:facet name="actions">
+                                        <p:commandButton icon="fa fa-fw fa-minus-circle"
+                                                         styleClass="remove-button"
+                                                         immediate="true"
+                                                         title="Remove this offering"
+                                                         update="@([id$=offeringPanel])"
+                                                         actionListener="#{metadata.removeOffering(offering)}"
+                                                         oncomplete="spbME_onFormChangeOfferingTab()"/> 
+                                    </f:facet>
+                                    <table>
+                                        <h:panelGroup rendered="#{offering.hasAvailableOperationCodes()}">
+                                            <tr>
+                                                <td class="input-label">
+                                                    <h:outputText value="Operations"/>
+                                                </td>
+                                                <td class="input-value">                
+                                                    <p:selectOneMenu value="#{offering.selectedOperationCode}" 
+                                                                     onchange="spbME_onFormChangeOfferingTab()"
+                                                                     title="Select an operation to add"
+                                                                     placeholder="Select an operation to add"
+                                                                     styleClass="dropdown-list">
+                                                        <p:ajax event="itemSelect" 
+                                                                listener="#{offering.addOperation}"
+                                                                update="@([id$=offeringPanel])"/>
+
+                                                        <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                                        <f:selectItems value="#{offering.availableOperationCodes}" />
+                                                    </p:selectOneMenu>
+                                                </td>								
+                                            </tr>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup rendered="#{offering.hasMultiContents() and offering.hasAvailableContentCodes()}">
+                                            <tr>
+                                                <td class="input-label">
+                                                    <h:outputText value="Contents"/>
+                                                </td>
+                                                <td class="input-value">                
+                                                    <p:selectOneMenu value="#{offering.selectedContent}" 
+                                                                     onchange="spbME_onFormChangeOfferingTab()"
+                                                                     title="Select a content to add"
+                                                                     placeholder="Select a content to add"
+                                                                     styleClass="dropdown-list">
+                                                        <p:ajax event="itemSelect" 
+                                                                listener="#{offering.addContent}"
+                                                                update="@([id$=offeringPanel])"/>
+
+                                                        <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                                        <f:selectItems value="#{offering.availableContentCodes}" />
+                                                    </p:selectOneMenu>
+                                                </td>								
+                                            </tr>
+                                        </h:panelGroup>
+
+                                        <ui:repeat var="operation" value="#{offering.operations}" varStatus="operStatus">
+                                            <tr><td class="spb-show-row-border-top" colspan="2"/></tr>
+                                            <tr onmouseover="displayComponent(PF('#{operation.uuid}').id);"
+                                                onmouseout="hideComponent(PF('#{operation.uuid}').id);">
+                                                <td class="input-label">
+                                                    <h:outputText value="Operation"/>
+                                                </td>
+                                                <td class="input-value">
+                                                    <h:outputText value="#{operation.code}"/>
+
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                         
+                                                                     widgetVar="#{operation.uuid}"                                                         
+                                                                     styleClass="remove-button element-state-hidden"
+                                                                     immediate="true"
+                                                                     title="Remove this operation"
+                                                                     update="@([id$=offeringPanel])"
+                                                                     actionListener="#{offering.removeOperation(operation)}"
+                                                                     oncomplete="spbME_onFormChangeOfferingTab()"/> 
+                                                </td>
+                                            </tr>
+                                            <h:panelGroup rendered="#{not empty operation.method}">                                            
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="Method"/>
+                                                    </td>
+                                                    <td class="input-value">
+                                                        <h:outputText value="#{operation.method}"/>
+                                                    </td>
+                                                </tr>
+                                            </h:panelGroup>
+                                            <h:panelGroup rendered="#{not empty operation.mimeType}">  
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="Mime type"/>
+                                                    </td>
+                                                    <td class="input-value">                                                    
+                                                        <h:outputText value="#{operation.mimeType}"/>
+                                                    </td>
+                                                </tr>
+                                            </h:panelGroup>
+
+                                            <ui:repeat var="requiredField" value="#{operation.requiredExtFields}">
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="#{requiredField.capLabel}"/>
+                                                    </td>
+                                                    <td class="input-value">                                                    
+                                                        <p:inputText size="100"
+                                                                     value="#{requiredField.value}"
+                                                                     required="true" requiredMessage="Offerings tab: Operation #{requiredField.capLabel} should not be empty"
+                                                                     onchange="spbME_onFormChangeOfferingTab()">
+                                                            <p:ajax event="blur" process="@this"/>
+                                                        </p:inputText>(*)
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <ui:repeat var="optionalField" value="#{operation.optionalExtFields}">
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="#{optionalField.capLabel}"/>
+                                                    </td>
+                                                    <td class="input-value">                                                    
+                                                        <p:inputText size="100"
+                                                                     value="#{optionalField.value}"                                                                     
+                                                                     onchange="spbME_onFormChangeOfferingTab()">
+                                                            <p:ajax event="blur" process="@this"/>
+                                                        </p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </ui:repeat>
+
+                                        <ui:repeat var="content" value="#{offering.contents}" varStatus="contentStatus">
+                                            <h:panelGroup rendered="#{offering.hasMultiContents()}">
+                                                <tr><td class="spb-show-row-border-top" colspan="2"/></tr>
+                                            </h:panelGroup>                                            
+                                            <tr>
+                                                <td class="input-label">
+                                                    <h:outputText value="Mime type"/>
+                                                </td>
+                                                <td class="input-value">            
+                                                    <h:outputText value="#{content.mimeType}"/>                                                    
+                                                </td>
+                                            </tr>
+
+                                            <ui:repeat var="requiredField" value="#{content.requiredExtFields}">
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="#{requiredField.capLabel}"/>
+                                                    </td>
+                                                    <td class="input-value">                                                    
+                                                        <p:inputText size="100"
+                                                                     value="#{requiredField.value}"
+                                                                     required="true" requiredMessage="Offerings tab: Content #{requiredField.capLabel} should not be empty"
+                                                                     onchange="spbME_onFormChangeOfferingTab()">
+                                                            <p:ajax event="blur" process="@this"/>
+                                                        </p:inputText>(*)
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <ui:repeat var="optionalField" value="#{content.optionalExtFields}">
+                                                <tr>
+                                                    <td class="input-label">
+                                                        <h:outputText value="#{optionalField.capLabel}"/>
+                                                    </td>
+                                                    <td class="input-value">                                                    
+                                                        <p:inputText size="100"
+                                                                     value="#{optionalField.value}"                                                                     
+                                                                     onchange="spbME_onFormChangeOfferingTab()">
+                                                            <p:ajax event="blur" process="@this"/>
+                                                        </p:inputText>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </ui:repeat>
+                                    </table>
+                                </p:panel>                                                                    
+                            </td>                           
+                        </tr>
+                    </ui:repeat>
+                </table>
+            </p:outputPanel>
+        </p:tab>
+
+        <p:tab>
+            <f:facet name="title">
+                <p:outputPanel id="acquisitionTabTitle" styleClass="editor-tab-title">
+                    <h:outputText value="Acquisition Information" />
+                    <h:outputText value="  *" 
+                                  rendered="#{metadataFile.unsavedAcquiTab}"
+                                  style="color:red;"/>
+                </p:outputPanel>
+            </f:facet>
+            <p:panel header="Mission status" id="missionStatusPanel" 
+                     rendered="#{metadata.series}" styleClass="editor-tab">
+                <table class="spb-keywords-table">
+                    <tr>                            
+                        <td class="spb-keyword-column input-label">
+                            <h:outputText value="Status" />
+                        </td>                            
+                        <td class="spb-keyword-column input-value">
+                            <p:selectOneMenu value="#{metadata.acquisition.missionStatus}" 
+                                             styleClass="dropdown-list"                                             
+                                             title="Select a value"
+                                             onchange="spbME_onFormChangeAcquisitionTab()">
+                                <f:selectItem itemValue="#{null}" itemLabel="" noSelectionOption="true" />
+                                <f:selectItems value="#{metadata.progressCodes}" />
+                                <p:ajax event="itemSelect" process="@this"/>
+                            </p:selectOneMenu>                                                        
+                        </td>
+                    </tr>
+                </table>
+            </p:panel>            
+
+            <p:panel header="Platform" id="esaPlatformPanel" styleClass="editor-tab">
+                <ui:remove>
+                    <h:panelGroup rendered="#{not empty metadata.acquisition.noInstrumentPlatforms}">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td class="spb-warning-message">
+                                    <h:outputText value="The platform(s): #{metadata.acquisition.removedPlatforms} have been removed from the metadata because of no corresponding instrument is provided. Please click on Save button to save the modifications"/>
+                                </td>													
+                            </tr>
+                        </table>
+                    </h:panelGroup>
+                </ui:remove>
+
+                <table class="spb-keywords-table">
+                    <tr>
+                        <td class="spb-keyword-column input-value">
+                            <p:outputPanel rendered="#{not empty mainBean.editor.platformTreeNode}">
+                                <p:tree value="#{mainBean.editor.platformTreeNode}" var="concept"
+                                        filterBy="#{concept.label}" filterMatchMode="contains"                                            
+                                        selectionMode="single"                                            
+                                        selection="#{mainBean.editor.selectedPlatformNode}">
+
+                                    <p:ajax event="select" update="@([id$=platformList]) @([id$=messageForm])" 
+                                            listener="#{metadata.onSelectPlatform}" 
+                                            oncomplete="spbME_onFormChangeAcquisitionTab()"/>
+
+                                    <p:treeNode>
+                                        <h:outputText value="#{concept.label}"/>                                        
+                                    </p:treeNode>                                    
+                                </p:tree>
+                            </p:outputPanel>                            
+                        </td>													
+                    </tr>
+                    <tr>                                
+                        <td class="spb-keyword-column input-value">
+                            <p:spacer width="10"/>
+                        </td>
+                    </tr>
+                </table>
+                <h:panelGroup id="platformList">                                    
+                    <h:panelGroup rendered="#{not empty metadata.acquisition.platforms}">
+                        <table class="spb-related-concept-wrapper">
+                            <tr>                            
+                                <td class="spb-keyword-column-header spb-td-wrapper">
+                                    <h:outputText value="Platform" />
+                                </td>                            
+                                <td class="spb-keyword-column-header spb-td-wrapper">
+                                    <h:outputText value="Instrument" />
+                                </td>
+                            </tr>
+                            <ui:repeat var="platform" value="#{metadata.acquisition.platforms}">
+                                <tr onmouseover="displayComponent(PF('#{platform.uuid}').id);"
+                                    onmouseout="hideComponent(PF('#{platform.uuid}').id);">
+                                    <td class="spb-td-wrapper" style="width: 40%;">
+                                        <table class="spb-keywords-table">
+                                            <h:panelGroup rendered="#{platform.esaPlatform and empty platform.gcmd}">
+                                                <tr>
+                                                    <td class="spb-warning-message" colspan="2">
+                                                        <h:outputText value="No equivalent GCMD platform"/>
+                                                    </td>													
+                                                </tr>
+                                            </h:panelGroup>                                        
+                                            <tr>
+                                                <td class="spb-keyword-column input-label" style="width: 100px;">
+                                                    <h:outputText value="Name" />
+                                                </td>
+                                                <td class="spb-keyword-column input-value">
+                                                    <h:outputText value="#{platform.label}" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="spb-keyword-column input-label">
+                                                    <h:outputText value="URI" />
+                                                </td>
+                                                <td class="spb-keyword-column input-value">
+                                                    <h:outputText value="#{platform.uri}" />
+                                                    <h:panelGroup rendered="#{not platform.esaPlatform}">
+                                                        <p:spacer width="5"/>
+                                                        <h:outputText styleClass="spb-warning-message" value="(URI not found)"/>
+                                                    </h:panelGroup>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="spb-keyword-column input-label">
+                                                    <h:outputText value="Launch date" />
+                                                </td>
+                                                <td class="spb-keyword-column input-value">
+                                                    <p:calendar size="30" styleClass="smallInput"                                                             
+                                                                value="#{platform.launchDate}"
+                                                                pattern="yyyy-MM-dd"
+                                                                timeZone="#{mainBean.customFunctions.timeZone}" 
+                                                                yearRange="c-20:c+20"
+                                                                placeholder="YYYY-MM-DD"
+                                                                title="YYYY-MM-DD"
+                                                                navigator="true">
+                                                        <p:ajax event="dateSelect" process="@this" 
+                                                                oncomplete="spbME_onFormChangeAcquisitionTab()"/>
+                                                    </p:calendar>
+                                                    <ui:remove>
+                                                        <p:inputText size="20"
+                                                                     value="#{platform.launchDate}"
+                                                                     onchange="spbME_onFormChangeAcquisitionTab()"> 
+
+                                                        </p:inputText>
+                                                    </ui:remove>
+                                                </td>
+                                            </tr>
+
+                                            <ui:repeat var="sps" varStatus="vStatus" 
+                                                       value="#{platform.operators}">
+                                                <h:panelGroup rendered="#{(not empty sps.operator.label) and (not empty sps.operator.uuid)}">
+                                                    <tr onmouseover="displayComponent(PF('#{sps.operator.uuid}').id);"
+                                                        onmouseout="hideComponent(PF('#{sps.operator.uuid}').id);">
+
+                                                        <td class="spb-keyword-column input-label">
+                                                            <h:outputText value="Operator" />
+                                                        </td>
+                                                        <td class="spb-keyword-column input-value">
+
+                                                            <h:outputText value="#{sps.operator.label}" />
+                                                            <p:commandButton icon="fa fa-fw fa-minus-circle"                                                         
+                                                                             widgetVar="#{sps.operator.uuid}"                                                         
+                                                                             styleClass="remove-button element-state-hidden"
+                                                                             immediate="true"
+                                                                             title="Remove this operator"
+                                                                             update="@([id$=esaPlatformPanel])"
+                                                                             actionListener="#{platform.removeOperator(sps)}"
+                                                                             oncomplete="spbME_onFormChangeAcquisitionTab()"/> 
+                                                        </td>                                                          
+                                                    </tr>
+                                                </h:panelGroup>
+                                            </ui:repeat>
+                                            <tr>
+                                                <td class="spb-keyword-column input-label">
+                                                    <h:outputText value="Operator" />
+                                                </td>
+                                                <td class="spb-keyword-column input-value"> 
+                                                    <p:inputText size="20"
+                                                                 value="#{platform.currentOperator}"
+                                                                 placeholder="ESA"
+                                                                 title="An operator e.g. ESA"
+                                                                 onchange="spbME_onFormChangeAcquisitionTab()">
+                                                        <p:ajax event="blur" 
+                                                                listener="#{platform.onBlurOperator}"
+                                                                update="@([id$=esaPlatformPanel])" />
+                                                    </p:inputText>                                                
+                                                </td>
+                                            </tr>
+
+                                            <tr>                                
+                                                <td colspan="2">
+                                                    <p:spacer width="10" height="30"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="spb-keyword-column input-value">
+                                                    <p:commandButton icon="fa fa-fw fa-minus-circle"                                                         
+                                                                     widgetVar="#{platform.uuid}"                                                         
+                                                                     styleClass="remove-button element-state-hidden"                                                                                                                  
+                                                                     immediate="true"
+                                                                     title="Remove this platform"
+                                                                     update="@([id$=esaPlatformPanel])"
+                                                                     actionListener="#{metadata.removePlatform(platform)}"
+                                                                     oncomplete="spbME_onFormChangeAcquisitionTab()"/>
+                                                </td>                                                    
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <ui:remove>
+                                        <td class="spb-td-wrapper">
+                                            <table class="spb-keywords-table">                                           
+                                                <tr>
+                                                    <td class="spb-keyword-column input-label">
+                                                        <h:outputText value="URI" />
+                                                    </td>
+                                                    <td class="spb-keyword-column input-value">
+                                                        <h:outputText value="#{platform.gcmd.uri}" />
+                                                    </td>
+                                                </tr>  
+                                                <tr>
+                                                    <td class="spb-keyword-column input-label">
+                                                        <h:outputText value="Name" />
+                                                    </td>
+                                                    <td class="spb-keyword-column input-value">
+                                                        <h:outputText value="#{platform.gcmd.label}" />
+                                                    </td>
+                                                </tr>  
+                                                <tr>
+                                                    <td class="spb-keyword-column input-label">
+                                                        <h:outputText value="Long name" />
+                                                    </td>
+                                                    <td class="spb-keyword-column input-value">
+                                                        <h:outputText value="#{mainBean.customFunctions.getProperty(platform.gcmd, 'gcmd:altLabel')}" />                                                        
+                                                    </td>
+                                                </tr>                                                                             
+                                            </table>
+                                        </td>
+                                    </ui:remove>
+                                    <td class="spb-td-wrapper" style="width: 60%;">
+                                        <p:outputPanel rendered="#{not empty platform.availableInstruments}">
+                                            <p:selectOneMenu value="#{platform.selectedInstrumentUri}" 
+                                                             styleClass="dropdown-list-normal"                                                     
+                                                             onchange="spbME_onFormChangeAcquisitionTab()">
+                                                <f:selectItem itemValue="#{null}" itemLabel="Add instrument" noSelectionOption="true" />
+                                                <f:selectItems value="#{platform.instrumentOptions}" />
+
+                                                <p:ajax event="itemSelect"                                                        
+                                                        listener="#{platform.addInstrument}"
+                                                        update="@([id$=esaPlatformPanel])"/>
+                                            </p:selectOneMenu>                                             
+                                            <br/>
+                                        </p:outputPanel>
+
+                                        <h:panelGroup rendered="#{not empty platform.instruments}">                                        
+                                            <table>
+                                                <ui:remove>
+                                                    <tr>
+                                                        <td class="spb-keyword-column-header">
+                                                            <h:outputText value="ESA" />
+                                                        </td>
+                                                        <td class="spb-keyword-column-header">
+                                                            <h:outputText value="GCMD" />
+                                                        </td>
+                                                    </tr>
+                                                </ui:remove>
+                                                <ui:repeat var="instrument" value="#{platform.instruments}">
+                                                    <tr>
+                                                        <td class="table-wrapper">
+                                                            <table class="spb-keywords-table">
+                                                                <h:panelGroup rendered="#{instrument.esaInstrument and empty instrument.gcmd}">
+                                                                    <tr>
+                                                                        <td class="spb-warning-message" colspan="2">
+                                                                            <h:outputText value="No equivalent GCMD instrument"/>
+                                                                        </td>													
+                                                                    </tr>
+                                                                </h:panelGroup>
+                                                                <tr>
+                                                                    <td class="spb-keyword-column input-label" style="width: 70px;">
+                                                                        <h:outputText value="Name" />
+                                                                    </td>
+                                                                    <td class="spb-keyword-column input-value">
+                                                                        <h:outputText value="#{instrument.label}" />                                                        
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="spb-keyword-column input-label">
+                                                                        <h:outputText value="URI" />
+                                                                    </td>
+                                                                    <td class="spb-keyword-column input-value">
+                                                                        <h:outputText value="#{instrument.uri}" />
+                                                                        <h:panelGroup rendered="#{not instrument.esaInstrument}">
+                                                                            <p:spacer width="5"/>
+                                                                            <h:outputText styleClass="spb-warning-message" value="(URI not found)"/>
+                                                                        </h:panelGroup>
+                                                                    </td>
+                                                                </tr>                                                            
+                                                                <ui:repeat var="broader" value="#{instrument.broaders}">
+                                                                    <tr>
+                                                                        <td class="spb-keyword-column input-label">
+                                                                            <h:outputText value="Type" />
+                                                                        </td>
+                                                                        <td class="spb-keyword-column input-value">
+                                                                            <h:outputText value="#{broader.label}" />                                                        
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="spb-keyword-column input-label">
+                                                                            <h:outputText value="Type URI" />
+                                                                        </td>
+                                                                        <td class="spb-keyword-column input-value">
+                                                                            <h:outputText value="#{broader.uri}" />                                                        
+                                                                        </td>
+                                                                    </tr>                                                                
+                                                                </ui:repeat>                                                                
+                                                            </table>
+
+                                                            <p:commandButton icon="fa fa-fw fa-minus-circle"                                                                                                                        
+                                                                             styleClass="remove-button"                                                                                                                  
+                                                                             immediate="true"
+                                                                             title="Remove this instrument"
+                                                                             update="@([id$=esaPlatformPanel])"
+                                                                             actionListener="#{platform.removeInstrument(instrument)}"
+                                                                             oncomplete="spbME_onFormChangeAcquisitionTab()"/>                                                   
+                                                        </td>                                                                                                        
+                                                    </tr>
+                                                    <tr>                                
+                                                        <td>
+                                                            <p:spacer width="10"/>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+                                            </table>
+                                        </h:panelGroup>                                        
+                                    </td>                                
+                                </tr>
+                            </ui:repeat> 
+                        </table>                   
+                    </h:panelGroup>
+                </h:panelGroup>
+            </p:panel>
+        </p:tab>        
+    </p:tabView>	
+</ui:composition>
